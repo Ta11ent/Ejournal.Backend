@@ -1,0 +1,25 @@
+﻿using AutoMapper;
+using Ejournal.Application.Common.Mappings;
+using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization;
+using System;
+
+namespace Ejournal.WebApi.Models
+{
+    public class UpdateSpecializationDto : IMapWith<UpdateSpecializationCommand>
+    {
+        public Guid SpecializationId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<UpdateSpecializationDto, UpdateSpecializationCommand>()
+                .ForMember(entityCommand => entityCommand.SpecializationId,
+                    opt => opt.MapFrom(entityDto => entityDto.SpecializationId))
+                .ForMember(entityCommand => entityCommand.Name,
+                    opt => opt.MapFrom(entityDto => entityDto.Name))
+                .ForMember(entityCommand => entityCommand.Description,
+                    opt => opt.MapFrom(entityDto => entityDto.Description));
+        }
+    }
+}
