@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Ejournal.Domain\Ejournal.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Command\Part_s\UpdatePart\" />
-  </ItemGroup>
-
 </Project>
