@@ -72,8 +72,6 @@ namespace Ejournal.WebApi.Controllers
             };
             await Mediator.Send(command);
             return NoContent();
-
-            var l = Marks.GetValues(); ///////
         }
     }
 }
