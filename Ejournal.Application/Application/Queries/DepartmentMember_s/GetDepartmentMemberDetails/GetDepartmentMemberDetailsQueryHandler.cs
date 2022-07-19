@@ -6,6 +6,7 @@ using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,8 +24,8 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
             IEjournalDbContext dbContext, IPersonDbContext identityDbContext)
         {
             _mapper = mapper;
-            _dbContext = dbContext;
-            _identityDbContext = identityDbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _identityDbContext = identityDbContext ?? throw new ArgumentNullException(nameof(_identityDbContext));
 
         }
 

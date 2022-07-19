@@ -3,6 +3,7 @@ using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdateDepartmentCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
         public async Task<Unit> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
         {

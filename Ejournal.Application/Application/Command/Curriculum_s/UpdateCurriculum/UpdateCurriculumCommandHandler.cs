@@ -3,6 +3,7 @@ using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,9 @@ namespace Ejournal.Application.Ejournal.Command.Curriculum_s.UpdateCurriculum
     public class UpdateCurriculumCommandHandler : IRequestHandler<UpdateCurriculumCommand>
     {
         private readonly IEjournalDbContext _dbContext;
-        public UpdateCurriculumCommandHandler(IEjournalDbContext dbContext) => _dbContext = dbContext;
+        public UpdateCurriculumCommandHandler(IEjournalDbContext dbContext) =>
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            
         public async Task<Unit> Handle(UpdateCurriculumCommand request, CancellationToken cancellationToken)
         {
             var entity =

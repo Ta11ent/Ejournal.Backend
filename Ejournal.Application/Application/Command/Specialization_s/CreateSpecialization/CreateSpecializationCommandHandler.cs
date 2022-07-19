@@ -11,7 +11,7 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.CreateSpecializ
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateSpecializationCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         public async Task<Guid> Handle(CreateSpecializationCommand request, CancellationToken cancellationToken)
         {
             var specialization = new Specialization
@@ -29,7 +29,3 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.CreateSpecializ
         }
     }
 }
-
-//NOTE:
-//Указывается тип запроса и тип ответа
-//IRequestHandler<CreateSpecializationCommand, Guid>

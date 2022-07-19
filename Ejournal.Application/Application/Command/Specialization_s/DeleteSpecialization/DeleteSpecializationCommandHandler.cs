@@ -2,6 +2,7 @@
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecializ
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteSpecializationCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         public async Task<Unit> Handle(DeleteSpecializationCommand request, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Specializations.

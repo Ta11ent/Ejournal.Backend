@@ -4,6 +4,7 @@ using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Ejournal.Application.Ejournal.Queries.Curriculum_s.GetCurriculumDetail
 
         public GetCurriculumDetailsQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext))
             _mapper = mapper;
         }
         public async Task<CurriculumDetailsVm> Handle(GetCurriculumDetailsQuery request,

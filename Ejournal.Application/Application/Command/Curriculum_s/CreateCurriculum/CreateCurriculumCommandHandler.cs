@@ -10,7 +10,9 @@ namespace Ejournal.Application.Ejournal.Command.Curriculum_s.CreateCurriculum
     public class CreateCurriculumCommandHandler : IRequestHandler<CreateCurriculumCommand, Guid>
     {
         private readonly IEjournalDbContext _dbContext;
-        public CreateCurriculumCommandHandler(IEjournalDbContext dbContext) => _dbContext = dbContext;
+        public CreateCurriculumCommandHandler(IEjournalDbContext dbContext) =>
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+
         public async Task<Guid> Handle(CreateCurriculumCommand request, CancellationToken cancelllationToken)
         {
             var curriculum = new Curriculum

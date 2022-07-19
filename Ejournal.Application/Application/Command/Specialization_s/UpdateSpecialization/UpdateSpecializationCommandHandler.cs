@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Ejournal.Application.Common.Exceptions;
 using Ejournal.Domain;
+using System;
 
 namespace Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization
 {
@@ -12,12 +13,14 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecializ
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdateSpecializationCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         public async Task<Unit> Handle(UpdateSpecializationCommand request, CancellationToken cancellationToken)
         {
-            var entity =
-                   await _dbContext.Specializations.FirstOrDefaultAsync(sp =>
-                        sp.SpecializationId == request.SpecializationId, cancellationToken);
+            var entity = await 
+                _dbContext.Specializations
+                .FirstOrDefaultAsync(sp =>
+                        sp.SpecializationId == request.SpecializationId,
+                        cancellationToken);
 
             if (entity == null)
                 throw new NotFoundException(nameof(Specialization), request.SpecializationId);
