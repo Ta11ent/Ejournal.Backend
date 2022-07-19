@@ -8,5 +8,6 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     {
         public DepartmentMemberListResponseVm(List<DepartmentMemberLookupDto> data, PaginationParams parametrs) 
             : base(data, parametrs) { }
+        //comment
     }
 }
