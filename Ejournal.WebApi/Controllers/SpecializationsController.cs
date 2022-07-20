@@ -56,7 +56,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateSpecializationDto updateSpecializationDto)
+        public async Task<IActionResult> Update([FromBody] UpdatePartDto updateSpecializationDto)
         {
             var command = _mapper.Map<UpdateSpecializationCommand>(updateSpecializationDto);
             await Mediator.Send(command);
