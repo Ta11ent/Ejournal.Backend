@@ -14,11 +14,12 @@ namespace Ejournal.Application.Application.Command.Part_s.DeletePart
 
         public async Task<Unit> Handle(DeletePartCommand request, CancellationToken cancellationToken)
         {
-            var entity = await
-                _dbContext.Parts
+            var entity = 
+                await _dbContext.Parts
                 .FindAsync(new object[] { request.PartId },
                 cancellationToken);
 
+            _dbContext.Parts.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

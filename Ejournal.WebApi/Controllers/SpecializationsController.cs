@@ -55,10 +55,11 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(Get), new { Id = specializationId }, null);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdatePartDto updateSpecializationDto)
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update([FromBody] UpdatePartDto updateSpecializationDto, Guid Id)
         {
             var command = _mapper.Map<UpdateSpecializationCommand>(updateSpecializationDto);
+            command.SpecializationId = Id;
             await Mediator.Send(command);
             return NoContent();
         }

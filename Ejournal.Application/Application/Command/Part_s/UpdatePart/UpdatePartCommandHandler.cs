@@ -14,7 +14,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
         public UpdatePartCommandHandler(IEjournalDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdatePartCommand request, CancellationToken cancllationToken)
+        public async Task<Unit> Handle(UpdatePartCommand request, CancellationToken cancellationToken)
         {
             var entity = await
                  _dbContext.Parts
@@ -27,6 +27,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
             entity.StartDate = entity.StartDate;
             entity.EndDate = request.EndDate;
 
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }

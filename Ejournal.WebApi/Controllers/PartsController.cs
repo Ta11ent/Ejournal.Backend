@@ -45,7 +45,6 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
-
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePartDto createPartDto)
         {
             var command = _mapper.Map<CreatePartCommand>(createPartDto);
@@ -53,10 +52,11 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(Get), new { Id = partId }, null);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdatePartDto updatePartDto)
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update([FromBody] UpdatePartDto updatePartDto, Guid Id)
         {
             var command = _mapper.Map<UpdatePartCommand>(updatePartDto);
+            command.PartId = Id;
             await Mediator.Send(command);
             return NoContent();
         }

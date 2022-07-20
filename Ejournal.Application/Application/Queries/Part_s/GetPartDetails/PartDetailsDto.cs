@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartDetails
         public string Name { get; set; }
         public DateTime StartDate {get;set;}
         public DateTime EndDate { get; set; }
-        public void Mappind(Profile profile)
+        public void Mapping(Profile profile)
         {
             profile.CreateMap<Part, PartDetailsDto>()
                 .ForMember(entityDto => entityDto.PartId,
