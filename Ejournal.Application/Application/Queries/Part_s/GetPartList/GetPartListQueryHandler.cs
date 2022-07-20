@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
 {
-    public class GetPartListQueryHandler : IRequestHandler<GetPartListQuery,PartListResponseVm>
+    public class GetPartListQueryHandler : IRequestHandler<GetPartListQuery, PartListResponseVm>
     {
         private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
