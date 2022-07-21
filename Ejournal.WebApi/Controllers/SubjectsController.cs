@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Ejournal.Application.Application.Command.Subject_s.CreateSubject;
+using Ejournal.Application.Application.Command.Subject_s.DeleteSubject;
+using Ejournal.Application.Application.Command.Subject_s.UpdateSubject;
+using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDetails;
+using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectList;
+using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
@@ -13,12 +19,12 @@ namespace Ejournal.WebApi.Controllers
     public class SubjectsController : BaseController
     {
         private readonly IMapper _mapper;
-        public PartsController(IMapper mapper) => _mapper = mapper;
+        public SubjectsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<SubjectListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
         {
-            var query = new GetPartListQuery
+            var query = new GetSubjectListQuery
             {
                 Parametrs = parametrs,
             };
@@ -28,29 +34,29 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<PartDetailsResponseVm>> Get(Guid Id)
+        public async Task<ActionResult<SubjectDetailsResponseVm>> Get(Guid Id)
         {
-            var query = new GetPartDetailsQuery
+            var query = new GetSubjectDetailsQuery
             {
-                PartId = Id
+                SubjectId = Id
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreatePartDto createPartDto)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateSubjectDto createSubjectDto)
         {
-            var command = _mapper.Map<CreatePartCommand>(createPartDto);
-            var partId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { Id = partId }, null);
+            var command = _mapper.Map<CreateSubjectCommand>(createSubjectDto);
+            var subjectId = await Mediator.Send(command);
+            return CreatedAtAction(nameof(Get), new { Id = subjectId }, null);
         }
 
         [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromBody] UpdatePartDto updatePartDto, Guid Id)
+        public async Task<IActionResult> Update([FromBody] UpdateSubjectDto updateSubjectDto, Guid Id)
         {
-            var command = _mapper.Map<UpdatePartCommand>(updatePartDto);
-            command.PartId = Id;
+            var command = _mapper.Map<UpdateSubjectCommand>(updateSubjectDto);
+            command.SubjectId = Id;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -58,9 +64,9 @@ namespace Ejournal.WebApi.Controllers
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var command = new DeletePartCommand
+            var command = new DeleteSubjectCommand
             {
-                PartId = Id
+                SubjectId = Id
             };
             await Mediator.Send(command);
             return NoContent();
