@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ejournal.Persistence.Migrations
 {
     [DbContext(typeof(EjournalDbContext))]
-    [Migration("20220719175446_Initial")]
+    [Migration("20220721211202_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
