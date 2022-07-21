@@ -13,7 +13,7 @@ namespace Ejournal.WebApi.Models
         public Guid DepartmentId { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UpdateSubjectDto, UpdateSubjectDto>()
+            profile.CreateMap<UpdateSubjectDto, UpdateSubjectCommand>()
                 .ForMember(entityCommand => entityCommand.SubjectId,
                     opt => opt.MapFrom(entityDto => entityDto.SubjectId))
                 .ForMember(entityCommand => entityCommand.Name,

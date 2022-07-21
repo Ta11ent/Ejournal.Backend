@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Common.Mappings;
+using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Domain;
 using System;
 
@@ -10,7 +11,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDe
         public Guid SubjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Department Department { get; set; }
+        public DepartmentDetailsDto Department { get; set; }
 
         public void Mapping(Profile profile)
         {

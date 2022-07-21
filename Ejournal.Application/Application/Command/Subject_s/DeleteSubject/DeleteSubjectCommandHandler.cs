@@ -15,13 +15,13 @@ namespace Ejournal.Application.Application.Command.Subject_s.DeleteSubject
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         public async Task<Unit> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Specializations.
+            var entity = await _dbContext.Subjects.
                 FindAsync(new object[] { request.SubjectId }, cancellationToken);
 
             if (entity == null)
                 throw new NotFoundException(nameof(Subject), request.SubjectId);
 
-            _dbContext.Specializations.Remove(entity);
+            _dbContext.Subjects.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
