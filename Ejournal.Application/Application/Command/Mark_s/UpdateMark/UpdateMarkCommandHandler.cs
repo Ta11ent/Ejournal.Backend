@@ -1,0 +1,32 @@
+﻿using Ejournal.Application.Common.Exceptions;
+using Ejournal.Application.Common.Helpers.Enums;
+using Ejournal.Application.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
+{
+    public class UpdateMarkCommandHandler : IRequestHandler<UpdateMarkCommand>
+    {
+        private readonly IEjournalDbContext _dbContxt;
+        public UpdateMarkCommandHandler(IEjournalDbContext dbContext) =>
+            _dbContxt = dbContext ?? throw new ArgumentNullException(nameof(_dbContxt));
+        public async Task<Unit> Handle(UpdateMarkCommand request, CancellationToken cancellationToken)
+        {
+            var entity =
+                await _dbContxt.Marks
+                .FirstOrDefaultAsync(m => m.MarkId == request.MarkId);
+            if (entity == null)
+                throw new NotFoundException(nameof(Marks), request.MarkId);
+
+            entity.Name = request.Name;
+            await _dbContxt.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
+
+        }
+    }
+}
