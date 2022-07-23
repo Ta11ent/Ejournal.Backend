@@ -5,29 +5,28 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ejournal.Application.Application.Command.Part_s.CreatePart
+namespace Ejournal.Application.Application.Command.Goup_s.CreateGroup
 {
-    public class CreatePartCommandHandler : IRequestHandler<CreatePartCommand, Guid>
+    public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Guid>
     {
         private readonly IEjournalDbContext _dbContext;
-        public CreatePartCommandHandler(IEjournalDbContext dbContext) =>
+        public CreateGroupCommandHandler(IEjournalDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
-        public async Task<Guid> Handle(CreatePartCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
-            var part = new Part
+            var group = new StudentGroup
             {
-                PartId = Guid.NewGuid(),
+                StudentGroupId = Guid.NewGuid(),
                 Name = request.Name,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate
             };
 
-            await _dbContext.Parts.AddAsync(part, cancellationToken);
+            await _dbContext.StudentGroups.AddAsync(group, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return part.PartId;
+            return group.StudentGroupId;
         }
-
     }
 }
