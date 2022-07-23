@@ -20,7 +20,9 @@ namespace Ejournal.Application.Application.Command.Goup_s.CreateGroup
                 StudentGroupId = Guid.NewGuid(),
                 Name = request.Name,
                 StartDate = request.StartDate,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
+                SpecializationId = request.SpecializationId,
+                Active = true
             };
 
             await _dbContext.StudentGroups.AddAsync(group, cancellationToken);
