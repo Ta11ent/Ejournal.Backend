@@ -12,7 +12,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupDetails
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; } 
         public GroupSpecializationDto Specialization { get; set; }
-        public void Mappring(Profile profile)
+        public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroup, GroupDetailsDto>()
                 .ForMember(entityDto => entityDto.GroupId,

@@ -10,7 +10,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupDetails
         public Guid SpecializationId { get; set; }
         public string Name { get; set; }
 
-        public void Mappring(Profile profile)
+        public void Mapping(Profile profile)
         {
             profile.CreateMap<Specialization, GroupSpecializationDto>()
                 .ForMember(entityDto => entityDto.SpecializationId,

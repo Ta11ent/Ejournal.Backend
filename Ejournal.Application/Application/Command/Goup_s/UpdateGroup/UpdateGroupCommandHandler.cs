@@ -25,7 +25,7 @@ namespace Ejournal.Application.Application.Command.Goup_s.UpdateGroup
                 throw new NotFoundException(nameof(StudentGroup), request.GroupId);
 
             entity.Name = request.Name;
-            entity.StartDate = entity.StartDate;
+            entity.StartDate = request.StartDate;
             entity.EndDate = request.EndDate;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
