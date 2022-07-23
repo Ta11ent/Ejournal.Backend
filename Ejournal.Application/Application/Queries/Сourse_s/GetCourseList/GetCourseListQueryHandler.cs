@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
 {
-    public class GetCourseListQueryHandler : IRequestHandler<GetCourseListQuery, CourseListVm>
+    public class GetCourseListQueryHandler : IRequestHandler<GetCourseListQuery, CourseListResponseVm>
     {
         private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -19,16 +19,18 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
             _mapper = mapper;
         }
 
-        public async Task<CourseListVm> Handle(GetCourseListQuery request,
+        public async Task<CourseListResponseVm> Handle(GetCourseListQuery request,
             CancellationToken cancellationToken)
         {
             var entity =
                 await _dbContext.Courses
                 .Where(b => b.Active == request.Active)
+                .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
+                .Take(request.Parametrs.PageSize)
                 .ProjectTo<CourseLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new CourseListVm { Courses = entity };
+            return new CourseListResponseVm(entity, request.Parametrs);
         }
     }
 }

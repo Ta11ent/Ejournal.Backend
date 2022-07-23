@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Ejournal.Application.Common.Exceptions;
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails
 {
-    public class GetCourseDetailsQueryHandler : IRequestHandler<GetCourseDetailsQuery, CourseDetailsVm>
+    public class GetCourseDetailsQueryHandler : IRequestHandler<GetCourseDetailsQuery, CourseDetailsResponseVm>
     {
         private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -19,17 +21,19 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public async Task<CourseDetailsVm> Handle(GetCourseDetailsQuery request,
+        public async Task<CourseDetailsResponseVm> Handle(GetCourseDetailsQuery request,
             CancellationToken cancellationToken)
         {
             var entity = await
                 _dbContext.Courses
-                .FirstOrDefaultAsync(c => c.CourseId == request.CourseId, cancellationToken);
+                .Where(c => c.CourseId == request.CourseId)
+                .ProjectTo<CourseDetailsDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync( cancellationToken);
 
             if(entity == null)
                 throw new NotFoundException(nameof(Course), request.CourseId);
 
-            return _mapper.Map<CourseDetailsVm>(entity);
+            return new CourseDetailsResponseVm(entity);
         }
     }
 }

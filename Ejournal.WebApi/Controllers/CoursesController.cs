@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.Application.Ejournal.Command.Course_s.CreateCourse;
 using Ejournal.Application.Ejournal.Command.Course_s.DeleteCourse;
 using Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse;
@@ -20,10 +21,11 @@ namespace Ejournal.WebApi.Controllers
         public CoursesController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<CourseListVm>> GetAll()
+        public async Task<ActionResult<CourseListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
         {
             var query = new GetCourseListQuery
             {
+                Parametrs = parametrs,
                 Active = true
             };
 
@@ -32,7 +34,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<CourseDetailsVm>> Get(Guid Id)
+        public async Task<ActionResult<CourseDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetCourseDetailsQuery
             {

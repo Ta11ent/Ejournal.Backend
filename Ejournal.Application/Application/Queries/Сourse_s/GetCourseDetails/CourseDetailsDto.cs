@@ -5,14 +5,14 @@ using System;
 
 namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails
 {
-    public class CourseDetailsVm : IMapWith<Course>
+    public class CourseDetailsDto : IMapWith<Course>
     {
         public Guid CourseId { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Course, CourseDetailsVm>()
+            profile.CreateMap<Course, CourseDetailsDto>()
                 .ForMember(entityDto => entityDto.CourseId,
                     opt => opt.MapFrom(entity => entity.CourseId))
                 .ForMember(entityDto => entityDto.Name,
