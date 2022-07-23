@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
 {
-
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class MarksController : BaseController
