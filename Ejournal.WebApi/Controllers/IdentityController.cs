@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
 {
-    [Produces("application/json")]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]

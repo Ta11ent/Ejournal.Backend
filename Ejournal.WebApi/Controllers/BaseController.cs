@@ -7,6 +7,7 @@ using System.Security.Claims;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("api/v{version:apiVersion}[controller]/[action]")]
     public class BaseController : ControllerBase
     {
