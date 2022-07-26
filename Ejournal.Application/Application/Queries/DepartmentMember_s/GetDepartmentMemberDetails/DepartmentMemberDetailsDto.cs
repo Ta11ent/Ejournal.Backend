@@ -10,7 +10,6 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     public class DepartmentMemberDetailsDto : IMapWith<DepartmentMember>
     {
         public Guid DepartmentMemberId { get; set; }
-        //public Guid PrfessorId { get; set; }
         public UserDetailsVm Professor { get; set; }
         public DepartmentDetails Department { get; set; }
         public void Mapping(Profile profile)
