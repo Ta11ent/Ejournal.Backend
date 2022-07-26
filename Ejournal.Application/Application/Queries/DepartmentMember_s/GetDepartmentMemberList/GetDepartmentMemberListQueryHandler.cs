@@ -13,12 +13,16 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     public class GetDepartmentMemberListQueryHandler 
         : IRequestHandler<GetDepartmentMemberListQuery, DepartmentMemberListResponseVm>
     {
-        private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GetDepartmentMemberListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
+        private readonly IEjournalDbContext _dbContext;
+        private readonly IPersonDbContext _identityDbContext;
+        
+        public GetDepartmentMemberListQueryHandler(IMapper mapper,
+            IEjournalDbContext dbContext,  IPersonDbContext identityDbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
             _mapper = mapper;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _identityDbContext = identityDbContext ?? throw new ArgumentNullException(nameof(_identityDbContext))
         }
         
         public async Task<DepartmentMemberListResponseVm> Handle(GetDepartmentMemberListQuery request,
