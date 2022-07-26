@@ -4,7 +4,6 @@ using Ejournal.Application.Common.Mappings;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Domain;
 using System;
-using System.Collections.Generic;
 
 namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartmentMemberDetails
 {
@@ -13,16 +12,31 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         public Guid DepartmentMemberId { get; set; }
         //public Guid PrfessorId { get; set; }
         public UserDetailsVm Professor { get; set; }
-        public DepartmentDetailsDto Department { get; set; }
-        public void Mapping (Profile profile)
+        public DepartmentDetails Department { get; set; }
+        public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, DepartmentMemberDetailsDto>()
-                .ForMember(entityVm => entityVm.DepartmentMemberId, 
+                .ForMember(entityVm => entityVm.DepartmentMemberId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
                 //.ForMember(entityVm => entityVm.PrfessorId,
                 //    opt => opt.MapFrom(entity => entity.ProfessorId))
                 .ForMember(entityVm => entityVm.Department,
                     opt => opt.MapFrom(entity => entity.Department));
+        }
+    }
+
+    public class DepartmentDetails : IMapWith<Department>
+    {
+        public Guid DepartmentId { get; set; }
+        public string Name { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Department, DepartmentDetailsDto>()
+                .ForMember(entityVm => entityVm.DepartmentId,
+                    opt => opt.MapFrom(entity => entity.DepartmentId))
+                .ForMember(entityVm => entityVm.Name,
+                    opt => opt.MapFrom(entity => entity.Name));
         }
     }
 }

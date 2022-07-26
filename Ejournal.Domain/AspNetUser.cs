@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Ejournal.Domain
 {
     public class AspNetUser
