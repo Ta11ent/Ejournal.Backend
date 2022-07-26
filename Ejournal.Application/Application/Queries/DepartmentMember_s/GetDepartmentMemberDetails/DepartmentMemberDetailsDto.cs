@@ -18,8 +18,6 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
             profile.CreateMap<DepartmentMember, DepartmentMemberDetailsDto>()
                 .ForMember(entityVm => entityVm.DepartmentMemberId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
-                //.ForMember(entityVm => entityVm.PrfessorId,
-                //    opt => opt.MapFrom(entity => entity.ProfessorId))
                 .ForMember(entityVm => entityVm.Department,
                     opt => opt.MapFrom(entity => entity.Department));
         }
