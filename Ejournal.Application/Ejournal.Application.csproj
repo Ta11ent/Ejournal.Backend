@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Ejournal.Domain\Ejournal.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Queries\GroupMember_s\GetGroupMemberList\" />
-  </ItemGroup>
-
 </Project>
