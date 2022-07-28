@@ -25,6 +25,7 @@ namespace Ejournal.Application.Interfaces
         DbSet<StudentGroupMember> StudentGroupMembers { get; set; }
         DbSet<StudyYear> StudyYears { get; set; }
         DbSet<Subject> Subjects { get; set; }
+        DbSet<User> Users { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

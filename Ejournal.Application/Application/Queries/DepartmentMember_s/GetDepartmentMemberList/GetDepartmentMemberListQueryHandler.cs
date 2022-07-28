@@ -28,49 +28,19 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         public async Task<DepartmentMemberListResponseVm> Handle(GetDepartmentMemberListQuery request,
             CancellationToken cancellationToken)
         {
-            //var entity = 
-            //    await _dbContext.DepartmentMembers
-            //    .Where(dm => 
-            //        dm.DepartmentId == request.DepartmentId && 
-            //        dm.Active == request.Active)
-            //    .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
-            //    .Take(request.Parametrs.PageSize)
-            //    .ProjectTo<DepartmentMemberLookupDto>(_mapper.ConfigurationProvider)
-            //    .ToListAsync(cancellationToken);
-
-            //return new DepartmentMemberListResponseVm(entity, request.Parametrs);
-
-
             var entity =
                 await _dbContext.DepartmentMembers
                 .Where(dm =>
-                   dm.DepartmentId == request.DepartmentId && 
-                   dm.Active == request.Active)
-                .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
-                .Take(request.Parametrs.PageSize)
-              //  .ProjectTo<DepartmentMemberLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
-
-            //  var model = _mapper.Map<DepartmentMemberLookupDto>(entity);
-
-            var de =
-                await _identityDbContext.AspNetUsers
-                .Where(s=>s.Id  )
-                .ToListAsync(cancellationToken);
-
-
-
-            var entity2 =
-                await _dbContext.DepartmentMembers
-                .Where(dm =>
-                   dm.DepartmentId == request.DepartmentId &&
-                   dm.Active == request.Active)
+                    dm.DepartmentId == request.DepartmentId &&
+                    dm.Active == request.Active)
+                .Include(x => x.Professor)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<DepartmentMemberLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new DepartmentMemberListResponseVm(entity2, request.Parametrs);
+            return new DepartmentMemberListResponseVm(entity, request.Parametrs);
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Ejournal.Domain
 
         //User
         public Guid StudentId { get; set; }
+        public User Student { get; set; }
 
         //RairingLog
         public IEnumerable<RatingLog> RaitingLogs { get; set; }

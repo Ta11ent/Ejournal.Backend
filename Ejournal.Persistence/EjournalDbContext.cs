@@ -18,7 +18,6 @@ namespace Ejournal.Persistence
         public DbSet<Mark> Marks { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<RatingLog> RaitingLogs { get; set; }
-
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<ScheduleDay> ScheduleDays { get; set; }
         public DbSet<ScheduleSubject> ScheduleSubjects { get; set; }
@@ -27,6 +26,7 @@ namespace Ejournal.Persistence
         public DbSet<StudentGroupMember> StudentGroupMembers { get; set; }
         public DbSet<StudyYear> StudyYears { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<User> Users { get; set; }
 
         #endregion
 
