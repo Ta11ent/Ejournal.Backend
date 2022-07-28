@@ -17,14 +17,14 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
     {
         private readonly IMapper _mapper;
         private readonly IEjournalDbContext _dbContext;
-        private readonly IPersonDbContext _identityDbContext;
+     //   private readonly IPersonDbContext _identityDbContext;
 
         public GetGroupMemberDetailsQueryHandler(IMapper mapper,
             IEjournalDbContext dbContext, IPersonDbContext identityDbContext)
         {
             _mapper = mapper;
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-            _identityDbContext = identityDbContext ?? throw new ArgumentNullException(nameof(_identityDbContext));
+           // _identityDbContext = identityDbContext ?? throw new ArgumentNullException(nameof(_identityDbContext));
 
         }
 
@@ -43,16 +43,16 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
                 throw new NotFoundException(nameof(StudentGroupMember), request.GroupMemberId);
             var model = _mapper.Map<GroupMemberDetailsDto>(entity);
 
-            var dependentEntity =
-                await _identityDbContext.AspNetUsers
-                .Where(e => e.Id == entity.StudentId)
-                .ProjectTo<GroupMember>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken);
+            //var dependentEntity =
+            //    await _identityDbContext.AspNetUsers
+            //    .Where(e => e.Id == entity.StudentId)
+            //    .ProjectTo<GroupMember>(_mapper.ConfigurationProvider)
+            //    .FirstOrDefaultAsync(cancellationToken);
 
-            if (dependentEntity == null)
-                throw new NotFoundException(nameof(DepartmentMember), nameof(AspNetUser), entity.StudentId);
+            //if (dependentEntity == null)
+            //    throw new NotFoundException(nameof(DepartmentMember), nameof(AspNetUser), entity.StudentId);
 
-            model.Student = dependentEntity;
+            //model.Student = dependentEntity;
 
             return new GroupMemberDetailsResponseVm(model);
         }

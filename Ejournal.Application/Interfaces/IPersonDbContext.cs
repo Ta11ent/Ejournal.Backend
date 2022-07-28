@@ -5,6 +5,6 @@ namespace Ejournal.Application.Interfaces
 {
     public interface IPersonDbContext
     {
-        DbSet<AspNetUser> AspNetUsers { get; set; }
+      //  DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

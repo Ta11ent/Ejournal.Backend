@@ -12,7 +12,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -25,7 +25,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -39,7 +39,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     MarkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,7 +51,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     PartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -65,7 +65,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     SpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
@@ -89,23 +89,19 @@ namespace Ejournal.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DepartmentMembers",
+                name: "Users",
                 columns: table => new
                 {
-                    DepartmentMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DepartmentMembers", x => x.DepartmentMemberId);
-                    table.ForeignKey(
-                        name: "FK_DepartmentMembers_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "DepartmentId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +109,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -134,7 +130,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     CurriculumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     SpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -162,7 +158,7 @@ namespace Ejournal.Persistence.Migrations
                 columns: table => new
                 {
                     StudentGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
@@ -176,6 +172,32 @@ namespace Ejournal.Persistence.Migrations
                         column: x => x.SpecializationId,
                         principalTable: "Specializations",
                         principalColumn: "SpecializationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DepartmentMembers",
+                columns: table => new
+                {
+                    DepartmentMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProfessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepartmentMembers", x => x.DepartmentMemberId);
+                    table.ForeignKey(
+                        name: "FK_DepartmentMembers_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DepartmentMembers_Users_ProfessorId",
+                        column: x => x.ProfessorId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -277,6 +299,12 @@ namespace Ejournal.Persistence.Migrations
                         column: x => x.StudentGroupId,
                         principalTable: "StudentGroups",
                         principalColumn: "StudentGroupId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentGroupMembers_Users_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -467,6 +495,11 @@ namespace Ejournal.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_DepartmentMembers_ProfessorId",
+                table: "DepartmentMembers",
+                column: "ProfessorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Departments_DepartmentId",
                 table: "Departments",
                 column: "DepartmentId",
@@ -592,6 +625,11 @@ namespace Ejournal.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_StudentGroupMembers_StudentId",
+                table: "StudentGroupMembers",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentGroups_SpecializationId",
                 table: "StudentGroups",
                 column: "SpecializationId");
@@ -657,6 +695,9 @@ namespace Ejournal.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Curriculums");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Schedules");

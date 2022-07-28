@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Queries.User_s.GetUserDetails
 {
-    public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
+    public class GetUserDetailsQueryHandler 
+        //: IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
     {
         private readonly IPersonDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -19,16 +20,16 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserDetails
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
             _mapper = mapper;
         }
-        public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
-        {
-            var entity = await
-               _dbContext.AspNetUsers
-               .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+        //public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
+        //{
+        //    var entity = await
+        //       _dbContext.AspNetUsers
+        //       .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
-            if (entity == null)
-                throw new NotFoundException(nameof(AspNetUser), request.Id);
+        //    if (entity == null)
+        //        throw new NotFoundException(nameof(AspNetUser), request.Id);
 
-            return _mapper.Map<UserDetailsVm>(entity);
-        }
+        //    return _mapper.Map<UserDetailsVm>(entity);
+        //}
     }
 }

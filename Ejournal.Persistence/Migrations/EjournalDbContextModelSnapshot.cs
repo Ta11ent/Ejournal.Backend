@@ -29,6 +29,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -57,6 +58,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -143,6 +145,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -175,6 +178,8 @@ namespace Ejournal.Persistence.Migrations
 
                     b.HasIndex("DepartmentMemberId")
                         .IsUnique();
+
+                    b.HasIndex("ProfessorId");
 
                     b.ToTable("DepartmentMembers");
                 });
@@ -217,6 +222,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -238,6 +244,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -403,6 +410,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -427,6 +435,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -468,6 +477,8 @@ namespace Ejournal.Persistence.Migrations
                     b.HasIndex("StudentGroupMemberId")
                         .IsUnique();
 
+                    b.HasIndex("StudentId");
+
                     b.ToTable("StudentGroupMembers");
                 });
 
@@ -508,6 +519,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -519,6 +531,32 @@ namespace Ejournal.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("Ejournal.Domain.User", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Ejournal.Domain.Curriculum", b =>
@@ -586,7 +624,15 @@ namespace Ejournal.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Ejournal.Domain.User", "Professor")
+                        .WithMany("DepartmentMembers")
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Department");
+
+                    b.Navigation("Professor");
                 });
 
             modelBuilder.Entity("Ejournal.Domain.HomeWork", b =>
@@ -711,6 +757,14 @@ namespace Ejournal.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Ejournal.Domain.User", "Student")
+                        .WithMany("GroupMembers")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
                     b.Navigation("StudentGroup");
                 });
 
@@ -801,6 +855,13 @@ namespace Ejournal.Persistence.Migrations
                     b.Navigation("RaitingLogs");
 
                     b.Navigation("ScheduleSubjects");
+                });
+
+            modelBuilder.Entity("Ejournal.Domain.User", b =>
+                {
+                    b.Navigation("DepartmentMembers");
+
+                    b.Navigation("GroupMembers");
                 });
 #pragma warning restore 612, 618
         }

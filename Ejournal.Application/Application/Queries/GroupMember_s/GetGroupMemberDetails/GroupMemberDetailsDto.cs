@@ -10,7 +10,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
     {
         public Guid GroupMemberId { get; set; }
         public Group Group { get; set; }
-        public GroupMember Student { get; set; }
+     //   public GroupMember Student { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -36,29 +36,29 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
         }
     }
 
-    public class GroupMember : IMapWith<AspNetUser>
-    {
-        public Guid StudentId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap<AspNetUser, GroupMember>()
-                 .ForMember(entityDto => entityDto.StudentId,
-                     opt => opt.MapFrom(entity => entity.Id))
-                 .ForMember(entityDto => entityDto.FirstName,
-                     opt => opt.MapFrom(entity => entity.FirstName))
-                 .ForMember(entityDto => entityDto.MiddleName,
-                     opt => opt.MapFrom(entity => entity.MiddleName))
-                 .ForMember(entityDto => entityDto.LastName,
-                     opt => opt.MapFrom(entity => entity.LastName))
-                 .ForMember(entityDto => entityDto.Email,
-                     opt => opt.MapFrom(entity => entity.Email))
-                 .ForMember(entityDto => entityDto.PhoneNumber,
-                     opt => opt.MapFrom(entity => entity.PhoneNumber));
-        }
-    }
+    //public class GroupMember : IMapWith<AspNetUser>
+    //{
+    //    public Guid StudentId { get; set; }
+    //    public string FirstName { get; set; }
+    //    public string MiddleName { get; set; }
+    //    public string LastName { get; set; }
+    //    public string Email { get; set; }
+    //    public string PhoneNumber { get; set; }
+    //    public void Mapping(Profile profile)
+    //    {
+    //        profile.CreateMap<AspNetUser, GroupMember>()
+    //             .ForMember(entityDto => entityDto.StudentId,
+    //                 opt => opt.MapFrom(entity => entity.Id))
+    //             .ForMember(entityDto => entityDto.FirstName,
+    //                 opt => opt.MapFrom(entity => entity.FirstName))
+    //             .ForMember(entityDto => entityDto.MiddleName,
+    //                 opt => opt.MapFrom(entity => entity.MiddleName))
+    //             .ForMember(entityDto => entityDto.LastName,
+    //                 opt => opt.MapFrom(entity => entity.LastName))
+    //             .ForMember(entityDto => entityDto.Email,
+    //                 opt => opt.MapFrom(entity => entity.Email))
+    //             .ForMember(entityDto => entityDto.PhoneNumber,
+    //                 opt => opt.MapFrom(entity => entity.PhoneNumber));
+    //    }
+    //}
 }
