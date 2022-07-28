@@ -8,7 +8,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     public class DepartmentMemberLookupDto : IMapWith<DepartmentMember>
     {
         public Guid DepartmenMemberId { get; set; }
-        public Guid UserId { get; set; }
+        public Guid ProfessorId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -17,12 +17,14 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
             profile.CreateMap<DepartmentMember, DepartmentMemberLookupDto>()
                 .ForMember(entityDto => entityDto.DepartmenMemberId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
+                .ForMember(entityDto => entityDto.ProfessorId,
+                    opt => opt.MapFrom(entity => entity.Professor.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
                     opt => opt.MapFrom(entity => entity.Professor.FirstName))
                 .ForMember(entityDto => entityDto.MiddleName,
                     opt => opt.MapFrom(entity => entity.Professor.MiddleName))
                 .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entity => entity.Professor.LastName))
+                    opt => opt.MapFrom(entity => entity.Professor.LastName));
         }
     }
 }

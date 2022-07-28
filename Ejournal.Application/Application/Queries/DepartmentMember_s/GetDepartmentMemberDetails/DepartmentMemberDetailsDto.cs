@@ -8,13 +8,24 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     public class DepartmentMemberDetailsDto : IMapWith<DepartmentMember>
     {
         public Guid DepartmentMemberId { get; set; }
-        public ProfessorDto Professor { get; set; }
+        public Guid ProfessorId { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public DepartmentDto Department { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, DepartmentMemberDetailsDto>()
                 .ForMember(entityVm => entityVm.DepartmentMemberId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
+                .ForMember(entityVm => entityVm.ProfessorId,
+                    opt => opt.MapFrom(entity => entity.Professor.UserId))
+                .ForMember(entityVm => entityVm.FirstName,
+                    opt => opt.MapFrom(entity => entity.Professor.FirstName))
+                .ForMember(entityVm => entityVm.MiddleName,
+                    opt => opt.MapFrom(entity => entity.Professor.MiddleName))
+                .ForMember(entityVm => entityVm.LastName,
+                    opt => opt.MapFrom(entity => entity.Professor.LastName))
                 .ForMember(entityVm => entityVm.Department,
                     opt => opt.MapFrom(entity => entity.Department));
         }
@@ -33,32 +44,6 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
                     opt => opt.MapFrom(entity => entity.DepartmentId))
                 .ForMember(entityVm => entityVm.Name,
                     opt => opt.MapFrom(entity => entity.Name));
-        }
-    }
-    public class ProfessorDto : IMapWith<AspNetUser>
-    {
-        public Guid ProfessorId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap<AspNetUser, ProfessorDto>()
-                .ForMember(entityVm => entityVm.ProfessorId,
-                    opt => opt.MapFrom(entity => entity.Id))
-                .ForMember(entityVm => entityVm.FirstName,
-                    opt => opt.MapFrom(entity => entity.FirstName))
-                .ForMember(entityVm => entityVm.MiddleName,
-                    opt => opt.MapFrom(entity => entity.MiddleName))
-                .ForMember(entityVm => entityVm.LastName,
-                    opt => opt.MapFrom(entity => entity.LastName))
-                .ForMember(entityVm => entityVm.PhoneNumber,
-                    opt => opt.MapFrom(entity => entity.PhoneNumber))
-                  .ForMember(entityVm => entityVm.Email,
-                    opt => opt.MapFrom(entity => entity.Email));
         }
     }
 }

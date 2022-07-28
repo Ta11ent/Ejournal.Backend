@@ -35,26 +35,17 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
             var entity =
                 await _dbContext.DepartmentMembers
                   .Include(d => d.Department)
-                  .FirstOrDefaultAsync(e =>
+                  .Include(p => p.Professor)
+                  .Where(e =>
                     e.DepartmentId == request.DepartmentId &&
-                    e.DepartmentMemberId == request.DepartmentMemberId,
-                    cancellationToken);
+                    e.DepartmentMemberId == request.DepartmentMemberId)
+                 .ProjectTo<DepartmentMemberDetailsDto>(_mapper.ConfigurationProvider)
+                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity == null)
                 throw new NotFoundException(nameof(DepartmentMember), request.DepartmentMemberId);
-            var model = _mapper.Map<DepartmentMemberDetailsDto>(entity);
 
-            var dependentEntity =
-                await _identityDbContext.AspNetUsers
-                .Where(e => e.Id == entity.ProfessorId)
-                .ProjectTo<ProfessorDto>( _mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken);
-
-            if (dependentEntity == null)
-                throw new NotFoundException(nameof(DepartmentMember), nameof(AspNetUser), entity.ProfessorId);
-            model.Professor = dependentEntity;
-   
-            return new DepartmentMemberDetailsResponseVm(model);
+            return new DepartmentMemberDetailsResponseVm(entity);
         }
     }
 }
