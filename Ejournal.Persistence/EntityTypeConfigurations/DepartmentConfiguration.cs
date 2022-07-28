@@ -10,7 +10,7 @@ namespace Ejournal.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.DepartmentId);
             builder.HasIndex(x => x.DepartmentId).IsUnique();
-            builder.Property(x => x.Name).HasMaxLength(30);
+            builder.Property(x => x.Name).HasMaxLength(30).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(100);
         }
     }
