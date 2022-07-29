@@ -26,7 +26,7 @@ namespace Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList
         {
             var entity =
                 await _dbContext.Departments
-                .Where(dt => dt.Active == request.Active)
+                .Where(dt => dt.Active == request.Parametrs.Active)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<DepartmentLookupDto>(_mapper.ConfigurationProvider)

@@ -11,6 +11,7 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
+        public bool Active { get; set; }
         
         public void Mapping(Profile profile)
         {
@@ -20,7 +21,9 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
                 .ForMember(entityVm => entityVm.Description,
                     opt => opt.MapFrom(entity => entity.Description))
                 .ForMember(entityVm => entityVm.CreationDate,
-                    opt => opt.MapFrom(entity => entity.CreationDate));
+                    opt => opt.MapFrom(entity => entity.CreationDate))
+                .ForMember(entityVm => entityVm.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 }

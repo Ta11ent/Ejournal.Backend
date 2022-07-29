@@ -26,7 +26,7 @@ namespace Ejournal.WebApi.Controllers
         public GroupsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<GroupListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        public async Task<ActionResult<GroupListResponseVm>> GetGroups([FromQuery] FilterParams parametrs)
         {
             var query = new GetGroupListQuery
             {
@@ -37,23 +37,22 @@ namespace Ejournal.WebApi.Controllers
 
         }
 
-         [HttpGet]
+        [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/")]
-        public async Task<ActionResult<GroupMemberListResponseVm>> GetDepartmentMembers(Guid groupId, 
+        public async Task<ActionResult<GroupMemberListResponseVm>> GetGroupMembers(Guid groupId, 
             [FromQuery] FilterParams parametrs)
         {
             var query = new GetGroupMemberListQuery
             {
                 GroupId = groupId,
                 Parametrs = parametrs,
-                Active = true
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<GroupDetailsResponseVm>> Get(Guid Id)
+        public async Task<ActionResult<GroupDetailsResponseVm>> GetGroupId(Guid Id)
         {
             var query = new GetGroupDetailsQuery
             {
@@ -65,7 +64,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{memberId:Guid}")]
-        public async Task<ActionResult<GroupMemberDetailsResponseVm>> GetDepartmentMember(Guid groupId, Guid memberId)
+        public async Task<ActionResult<GroupMemberDetailsResponseVm>> GetGroupMember(Guid groupId, Guid memberId)
         {
             var query = new GetGroupMemberDetailsQuery
             {
@@ -81,22 +80,22 @@ namespace Ejournal.WebApi.Controllers
         {
             var command = _mapper.Map<CreateGroupCommand>(createGroupDto);
             var groupId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { Id = groupId }, null);
+            return CreatedAtAction(nameof(GetGroupId), new { Id = groupId }, null);
         }
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/")]
-        public async Task<ActionResult<Guid>> CreateDepartmentMember([FromBody] CreateGroupMemberDto createGroupMemberDto,
+        public async Task<ActionResult<Guid>> CreateGroupMember([FromBody] CreateGroupMemberDto createGroupMemberDto,
                 Guid groupId)
         {
             var command = _mapper.Map<CreateGroupMemberCommand>(createGroupMemberDto);
             command.GroupId = groupId;
             var memberId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetDepartmentMember), new { groupId, memberId }, null);
+            return CreatedAtAction(nameof(GetGroupMember), new { groupId, memberId }, null);
         }
 
         [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromBody] UpdateGroupDto updateGroupDto, Guid Id)
+        public async Task<IActionResult> UpdateGroup([FromBody] UpdateGroupDto updateGroupDto, Guid Id)
         {
             var command = _mapper.Map<UpdateGroupCommand>(updateGroupDto);
             command.GroupId = Id;
@@ -106,7 +105,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{memberId:Guid}")]
-        public async Task<IActionResult> UpdateDepartmentMember([FromBody] UpdateGroupMemberDto updateGroupMemberDto,
+        public async Task<IActionResult> UpdateGroupMember([FromBody] UpdateGroupMemberDto updateGroupMemberDto,
             Guid groupId, Guid memberId)
         {
             var command = _mapper.Map<UpdateGroupMemberCommand>(updateGroupMemberDto);
@@ -117,7 +116,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> DeleteGroup(Guid Id)
         {
             var command = new DeleteGroupCommand
             {
@@ -129,7 +128,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{memberId:Guid}")]
-        public async Task<IActionResult> DeleteDepartmentMember(Guid groupId, Guid memberId)
+        public async Task<IActionResult> DeleteGroupMember(Guid groupId, Guid memberId)
         {
             var command = new DeleteGroupMemberCommand
             {

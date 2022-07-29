@@ -11,7 +11,6 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
         public Guid GroupId { get; set; }
         public string Name { get; set; }
         public SpecializationLookupDto Specialization { get; set; }
-        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroup, GroupLookupDto>()
@@ -20,9 +19,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
                 .ForMember(entityDto => entityDto.Name,
                     opt => opt.MapFrom(entity => entity.Name))
                 .ForMember(entityDto => entityDto.Specialization,
-                    opt => opt.MapFrom(entity => entity.Specialization))
-                 .ForMember(entityDto => entityDto.Active,
-                    opt => opt.MapFrom(entity => entity.Active));
+                    opt => opt.MapFrom(entity => entity.Specialization));
         }
     }   
 }

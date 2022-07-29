@@ -24,7 +24,7 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
         {
             var entity =
                 await _dbContext.Courses
-                .Where(b => b.Active == request.Active)
+                .Where(b => b.Active == request.Parametrs.Active)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<CourseLookupDto>(_mapper.ConfigurationProvider)

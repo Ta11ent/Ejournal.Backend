@@ -29,7 +29,8 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
         public async Task<SpecializationDetailsResponseVm> Handle(GetSpecializationDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Specializations
+            var entity = 
+                await _dbContext.Specializations
                 .Where(sp => sp.SpecializationId == request.SpecializationId)
                 .ProjectTo<SpecializationDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);

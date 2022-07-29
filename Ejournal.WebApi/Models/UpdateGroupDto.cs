@@ -12,6 +12,7 @@ namespace Ejournal.WebApi.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid SpecializationId { get; set; }
+        public bool Active { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -25,7 +26,9 @@ namespace Ejournal.WebApi.Models
                 .ForMember(entityDto => entityDto.EndDate,
                     opt => opt.MapFrom(entity => entity.EndDate))
                 .ForMember(entityDto => entityDto.SpecializationId,
-                    opt => opt.MapFrom(entity => entity.SpecializationId));
+                    opt => opt.MapFrom(entity => entity.SpecializationId))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
 
         }
     }

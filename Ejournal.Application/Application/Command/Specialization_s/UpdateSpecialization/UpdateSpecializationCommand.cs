@@ -8,6 +8,6 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecializ
         public Guid SpecializationId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-       // public bool bActive { get; set; }
+        public bool Active { get; set; }
     }
 }

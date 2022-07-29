@@ -12,6 +12,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDe
         public string Name { get; set; }
         public string Description { get; set; }
         public DepartmentDetailsDto Department { get; set; }
+        public bool Active { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -23,7 +24,9 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDe
                 .ForMember(entityDto => entityDto.Description,
                     opt => opt.MapFrom(entity => entity.Description))
                 .ForMember(entityDto => entityDto.Department,
-                    opt => opt.MapFrom(entity => entity.Department));
+                    opt => opt.MapFrom(entity => entity.Department))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse
     {
         public Guid CourseId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
     }
 }

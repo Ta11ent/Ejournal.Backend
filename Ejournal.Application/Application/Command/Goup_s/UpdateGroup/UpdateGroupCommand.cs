@@ -10,5 +10,6 @@ namespace Ejournal.Application.Application.Command.Goup_s.UpdateGroup
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid SpecializationId { get; set; }
+        public bool Active { get; set; }
     }
 }

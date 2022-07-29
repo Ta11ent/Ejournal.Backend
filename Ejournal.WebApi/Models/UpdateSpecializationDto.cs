@@ -10,6 +10,7 @@ namespace Ejournal.WebApi.Models
         public Guid SpecializationId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -19,7 +20,9 @@ namespace Ejournal.WebApi.Models
                 .ForMember(entityCommand => entityCommand.Name,
                     opt => opt.MapFrom(entityDto => entityDto.Name))
                 .ForMember(entityCommand => entityCommand.Description,
-                    opt => opt.MapFrom(entityDto => entityDto.Description));
+                    opt => opt.MapFrom(entityDto => entityDto.Description))
+                .ForMember(entityCommand => entityCommand.Active,
+                    opt => opt.MapFrom(entityDto => entityDto.Active));
         }
     }
 }

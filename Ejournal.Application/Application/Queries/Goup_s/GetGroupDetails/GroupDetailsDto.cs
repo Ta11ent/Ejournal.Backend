@@ -12,6 +12,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupDetails
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; } 
         public GroupSpecializationDto Specialization { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroup, GroupDetailsDto>()
@@ -24,7 +25,9 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupDetails
                 .ForMember(entityDto => entityDto.EndDate,
                     opt => opt.MapFrom(entity => entity.EndDate))
                 .ForMember(entityDto => entityDto.Specialization,
-                    opt => opt.MapFrom(entity => entity.Specialization));
+                    opt => opt.MapFrom(entity => entity.Specialization))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 

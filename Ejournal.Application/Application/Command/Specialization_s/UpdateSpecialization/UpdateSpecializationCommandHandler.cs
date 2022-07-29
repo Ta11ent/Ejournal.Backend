@@ -27,7 +27,7 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecializ
 
             entity.Name = request.Name;
             entity.Description = request.Description;
-            //entity.bActive = request.bActive;
+            entity.Active = request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

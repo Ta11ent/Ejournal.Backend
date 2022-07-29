@@ -25,6 +25,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
             CancellationToken cancellationToken)
         {
             var entity = await _dbContext.StudentGroups
+                .Where(x => x.Active == request.Parametrs.Active)
                 .Include(s => s.Specialization)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)

@@ -27,6 +27,7 @@ namespace Ejournal.Application.Application.Command.Goup_s.UpdateGroup
             entity.Name = request.Name;
             entity.StartDate = request.StartDate;
             entity.EndDate = request.EndDate;
+            entity.Active = request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

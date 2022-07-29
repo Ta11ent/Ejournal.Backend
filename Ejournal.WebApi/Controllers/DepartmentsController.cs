@@ -31,7 +31,6 @@ namespace Ejournal.WebApi.Controllers
             var query = new GetDepartmentListQuery
             {
                 Parametrs = parametrs,
-                Active = true
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -46,7 +45,6 @@ namespace Ejournal.WebApi.Controllers
             {
                 DepartmentId = departmentId,
                 Parametrs = parametrs,
-                 Active = true
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -100,7 +98,6 @@ namespace Ejournal.WebApi.Controllers
         {
             var command = _mapper.Map<UpdateDepartmentCommand>(updateDepartmentDto);
             command.DepartmentId = Id;
-            command.Active = true;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -113,7 +110,6 @@ namespace Ejournal.WebApi.Controllers
             var command = _mapper.Map<UpdateDepartmentMemberCommand>(updateDepartmentMemberDto);
             command.DepartmentId = departmentId;
             command.DepartmentMemberId = memberId;
-            command.Active = true;
             await Mediator.Send(command);
             return NoContent();
         }

@@ -11,10 +11,7 @@ namespace Ejournal.WebApi.Models
         public Guid GroupId { get; set; }
         public Guid StudentId { get; set; }
         public bool Active { get; set; }
-        //{
-        //    get => _itemsPerPage = _itemsPerPage == 0 ? _maxItemsPerPage : _itemsPerPage;
-        //    set => _itemsPerPage = value > _maxItemsPerPage ? _maxItemsPerPage : value;
-        //}
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateGroupMemberDto, UpdateGroupMemberCommand>()

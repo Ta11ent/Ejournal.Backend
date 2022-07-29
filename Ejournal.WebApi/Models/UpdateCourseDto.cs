@@ -9,6 +9,7 @@ namespace Ejournal.WebApi.Models
     {
         public Guid CourseId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -16,7 +17,9 @@ namespace Ejournal.WebApi.Models
                 .ForMember(entityDto => entityDto.CourseId,
                     opt => opt.MapFrom(entity => entity.CourseId))
                 .ForMember(entityDto => entityDto.Name,
-                    opt => opt.MapFrom(entity => entity.Name));
+                    opt => opt.MapFrom(entity => entity.Name))
+                 .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
 
         }
     }

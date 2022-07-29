@@ -26,7 +26,6 @@ namespace Ejournal.WebApi.Controllers
             var query = new GetCourseListQuery
             {
                 Parametrs = parametrs,
-                Active = true
             };
 
             var vm = await Mediator.Send(query);

@@ -28,7 +28,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
               await _dbContext.StudentGroupMembers
                 .Where(e => 
                     e.StudentGroupId == request.GroupId &&
-                    e.Active == request.Active)
+                    e.Active == request.Parametrs.Active)
                 .Include(x => x.Student)
                 .Include(p => p.StudentGroup)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)

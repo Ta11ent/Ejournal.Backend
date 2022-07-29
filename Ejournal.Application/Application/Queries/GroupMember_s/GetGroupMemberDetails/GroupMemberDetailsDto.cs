@@ -15,6 +15,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
         public string LastName { get; set; }
         public bool Gender { get; set; }
         public Group Group { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroupMember, GroupMemberDetailsDto>()
@@ -31,7 +32,9 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
                  .ForMember(entityDto => entityDto.Gender,
                      opt => opt.MapFrom(entity => entity.Student.Gender))
                  .ForMember(entityDto => entityDto.Group,
-                     opt => opt.MapFrom(entity => entity.StudentGroup));
+                     opt => opt.MapFrom(entity => entity.StudentGroup))
+                 .ForMember(entityDto => entityDto.Active,
+                     opt => opt.MapFrom(entity => entity.Active));
         }
     }
 

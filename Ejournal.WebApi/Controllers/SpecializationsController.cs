@@ -27,7 +27,6 @@ namespace Ejournal.WebApi.Controllers
             var query = new GetSpecializationListQuery
             {
                 Parametrs = parametrs,
-                Active = true
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);

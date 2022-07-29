@@ -24,6 +24,7 @@ namespace Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse
                 throw new NotFoundException(nameof(Course), request.CourseId);
             
             entity.Name = request.Name;
+            entity.Active = request.Active;
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

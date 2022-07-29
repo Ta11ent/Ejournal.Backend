@@ -1,6 +1,6 @@
 ﻿using Ejournal.Application.Common.Exceptions;
-using Ejournal.Application.Common.Helpers.Enums;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +20,7 @@ namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
                 await _dbContxt.Marks
                 .FirstOrDefaultAsync(m => m.MarkId == request.MarkId);
             if (entity == null)
-                throw new NotFoundException(nameof(Marks), request.MarkId);
+                throw new NotFoundException(nameof(Mark), request.MarkId);
 
             entity.Name = request.Name;
             await _dbContxt.SaveChangesAsync(cancellationToken);

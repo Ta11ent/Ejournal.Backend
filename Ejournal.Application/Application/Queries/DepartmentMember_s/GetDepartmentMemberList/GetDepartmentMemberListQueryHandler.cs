@@ -30,7 +30,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
                 await _dbContext.DepartmentMembers
                 .Where(dm =>
                     dm.DepartmentId == request.DepartmentId &&
-                    dm.Active == request.Active)
+                    dm.Active == request.Parametrs.Active)
                 .Include(x => x.Professor)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)

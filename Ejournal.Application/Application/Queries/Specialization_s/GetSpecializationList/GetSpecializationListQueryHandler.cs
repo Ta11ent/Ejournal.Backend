@@ -25,12 +25,13 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
         public async Task<SpecializationListResponseVm> Handle(GetSpecializationListQuery request,
             CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Specializations
-                .Where(sp => sp.Active == request.Active)
-                .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
-                .Take(request.Parametrs.PageSize)
-                .ProjectTo<SpecializationLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+            var entity =
+                await _dbContext.Specializations
+                    .Where(sp => sp.Active == request.Parametrs.Active)
+                    .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
+                    .Take(request.Parametrs.PageSize)
+                    .ProjectTo<SpecializationLookupDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
 
             return new SpecializationListResponseVm(entity, request.Parametrs); 
         }

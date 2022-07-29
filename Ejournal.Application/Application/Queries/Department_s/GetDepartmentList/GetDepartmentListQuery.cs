@@ -6,6 +6,5 @@ namespace Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList
     public class GetDepartmentListQuery : IRequest<DepartmentListResponseVm>
     {
         public FilterParams Parametrs { get; set; }
-        public bool Active { get; set; }
     }
 }
