@@ -7,6 +7,6 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
     public class GetGroupMemberDetailsQuery : IRequest<GroupMemberDetailsResponseVm>
     {
         public Guid GroupId { get; set; }
-        public Guid GroupMemberId { get; set; }
+        public Guid MemberId { get; set; }
     }
 }

@@ -33,12 +33,12 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
                 .Include(s => s.Student)
                 .Where(e =>
                   e.StudentGroupId == request.GroupId &&
-                  e.StudentGroupMemberId == request.GroupMemberId)
+                  e.StudentGroupMemberId == request.MemberId)
                 .ProjectTo<GroupMemberDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(StudentGroupMember), request.GroupMemberId);
+                throw new NotFoundException(nameof(StudentGroupMember), request.MemberId);
 
             return new GroupMemberDetailsResponseVm(entity);
         }

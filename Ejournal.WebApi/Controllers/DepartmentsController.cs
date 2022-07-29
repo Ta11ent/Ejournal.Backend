@@ -140,7 +140,6 @@ namespace Ejournal.WebApi.Controllers
             };
             await Mediator.Send(command);
             return NoContent();
-
         }
     }
 }
