@@ -26,7 +26,6 @@ namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
             await _dbContxt.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
-
         }
     }
 }
