@@ -6,6 +6,6 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
 {
     public class GetGroupListQuery : IRequest<GroupListResponseVm>
     {
-        public PaginationParams Parametrs { get; set; }
+        public FilterParams Parametrs { get; set; }
     }
 }

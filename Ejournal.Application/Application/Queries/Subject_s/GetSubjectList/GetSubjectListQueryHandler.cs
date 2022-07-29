@@ -24,6 +24,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
         {
             var entity =
                 await _dbContext.Subjects
+                .Where(x => x.Active == request.Parametrs.Active)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<SubjectLookupDto>(_mapper.ConfigurationProvider)

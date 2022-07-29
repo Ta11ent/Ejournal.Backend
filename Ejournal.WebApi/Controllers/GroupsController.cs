@@ -26,7 +26,7 @@ namespace Ejournal.WebApi.Controllers
         public GroupsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<GroupListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<GroupListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetGroupListQuery
             {
@@ -40,7 +40,7 @@ namespace Ejournal.WebApi.Controllers
          [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/")]
         public async Task<ActionResult<GroupMemberListResponseVm>> GetDepartmentMembers(Guid groupId, 
-            [FromQuery] PaginationParams parametrs)
+            [FromQuery] FilterParams parametrs)
         {
             var query = new GetGroupMemberListQuery
             {

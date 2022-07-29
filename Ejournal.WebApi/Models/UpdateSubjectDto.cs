@@ -11,6 +11,7 @@ namespace Ejournal.WebApi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid DepartmentId { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateSubjectDto, UpdateSubjectCommand>()
@@ -21,7 +22,9 @@ namespace Ejournal.WebApi.Models
                 .ForMember(entityCommand => entityCommand.Description,
                     opt => opt.MapFrom(entityDto => entityDto.Description))
                 .ForMember(entityCommand => entityCommand.DepartmentId,
-                    opt => opt.MapFrom(entityDto => entityDto.DepartmentId));
+                    opt => opt.MapFrom(entityDto => entityDto.DepartmentId))
+                .ForMember(entityCommand => entityCommand.Active,
+                    opt => opt.MapFrom(entityDto => entityDto.Active));
         }
     }
 }

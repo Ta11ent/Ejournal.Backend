@@ -6,7 +6,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
 {
     public class GetDepartmentMemberListQuery : IRequest<DepartmentMemberListResponseVm>
     {
-        public PaginationParams Parametrs { get; set; }
+        public FilterParams Parametrs { get; set; }
         public Guid DepartmentId { get; set; }
         public bool Active { get; set; }
     }

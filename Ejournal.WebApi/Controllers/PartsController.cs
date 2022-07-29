@@ -21,7 +21,7 @@ namespace Ejournal.WebApi.Controllers
         public PartsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetPartListQuery
             {

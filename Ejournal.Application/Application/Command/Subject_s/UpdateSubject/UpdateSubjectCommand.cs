@@ -9,5 +9,6 @@ namespace Ejournal.Application.Application.Command.Subject_s.UpdateSubject
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid DepartmentId { get; set; }
+        public bool Active { get; set; }
     }
 }

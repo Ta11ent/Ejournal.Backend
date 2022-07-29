@@ -22,7 +22,7 @@ namespace Ejournal.WebApi.Controllers
         public SpecializationsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<SpecializationListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<SpecializationListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetSpecializationListQuery
             {

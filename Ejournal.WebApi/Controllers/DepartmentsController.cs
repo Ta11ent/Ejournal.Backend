@@ -26,7 +26,7 @@ namespace Ejournal.WebApi.Controllers
         public DepartmentsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<DepartmentListResponseVm>> GetAllDeprtments([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<DepartmentListResponseVm>> GetAllDeprtments([FromQuery] FilterParams parametrs)
         {
             var query = new GetDepartmentListQuery
             {
@@ -40,7 +40,7 @@ namespace Ejournal.WebApi.Controllers
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/")]
         public async Task<ActionResult<DepartmentMemberListResponseVm>> GetDepartmentMembers(Guid departmentId, 
-            [FromQuery] PaginationParams parametrs)
+            [FromQuery] FilterParams parametrs)
         {
             var query = new GetDepartmentMemberListQuery
             {

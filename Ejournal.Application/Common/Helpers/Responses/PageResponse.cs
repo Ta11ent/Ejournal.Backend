@@ -7,7 +7,7 @@ namespace Ejournal.Application.Common.Helpers.Responses
     public class PageResponse<T> : IResponse<T> where T : IList
     {
         public PageResponse() { }
-        public PageResponse(T data, PaginationParams parametrs)
+        public PageResponse(T data, IPaginationParams parametrs)
         {
             Data = data;
             Succeeded = true;

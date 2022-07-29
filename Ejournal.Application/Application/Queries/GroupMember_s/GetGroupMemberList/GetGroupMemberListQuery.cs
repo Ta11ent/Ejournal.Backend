@@ -6,7 +6,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
 {
     public class GetGroupMemberListQuery : IRequest<GroupMemberListResponseVm>
     {
-        public PaginationParams Parametrs { get; set; }
+        public FilterParams Parametrs { get; set; }
         public Guid GroupId { get; set; }
         public bool Active { get; set; }
     }

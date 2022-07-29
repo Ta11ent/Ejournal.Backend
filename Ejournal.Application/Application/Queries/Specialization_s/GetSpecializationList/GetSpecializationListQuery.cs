@@ -5,7 +5,7 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
 {
     public class GetSpecializationListQuery : IRequest<SpecializationListResponseVm>
     {
-        public PaginationParams Parametrs { get; set; }
+        public FilterParams Parametrs { get; set; }
         public bool Active { get; set; }
     }
 }

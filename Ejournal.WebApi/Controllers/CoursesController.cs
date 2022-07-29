@@ -21,7 +21,7 @@ namespace Ejournal.WebApi.Controllers
         public CoursesController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<CourseListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<CourseListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetCourseListQuery
             {

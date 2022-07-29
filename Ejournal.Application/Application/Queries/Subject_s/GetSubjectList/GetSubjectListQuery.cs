@@ -5,6 +5,6 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
 {
     public class GetSubjectListQuery : IRequest<SubjectListResponseVm>
     {
-        public PaginationParams Parametrs { get; set; }
+        public FilterParams Parametrs { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace Ejournal.Application.Application.Command.Subject_s.UpdateSubject
             entity.Name = request.Name;
             entity.Description = request.Description;
             entity.DepartmentId = request.DepartmentId;
+            entity.Active = request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

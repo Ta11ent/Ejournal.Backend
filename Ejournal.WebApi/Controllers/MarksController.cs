@@ -21,7 +21,7 @@ namespace Ejournal.WebApi.Controllers
         public MarksController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<MarkListResponseVm>> GetAll([FromQuery] PaginationParams parametrs)
+        public async Task<ActionResult<MarkListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetMarkListQuery
             {
