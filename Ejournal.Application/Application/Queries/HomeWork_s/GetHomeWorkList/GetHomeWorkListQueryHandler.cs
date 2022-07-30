@@ -25,8 +25,8 @@ namespace Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList
             var entity =
                 await _dbContext.HomeWorks
                 .Where(x =>
-                    x.Date > request.Parametrs.DateFrom &&
-                    x.Date < request.Parametrs.DateTo)
+                    x.Date >= request.Parametrs.DateFrom &&
+                    x.Date <= request.Parametrs.DateTo)
                 .Include(s => s.Subject)
                 .Include(g => g.StudentGroup)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)

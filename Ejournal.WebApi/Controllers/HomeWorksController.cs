@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ejournal.Application.Application.Command.HomeWork_s.CreateHomeWork;
 using Ejournal.Application.Application.Command.HomeWork_s.DeleteHomeWork;
 using Ejournal.Application.Application.Command.HomeWork_s.UpdateHomeWork;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkDetails;
@@ -45,7 +46,7 @@ namespace Ejournal.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateHomeWorkDto createHomeWorkDto)
         {
-            var command = _mapper.Map<CreateHomeWorkDto>(createHomeWorkDto);
+            var command = _mapper.Map<CreateHomeWorkCommand>(createHomeWorkDto);
             var homeWorkId = await Mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { Id = homeWorkId }, null);
         }
