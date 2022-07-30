@@ -1,4 +1,5 @@
 ﻿using Ejournal.Application.Interfaces;
+using System;
 
 namespace Ejournal.Application.Common.Helpers.Filters
 {
@@ -17,6 +18,19 @@ namespace Ejournal.Application.Common.Helpers.Filters
         {
             get => _active;
             set => _active = value ?? true;
+        }
+
+        private DateTime _dateFrom = new DateTime(2000, 1, 1);
+        private DateTime _dateTo = new DateTime(2099, 12, 31);
+        public DateTime? DateFrom
+        {
+            get => _dateFrom;
+            set => _dateFrom = value ?? _dateFrom;
+        }
+        public DateTime? DateTo
+        {
+            get => _dateTo;
+            set => _dateTo = value ?? _dateTo;
         }
     }
 }

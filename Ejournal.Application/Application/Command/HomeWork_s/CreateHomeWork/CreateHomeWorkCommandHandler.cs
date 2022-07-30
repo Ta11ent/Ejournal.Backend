@@ -18,7 +18,7 @@ namespace Ejournal.Application.Application.Command.HomeWork_s.CreateHomeWork
             var entity = new HomeWork
             {
                 HomeWorkId = Guid.NewGuid(),
-                Date = request.Data,
+                Date = request.Date,
                 Description = request.Description,
                 StudentGroupId = request.GroupId,
                 SubjectId = request.SubjectId
