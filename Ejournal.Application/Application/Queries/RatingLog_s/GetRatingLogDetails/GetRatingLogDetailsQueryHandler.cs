@@ -30,8 +30,9 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                 await _dbContext.RaitingLogs
                 .Where(x => x.RaitingLogId == request.RatingLogId)
                 .Include(s => s.StudentGroupMember)
-                    .ThenInclude(g => g.StudentGroup)
-                .Include(p => p.DepartmentMember)
+                    .ThenInclude(u => u.Student)
+                .Include(d => d.DepartmentMember)
+                    .ThenInclude(p => p.Professor)
                 .ProjectTo<RatingLogDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 

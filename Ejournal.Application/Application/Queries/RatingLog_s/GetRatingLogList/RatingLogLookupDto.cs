@@ -3,23 +3,22 @@ using Ejournal.Application.Common.Mappings;
 using Ejournal.Domain;
 using System;
 
-
-namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetails
+namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
 {
-    public class RatingLogDetailsDto : IMapWith<RatingLog>
+    public class RatingLogLookupDto : IMapWith<RatingLog>
     {
         public Guid RatingLogId { get; set; }
         public DateTime Date { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public string Subject { get; set; }
         public string Mark { get; set; }
-        public StudentDto Student { get; set; } 
+        public StudentDto Student { get; set; }
         public ProfessorDto Professor { get; set; }
-        public  GroupDto Group {get;set;}
+        public GroupDto Group { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RatingLog, RatingLogDetailsDto>()
+            profile.CreateMap<RatingLog, RatingLogLookupDto>()
                 .ForMember(entityDto => entityDto.RatingLogId,
                     opt => opt.MapFrom(entiity => entiity.RaitingLogId))
                 .ForMember(entityDto => entityDto.Date,
@@ -38,16 +37,14 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                     opt => opt.MapFrom(entiity => entiity.StudentGroupMember.StudentGroup));
 
         }
-
     }
 
     public class StudentDto : IMapWith<StudentGroupMember>
     {
         public Guid GroupMemberId { get; set; } //Summary: not UserID !!!
         public Guid StudentId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroupMember, StudentDto>()
@@ -55,21 +52,15 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                     opt => opt.MapFrom(entiity => entiity.StudentGroupMemberId))
                 .ForMember(entityDto => entityDto.StudentId,
                     opt => opt.MapFrom(entiity => entiity.Student.UserId))
-                .ForMember(entityDto => entityDto.FirstName,
-                    opt => opt.MapFrom(entiity => entiity.Student.FirstName))
-                .ForMember(entityDto => entityDto.MiddleName,
-                    opt => opt.MapFrom(entiity => entiity.Student.MiddleName))
-                .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entiity => entiity.Student.LastName));
+                .ForMember(entityDto => entityDto.FullName,
+                    opt => opt.MapFrom(entiity => $"{entiity.Student.LastName} { entiity.Student.FirstName} {entiity.Student.MiddleName}" ));
         }
     }
     public class ProfessorDto : IMapWith<DepartmentMember>
     {
         public Guid DepartmentMemberId { get; set; } //Summary: not UserID !!!
         public Guid ProfessorId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, ProfessorDto>()
@@ -77,12 +68,8 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                     opt => opt.MapFrom(entiity => entiity.DepartmentMemberId))
                 .ForMember(entityDto => entityDto.ProfessorId,
                     opt => opt.MapFrom(entiity => entiity.Professor.UserId))
-                .ForMember(entityDto => entityDto.FirstName,
-                    opt => opt.MapFrom(entiity => entiity.Professor.FirstName))
-                .ForMember(entityDto => entityDto.MiddleName,
-                    opt => opt.MapFrom(entiity => entiity.Professor.MiddleName))
-                .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entiity => entiity.Professor.LastName));
+                 .ForMember(entityDto => entityDto.FullName,
+                    opt => opt.MapFrom(entiity => $"{entiity.Professor.LastName} {entiity.Professor.FirstName} {entiity.Professor.MiddleName}"));
         }
     }
     public class GroupDto : IMapWith<StudentGroup>
