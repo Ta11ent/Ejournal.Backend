@@ -27,6 +27,11 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
         {
             var entity =
                 await _dbContext.RaitingLogs
+                    .Where(x => 
+                        x.Date >= request.Parametrs.DateFrom &&
+                        x.Date <= request.Parametrs.DateTo &&
+                        x.StudentGroupMemberId == request.Parametrs.Student.GetValueOrDefault())
+                    
                     .Include(s => s.StudentGroupMember)
                         .ThenInclude(u => u.Student)
                     .Include(d => d.DepartmentMember)

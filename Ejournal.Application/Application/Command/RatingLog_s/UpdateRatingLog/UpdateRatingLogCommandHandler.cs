@@ -28,8 +28,7 @@ namespace Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog
             entity.Description = entity.Description;
             entity.SubjectId = request.SubjectId;
             entity.MarkId = request.MarkId;
-            entity.StudentGroupMemberId = request.StudentId;
-            entity.DepartmentMemberId = request.ProfessorId;
+            entity.DepartmentMemberId = request.DepartmentMemberId;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

@@ -10,7 +10,6 @@ namespace Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog
         public string Description { get; set; }
         public Guid SubjectId { get; set; }
         public Guid MarkId { get; set; }
-        public Guid StudentId { get; set; }
-        public Guid ProfessorId { get; set; }
+        public Guid DepartmentMemberId { get; set; }
     }
 }

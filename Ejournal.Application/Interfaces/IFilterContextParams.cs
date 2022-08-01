@@ -7,5 +7,7 @@ namespace Ejournal.Application.Interfaces
         bool? Active { get; set; }
         DateTime? DateFrom { get; set; }
         DateTime? DateTo { get; set; }
+        Guid? Student { get; set; }
+        Guid? Professor { get; set; }
     }
 }

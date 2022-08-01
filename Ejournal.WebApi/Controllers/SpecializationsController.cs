@@ -45,7 +45,6 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
-
         public async Task<ActionResult<Guid>> Create([FromBody] CreateSpecializationDto createSpecializationDto)
         {
             var command = _mapper.Map<CreateSpecializationCommand>(createSpecializationDto);

@@ -21,8 +21,9 @@ namespace Ejournal.Application.Application.Command.RatingLog_s.CreateRatingLog
                Date = request.Date,
                Description = request.Description,
                MarkId = request.MarkId,
-               StudentGroupMemberId = request.StudentId,
-               DepartmentMemberId = request.ProfessorId
+               StudentGroupMemberId = request.GroupMemberId,
+               DepartmentMemberId = request.DepartmentMemberId,
+               SubjectId = request.SubjectId
             };
 
             await _dbContext.RaitingLogs.AddAsync(retingLog, cancellationToken);
