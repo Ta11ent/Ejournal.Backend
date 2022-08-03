@@ -32,7 +32,9 @@ namespace Ejournal.Application.Common.Helpers.Filters
             get => _dateTo;
             set => _dateTo = value ?? _dateTo;
         }
+        public Guid? Group { get; set; }
         public Guid? GroupMember { get; set; }
         public Guid? DepartmentMember { get; set; }
+        public Guid? Subject { get; set; }
     }
 }

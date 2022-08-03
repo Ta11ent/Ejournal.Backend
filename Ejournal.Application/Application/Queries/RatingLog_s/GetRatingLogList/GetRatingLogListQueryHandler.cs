@@ -36,6 +36,10 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
                             request.Parametrs.DepartmentMember)
                         .And(x => x.StudentGroupMemberId == request.Parametrs.GroupMember, 
                             request.Parametrs.GroupMember)
+                        .And(x => x.SubjectId == request.Parametrs.Subject, 
+                            request.Parametrs.Subject)
+                        .And(x => x.StudentGroupMember.StudentGroupId == request.Parametrs.Group, 
+                            request.Parametrs.Group)
                         .And(x => x.Date >= request.Parametrs.DateFrom)
                         .And(x => x.Date <= request.Parametrs.DateTo))
                     .Include(s => s.StudentGroupMember)
