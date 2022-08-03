@@ -29,8 +29,6 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
         public async Task<RatingLogDetailsReponseVm> Handle(GetRatingLogDetailsQuery request, 
             CancellationToken cancellationToken)
         {
-            
-
             var entity =
                 await _dbContext.RaitingLogs
                 .Where(x => x.RaitingLogId == request.RatingLogId)
@@ -38,19 +36,13 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                     .ThenInclude(u => u.Student)
                 .Include(d => d.DepartmentMember)
                     .ThenInclude(p => p.Professor)
+                .ProjectTo<RatingLogDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity == null)
                 throw new NotFoundException(nameof(RatingLog), request.RatingLogId);
-            var data = _mapper.Map<RatingLogDetailsDto>(entity);
 
-            return new RatingLogDetailsReponseVm(data);
+            return new RatingLogDetailsReponseVm(entity);
         }
-
-        private Expression BuildPredicate(RatingLog request)
-        {
-            var predicate  = PredicateBuilder
-        }
-
     }
 }

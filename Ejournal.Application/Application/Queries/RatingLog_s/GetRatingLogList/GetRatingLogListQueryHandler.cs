@@ -7,6 +7,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Ejournal.Domain;
+
+using Ejournal.Application.Common.Helpers.Predicate;
 
 namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
 {
@@ -25,13 +28,16 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
         public async Task<RatingLogListResponseVm> Handle(GetRatingLogListQuery request,
             CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<RatingLog>();
             var entity =
                 await _dbContext.RaitingLogs
-                    .Where(x => 
-                        x.Date >= request.Parametrs.DateFrom &&
-                        x.Date <= request.Parametrs.DateTo &&
-                        x.StudentGroupMemberId == request.Parametrs.Student.GetValueOrDefault())
-                    
+                    .Where(predicate
+                        .And(x => x.DepartmentMemberId == request.Parametrs.DepartmentMember, 
+                            request.Parametrs.DepartmentMember)
+                        .And(x => x.StudentGroupMemberId == request.Parametrs.GroupMember, 
+                            request.Parametrs.GroupMember)
+                        .And(x => x.Date >= request.Parametrs.DateFrom)
+                        .And(x => x.Date <= request.Parametrs.DateTo))
                     .Include(s => s.StudentGroupMember)
                         .ThenInclude(u => u.Student)
                     .Include(d => d.DepartmentMember)

@@ -53,9 +53,9 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromBody] UpdatePartDto updateSpecializationDto, Guid Id)
+        public async Task<IActionResult> Update([FromBody] UpdateRatingLogDto updateRatingLogDto, Guid Id)
         {
-            var command = _mapper.Map<UpdateRatingLogCommand>(updateSpecializationDto);
+            var command = _mapper.Map<UpdateRatingLogCommand>(updateRatingLogDto);
             command.RatingLogId = Id;
             await Mediator.Send(command);
             return NoContent();
