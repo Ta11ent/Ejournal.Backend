@@ -25,4 +25,9 @@
     <ProjectReference Include="..\Ejournal.Domain\Ejournal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Command\Schedule_s\DeleteSchedule\" />
+    <Folder Include="Application\Command\Schedule_s\UpdateSchedule\" />
+  </ItemGroup>
+
 </Project>
