@@ -29,7 +29,6 @@ namespace Ejournal.WebApi.Controllers
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
-
         }
 
         [HttpGet("{Id}")]

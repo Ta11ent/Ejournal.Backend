@@ -3,6 +3,8 @@ using Ejournal.Application.Application.Command.Schedule_s.CreateSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.DeleteSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
 using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails;
+using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList;
+using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,6 +19,17 @@ namespace Ejournal.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         public SchedulesController(IMapper mapper) => _mapper = mapper;
+
+        [HttpGet]
+        public async Task<ActionResult<ScheduleListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        {
+            var query = new GetScheduleListQuery
+            {
+                Parametrs = parametrs
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
 
 
         [HttpGet("{Id}")]
@@ -34,9 +47,8 @@ namespace Ejournal.WebApi.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto createScheduleDto)
         {
             var command = _mapper.Map<CreateScheduleCommmand>(createScheduleDto);
-            var ratingLogId = await Mediator.Send(command);
-            return Ok();
-           // return CreatedAtAction(nameof(Get), new { Id = ratingLogId }, null);
+            var scheduleId = await Mediator.Send(command);
+            return CreatedAtAction(nameof(Get), new { Id = scheduleId }, null);
         }
 
         [HttpPut("{Id}")]
