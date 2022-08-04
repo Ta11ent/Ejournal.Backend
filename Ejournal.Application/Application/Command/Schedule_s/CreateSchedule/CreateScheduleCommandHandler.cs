@@ -26,15 +26,18 @@ namespace Ejournal.Application.Application.Command.Schedule_s.CreateSchedule
                 Active = true
             };
 
-            await _dbContext.Schedules.AddAsync(schedule, cancellationToken);
+            _dbContext.Schedules.Add(schedule);
 
             var days = new List<ScheduleDay>();
             for(int i = 0; i<=5; i++)
             {
-                days[i].ScheduleDayId = Guid.NewGuid();
-                days[i].ScheduleId = schedule.ScheduleId;
-                days[i].Active = true;
-                days[i].Day = (DayOfWeek)i++;
+                days.Add(new ScheduleDay
+                {
+                    ScheduleDayId = Guid.NewGuid(),
+                    ScheduleId = schedule.ScheduleId,
+                    Active = true,
+                    Day = (DayOfWeek)i + 1
+                });
             }
 
             await _dbContext.ScheduleDays.AddRangeAsync(days, cancellationToken);
