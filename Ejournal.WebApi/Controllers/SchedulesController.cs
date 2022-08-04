@@ -2,11 +2,10 @@
 using Ejournal.Application.Application.Command.Schedule_s.CreateSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.DeleteSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
+using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails;
 using Ejournal.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
@@ -18,6 +17,19 @@ namespace Ejournal.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         public SchedulesController(IMapper mapper) => _mapper = mapper;
+
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<ScheduleDetailsResponseVm>> Get(Guid Id)
+        {
+            var query = new GetScheduleDetailsQuery
+            {
+                ScheduleId = Id
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto createScheduleDto)
         {
