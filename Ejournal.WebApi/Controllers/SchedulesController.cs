@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Application.Command.Schedule_s.CreateSchedule;
+using Ejournal.Application.Application.Command.Schedule_s.DeleteSchedule;
+using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
 using Ejournal.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +25,26 @@ namespace Ejournal.WebApi.Controllers
             var ratingLogId = await Mediator.Send(command);
             return Ok();
            // return CreatedAtAction(nameof(Get), new { Id = ratingLogId }, null);
+        }
+
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update([FromBody] UpdateScheduleDto updateScheduleDto, Guid Id)
+        {
+            updateScheduleDto.ScheduleId = Id;
+            var command = _mapper.Map<UpdateScheduleCommand>(updateScheduleDto);
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var command = new DeleteScheduleComamnd
+            {
+                ScheduleId = Id
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }
