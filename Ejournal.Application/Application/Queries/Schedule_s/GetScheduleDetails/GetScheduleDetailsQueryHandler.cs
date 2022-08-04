@@ -30,6 +30,7 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
                 .Include(d => d.ScheduleDays)
                     .ThenInclude(ss => ss.ScheduleSubjects)
                         .ThenInclude(s => s.Subject)
+                .Include(g => g.StudentGroup)
                 .ProjectTo<ScheduleDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 

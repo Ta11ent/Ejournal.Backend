@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,9 +26,16 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList
 
         public async Task<ScheduleListResponseVm> Handle(GetScheduleListQuery request, CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<Schedule>();
+
             var entity =
                 await _dbContext.Schedules
-                .Where(x => x.Active == request.Parametrs.Active)
+                .Where(predicate
+                    .And(x => x.Active == request.Parametrs.Active)
+                    .And(x => x.StudentGroupId == request.Parametrs.Group, 
+                        request.Parametrs.Group))
+                .Include(g => g.StudentGroup)
+                .Include(p => p.Part)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<ScheduleLookupDto>(_mapper.ConfigurationProvider)

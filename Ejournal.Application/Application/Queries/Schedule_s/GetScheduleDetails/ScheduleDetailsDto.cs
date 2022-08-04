@@ -7,11 +7,13 @@ using System.Linq;
 
 namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
 {
-    public class ScheduleDetailsDto : IMapWith<Schedule>
+    public  class ScheduleDetailsDto : IMapWith<Schedule>
     {
         public Guid ScheduleId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
+        public GroupDto Group { get; set; }
+        public string Part { get; set; }
         public List<ScheduleDayDto> ScheduleDays { get; set; }
         public bool Active { get; set; }
         public void Mapping(Profile profile)
@@ -23,6 +25,10 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
                     opt => opt.MapFrom(entity => entity.Description))
                  .ForMember(entityDto => entityDto.Date,
                     opt => opt.MapFrom(entity => entity.Date))
+                 .ForMember(entityDto => entityDto.Group,
+                    opt => opt.MapFrom(entity => entity.StudentGroup))
+                 .ForMember(entityDto => entityDto.Part,
+                    opt => opt.MapFrom(entity => entity.Part.Name))
                  .ForMember(entityDto => entityDto.Active,
                     opt => opt.MapFrom(entity => entity.Active))
                  .ForMember(entityDto => entityDto.ScheduleDays,
@@ -68,6 +74,20 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
                     opt => opt.MapFrom(entity => entity.Order))
                   .ForMember(entityDto => entityDto.Active,
                     opt => opt.MapFrom(entity => entity.Active));
+        }
+    }
+    public class GroupDto : IMapWith<StudentGroup>
+    {
+        public Guid GroupId { get; set; }
+        public string Name { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<StudentGroup, GroupDto>()
+                .ForMember(entityDto => entityDto.GroupId,
+                    opt => opt.MapFrom(entity => entity.StudentGroupId))
+                .ForMember(entityDto => entityDto.Name,
+                    opt => opt.MapFrom(entity => entity.Name));
         }
     }
 }
