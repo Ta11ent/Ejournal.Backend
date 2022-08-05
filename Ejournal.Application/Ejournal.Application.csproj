@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Ejournal.Domain\Ejournal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Queries\ScheduleDay_s\GetScheduleDayList\" />
+  </ItemGroup>
+
 </Project>
