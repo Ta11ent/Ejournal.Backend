@@ -5,15 +5,15 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ejournal.Application.Application.Command.ScheduleDate_s.CreateCheduleDate
+namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDate
 {
-    internal class CreateScheduleDateCommandHandler : IRequestHandler<CreateScheduleDateCommand, Guid>
+    internal class CreateScheduleDayCommandHandler : IRequestHandler<CreateScheduleDayCommand, Guid>
     {
         private readonly IEjournalDbContext _dbContext;
-        internal CreateScheduleDateCommandHandler(IEjournalDbContext dbContext) =>
+        internal CreateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
-        public async Task<Guid> Handle(CreateScheduleDateCommand request,
+        public async Task<Guid> Handle(CreateScheduleDayCommand request,
             CancellationToken cancellationToken)
         {
             var day = new ScheduleDay
