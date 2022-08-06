@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate
+namespace Ejournal.Application.Application.Command.ScheduleDay_s.UpdateScheduleDate
 {
     public class UpdateSchduleDayCommand : IRequest
     {

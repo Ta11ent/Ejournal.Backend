@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate
+namespace Ejournal.Application.Application.Command.ScheduleDay_s.UpdateScheduleDate
 {
     public class UpdateScheduleDayCommandHandler : IRequestHandler<UpdateSchduleDayCommand>
     {

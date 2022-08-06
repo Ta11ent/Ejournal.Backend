@@ -2,15 +2,15 @@
 using Ejournal.Application.Application.Command.Schedule_s.CreateSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.DeleteSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
-using Ejournal.Application.Application.Command.ScheduleDate_s.DeleteScheduleDate;
-using Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate;
+using Ejournal.Application.Application.Command.ScheduleDay_s.DeleteScheduleDate;
+using Ejournal.Application.Application.Command.ScheduleDay_s.UpdateScheduleDate;
 using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDate;
 using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails;
 using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList;
 using Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayDetails;
+using Ejournal.Application.Application.Queries.ScheduleSubject_s.GetScheduleSubjectDetails;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
-using Ejournal.WebApi.Models.ScheduleDay;
+using Ejournal.WebApi.Models.Schedule;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -56,6 +56,21 @@ namespace Ejournal.WebApi.Controllers
             {
                 ScheduleId = scheduleId,
                 Day = (DayOfWeek)day
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
+        [HttpGet]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:int}/")]
+        public async Task<ActionResult<ScheduleDayDetailsResponseVm>> GetScheduleDaySbject(Guid scheduleId, int day, Guid subjectId)
+        {
+            var query = new GetScheduleSubjectDetailsQuery
+            {
+                ScheduleId = scheduleId,
+                Day = (DayOfWeek)day,
+                ScheduleSubjectId = subjectId
+
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);

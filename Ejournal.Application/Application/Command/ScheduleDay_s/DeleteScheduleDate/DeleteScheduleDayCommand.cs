@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Ejournal.Application.Application.Command.ScheduleDate_s.DeleteScheduleDate
+namespace Ejournal.Application.Application.Command.ScheduleDay_s.DeleteScheduleDate
 {
     public  class DeleteScheduleDayCommand : IRequest
     {

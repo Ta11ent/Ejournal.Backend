@@ -3,7 +3,7 @@ using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Schedule
 {
     public class UpdateScheduleDto : IMapWith<UpdateScheduleCommand>
     {

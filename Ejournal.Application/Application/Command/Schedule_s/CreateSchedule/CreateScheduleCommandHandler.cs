@@ -1,4 +1,5 @@
-﻿using Ejournal.Application.Interfaces;
+﻿using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDay;
+using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using System;
@@ -29,15 +30,9 @@ namespace Ejournal.Application.Application.Command.Schedule_s.CreateSchedule
             _dbContext.Schedules.Add(schedule);
 
             var days = new List<ScheduleDay>();
-            for(int i = 0; i<=5; i++)
+            for (int i = 0; i <= 5; i++)
             {
-                days.Add(new ScheduleDay
-                {
-                    ScheduleDayId = Guid.NewGuid(),
-                    ScheduleId = schedule.ScheduleId,
-                    Active = true,
-                    Day = (DayOfWeek)i + 1
-                });
+                days.Add(ScheduleDayAction.Create(schedule.ScheduleId, (DayOfWeek)i + 1));
             }
 
             await _dbContext.ScheduleDays.AddRangeAsync(days, cancellationToken);

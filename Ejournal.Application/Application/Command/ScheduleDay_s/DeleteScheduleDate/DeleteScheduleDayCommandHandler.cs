@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ejournal.Application.Application.Command.ScheduleDate_s.DeleteScheduleDate
+namespace Ejournal.Application.Application.Command.ScheduleDay_s.DeleteScheduleDate
 {
     public class DeleteScheduleDayCommandHandler : IRequestHandler<DeleteScheduleDayCommand>
     {

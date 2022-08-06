@@ -1,4 +1,5 @@
-﻿using Ejournal.Application.Interfaces;
+﻿using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDay;
+using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using System;
@@ -16,18 +17,14 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
         public async Task<int> Handle(CreateScheduleDayCommand request,
             CancellationToken cancellationToken)
         {
-            var day = new ScheduleDay
-            {
-                ScheduleDayId = Guid.NewGuid(),
-                ScheduleId = request.ScheduleId,
-                Day = request.Day,
-                Active = true
-            };
-
+            var day =  ScheduleDayAction.Create(request.ScheduleId, request.Day);
             await _dbContext.ScheduleDays.AddAsync(day, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return (int)day.Day;
         }
+
+       
+
     }
 }

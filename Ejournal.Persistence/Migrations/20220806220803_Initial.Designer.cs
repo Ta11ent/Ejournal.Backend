@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ejournal.Persistence.Migrations
 {
     [DbContext(typeof(EjournalDbContext))]
-    [Migration("20220806152112_Initial")]
+    [Migration("20220806220803_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -337,28 +337,25 @@ namespace Ejournal.Persistence.Migrations
 
             modelBuilder.Entity("Ejournal.Domain.ScheduleDay", b =>
                 {
-                    b.Property<Guid>("ScheduleDayId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("ScheduleId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ScheduleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
-                    b.HasKey("ScheduleDayId");
+                    b.Property<string>("ScheduleDayId")
+                        .HasMaxLength(37)
+                        .HasColumnType("nvarchar(37)");
 
-                    b.HasIndex("Day")
-                        .IsUnique();
+                    b.HasKey("ScheduleId", "Day")
+                        .IsClustered();
 
                     b.HasIndex("ScheduleDayId")
-                        .IsUnique();
-
-                    b.HasIndex("ScheduleId");
+                        .IsUnique()
+                        .HasFilter("[ScheduleDayId] IS NOT NULL");
 
                     b.ToTable("ScheduleDays");
                 });
@@ -378,7 +375,13 @@ namespace Ejournal.Persistence.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ScheduleDayDay")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ScheduleDayId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ScheduleDayScheduleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SubjectId")
@@ -388,12 +391,12 @@ namespace Ejournal.Persistence.Migrations
 
                     b.HasIndex("DepartmentMemberId");
 
-                    b.HasIndex("ScheduleDayId");
-
                     b.HasIndex("ScheduleSubjectId")
                         .IsUnique();
 
                     b.HasIndex("SubjectId");
+
+                    b.HasIndex("ScheduleDayScheduleId", "ScheduleDayDay");
 
                     b.ToTable("ScheduleSubjects");
                 });
@@ -724,17 +727,15 @@ namespace Ejournal.Persistence.Migrations
                         .WithMany("ScheduleSubjects")
                         .HasForeignKey("DepartmentMemberId");
 
-                    b.HasOne("Ejournal.Domain.ScheduleDay", "ScheduleDay")
-                        .WithMany("ScheduleSubjects")
-                        .HasForeignKey("ScheduleDayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Ejournal.Domain.Subject", "Subject")
                         .WithMany("ScheduleSubjects")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Ejournal.Domain.ScheduleDay", "ScheduleDay")
+                        .WithMany("ScheduleSubjects")
+                        .HasForeignKey("ScheduleDayScheduleId", "ScheduleDayDay");
 
                     b.Navigation("DepartmentMember");
 

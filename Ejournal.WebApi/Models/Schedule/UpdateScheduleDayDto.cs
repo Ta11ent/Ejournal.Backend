@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate;
+using Ejournal.Application.Application.Command.ScheduleDay_s.UpdateScheduleDate;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models.ScheduleDay
+namespace Ejournal.WebApi.Models.Schedule
 {
     public class UpdateScheduleDayDto : IMapWith<UpdateSchduleDayCommand>
     {

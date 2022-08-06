@@ -14,13 +14,13 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.CreateSched
            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
         public async Task<Guid> Handle(CreateScheduleSubjectCommand request,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken) 
         {
             var subject = new ScheduleSubject
             {
                 Order = request.Order,
                 Active = true,
-                ScheduleDayId = request.ScheduleDayId,
+                ScheduleDayId = request.
                 SubjectId = request.SubjectId,
                 DepartmentMemberId = request.DepartmentMemberId
             };

@@ -338,14 +338,15 @@ namespace Ejournal.Persistence.Migrations
                 name: "ScheduleDays",
                 columns: table => new
                 {
-                    ScheduleDayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Day = table.Column<int>(type: "int", nullable: false),
-                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleDayId = table.Column<string>(type: "nvarchar(37)", maxLength: 37, nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ScheduleDays", x => x.ScheduleDayId);
+                    table.PrimaryKey("PK_ScheduleDays", x => new { x.ScheduleId, x.Day })
+                        .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
                         name: "FK_ScheduleDays_Schedules_ScheduleId",
                         column: x => x.ScheduleId,
@@ -403,6 +404,8 @@ namespace Ejournal.Persistence.Migrations
                     Order = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ScheduleDayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleDayScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ScheduleDayDay = table.Column<int>(type: "int", nullable: true),
                     SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -416,11 +419,11 @@ namespace Ejournal.Persistence.Migrations
                         principalColumn: "DepartmentMemberId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ScheduleSubjects_ScheduleDays_ScheduleDayId",
-                        column: x => x.ScheduleDayId,
+                        name: "FK_ScheduleSubjects_ScheduleDays_ScheduleDayScheduleId_ScheduleDayDay",
+                        columns: x => new { x.ScheduleDayScheduleId, x.ScheduleDayDay },
                         principalTable: "ScheduleDays",
-                        principalColumn: "ScheduleDayId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumns: new[] { "ScheduleId", "Day" },
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ScheduleSubjects_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -560,21 +563,11 @@ namespace Ejournal.Persistence.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ScheduleDays_Day",
-                table: "ScheduleDays",
-                column: "Day",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ScheduleDays_ScheduleDayId",
                 table: "ScheduleDays",
                 column: "ScheduleDayId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ScheduleDays_ScheduleId",
-                table: "ScheduleDays",
-                column: "ScheduleId");
+                unique: true,
+                filter: "[ScheduleDayId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_PartId",
@@ -598,9 +591,9 @@ namespace Ejournal.Persistence.Migrations
                 column: "DepartmentMemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ScheduleSubjects_ScheduleDayId",
+                name: "IX_ScheduleSubjects_ScheduleDayScheduleId_ScheduleDayDay",
                 table: "ScheduleSubjects",
-                column: "ScheduleDayId");
+                columns: new[] { "ScheduleDayScheduleId", "ScheduleDayDay" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ScheduleSubjects_ScheduleSubjectId",

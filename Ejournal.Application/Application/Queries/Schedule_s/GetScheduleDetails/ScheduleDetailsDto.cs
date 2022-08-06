@@ -39,7 +39,7 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
 
     public class ScheduleDayDto : IMapWith<ScheduleDay>
     {
-        public Guid ScheduleDayId { get; set; }
+        public string ScheduleDayId { get; set; }
         public DayOfWeek Day { get; set; }
         public List<SubjectDto> DaySubjects { get; set; }
         public void Mapping(Profile profile)

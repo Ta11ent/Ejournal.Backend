@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayD
 {
     public class ScheduleDayDetailsDto : IMapWith<ScheduleDay>
     {
-        public Guid ScheduleDayId { get; set; }
+        public string ScheduleDayId { get; set; }
         public DayOfWeek Day { get; set; }
         public List<SubjectDto> Subjects { get; set; }
         public bool Active { get; set; }

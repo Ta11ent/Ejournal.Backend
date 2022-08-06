@@ -5,7 +5,7 @@ namespace Ejournal.Domain
 {
     public class ScheduleDay
     {
-        public Guid ScheduleDayId { get; set; }
+        public string ScheduleDayId { get; set; }
         public bool Active { get; set; }
         public DayOfWeek Day { get; set; }
 
