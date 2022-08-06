@@ -59,6 +59,7 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
         public Guid ScheduleSubjectId { get; set; }
         public Guid SubjectId { get; set; }
         public string Subject { get; set; }
+        public string Professor { get; set; }
         public int Order { get; set; }
         public bool Active { get; set; }
         public void Mapping(Profile profile)
@@ -70,6 +71,9 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails
                     opt => opt.MapFrom(entity => entity.Subject.SubjectId))
                  .ForMember(entityDto => entityDto.Subject,
                     opt => opt.MapFrom(entity => entity.Subject.Name))
+                 .ForMember(entityDto => entityDto.Professor,
+                    opt => opt.MapFrom(entity => 
+                        $"{entity.DepartmentMember.Professor.LastName} {entity.DepartmentMember.Professor.MiddleName} {entity.DepartmentMember.Professor.FirstName}"))
                  .ForMember(entityDto => entityDto.Order,
                     opt => opt.MapFrom(entity => entity.Order))
                   .ForMember(entityDto => entityDto.Active,
