@@ -6,11 +6,12 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
 {
     internal static class ScheduleDayAction
     {
-        internal static ScheduleDay Create(Guid scheduleId, DayOfWeek day)
+        internal static ScheduleDay Create(Guid scheduleId, int day)
         {
             return new ScheduleDay
             {
                 ScheduleDayId = scheduleId.ToString() + day.ToString(),
+                ScheduleId = scheduleId,
                 Day = day,
                 Active = true
             };

@@ -55,7 +55,7 @@ namespace Ejournal.WebApi.Controllers
             var query = new GetScheduleDayDetailsQuery
             {
                 ScheduleId = scheduleId,
-                Day = (DayOfWeek)day
+                Day = day
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -68,7 +68,7 @@ namespace Ejournal.WebApi.Controllers
             var query = new GetScheduleSubjectDetailsQuery
             {
                 ScheduleId = scheduleId,
-                Day = (DayOfWeek)day,
+                Day = day,
                 ScheduleSubjectId = subjectId
 
             };
@@ -111,7 +111,7 @@ namespace Ejournal.WebApi.Controllers
             Guid scheduleId, int day)
         {
             updateScheduleDayDto.ScheduleId = scheduleId;
-            updateScheduleDayDto.Day = (DayOfWeek)day;
+            updateScheduleDayDto.Day = day;
             var command = _mapper.Map<UpdateSchduleDayCommand>(updateScheduleDayDto);
             await Mediator.Send(command);
             return NoContent();
@@ -135,7 +135,7 @@ namespace Ejournal.WebApi.Controllers
             var command = new DeleteScheduleDayCommand
             {
                 ScheduleId = scheduleId,
-                Day = (DayOfWeek)day
+                Day = day
             };
             await Mediator.Send(command);
             return NoContent();

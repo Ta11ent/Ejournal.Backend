@@ -6,6 +6,6 @@ namespace Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayD
     public class GetScheduleDayDetailsQuery : IRequest<ScheduleDayDetailsResponseVm>
     {
         public Guid ScheduleId { get; set; }
-        public DayOfWeek Day { get; set; }
+        public int Day { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Ejournal.WebApi.Models.Schedule
 {
     public class CreateScheduleDayDto : IMapWith<CreateScheduleDayCommand>
     {
-        public DayOfWeek Day { get; set; }
+        public int Day { get; set; }
         public Guid ScheuleId { get; set; }
         public void Mapping (Profile profile)
         {

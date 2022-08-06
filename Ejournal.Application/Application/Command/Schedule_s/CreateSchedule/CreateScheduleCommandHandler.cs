@@ -32,7 +32,7 @@ namespace Ejournal.Application.Application.Command.Schedule_s.CreateSchedule
             var days = new List<ScheduleDay>();
             for (int i = 0; i <= 5; i++)
             {
-                days.Add(ScheduleDayAction.Create(schedule.ScheduleId, (DayOfWeek)i + 1));
+                days.Add(ScheduleDayAction.Create(schedule.ScheduleId, i + 1));
             }
 
             await _dbContext.ScheduleDays.AddRangeAsync(days, cancellationToken);
