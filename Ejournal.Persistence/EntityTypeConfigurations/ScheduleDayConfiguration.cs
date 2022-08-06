@@ -10,7 +10,6 @@ namespace Ejournal.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.ScheduleDayId);
             builder.HasIndex(x => x.ScheduleDayId).IsUnique();
-            builder.HasIndex(x => x.Day).IsUnique(); 
         }
     }
 }
