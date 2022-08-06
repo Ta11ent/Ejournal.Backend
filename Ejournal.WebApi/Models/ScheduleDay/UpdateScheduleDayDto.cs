@@ -5,11 +5,12 @@ using System;
 
 namespace Ejournal.WebApi.Models.ScheduleDay
 {
-    internal class UpdateScheduleDayDto : IMapWith<UpdateSchduleDayCommand>
+    public class UpdateScheduleDayDto : IMapWith<UpdateSchduleDayCommand>
     {
-        internal DayOfWeek Day { get; set; }
-        internal bool Active { get; set; }
-        internal void Mapping(Profile profile)
+        public Guid ScheduleId { get; set; }
+        public DayOfWeek Day { get; set; }
+        public bool Active { get; set; }
+        public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateScheduleDayDto, UpdateSchduleDayCommand>()
                 .ForMember(entityDto => entityDto.Day,

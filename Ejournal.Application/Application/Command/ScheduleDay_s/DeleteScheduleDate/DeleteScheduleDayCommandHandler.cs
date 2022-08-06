@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Command.ScheduleDate_s.DeleteScheduleDate
 {
-    internal class DeleteScheduleDayCommandHandler : IRequestHandler<DeleteScheduleDayCommand>
+    public class DeleteScheduleDayCommandHandler : IRequestHandler<DeleteScheduleDayCommand>
     {
         private readonly IEjournalDbContext _dbContext;
-        internal DeleteScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
+        public DeleteScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
         public async Task<Unit> Handle(DeleteScheduleDayCommand request, CancellationToken cancellationToken)

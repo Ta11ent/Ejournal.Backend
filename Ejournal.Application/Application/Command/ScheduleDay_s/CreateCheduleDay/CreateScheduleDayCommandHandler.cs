@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDate
 {
-    internal class CreateScheduleDayCommandHandler : IRequestHandler<CreateScheduleDayCommand, Guid>
+    public class CreateScheduleDayCommandHandler : IRequestHandler<CreateScheduleDayCommand, int>
     {
         private readonly IEjournalDbContext _dbContext;
-        internal CreateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
+        public CreateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
 
-        public async Task<Guid> Handle(CreateScheduleDayCommand request,
+        public async Task<int> Handle(CreateScheduleDayCommand request,
             CancellationToken cancellationToken)
         {
             var day = new ScheduleDay
@@ -27,7 +27,7 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
             await _dbContext.ScheduleDays.AddAsync(day, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return day.ScheduleDayId;
+            return (int)day.Day;
         }
     }
 }

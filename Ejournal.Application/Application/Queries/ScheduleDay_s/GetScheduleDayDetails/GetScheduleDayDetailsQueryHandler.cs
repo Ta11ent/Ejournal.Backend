@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayDetails
 {
-    internal class GetScheduleDayDetailsQueryHandler 
+    public class GetScheduleDayDetailsQueryHandler 
         : IRequestHandler<GetScheduleDayDetailsQuery, ScheduleDayDetailsResponseVm>
     {
         private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
-        internal GetScheduleDayDetailsQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
+        public GetScheduleDayDetailsQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
             _mapper = mapper;
@@ -28,7 +28,9 @@ namespace Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayD
         {
             var entity =
                 await _dbContext.ScheduleDays
-                .Where(x => x.Day == request.Day)
+                .Where(x =>  
+                    x.ScheduleId == request.ScheduleId &&
+                    x.Day == request.Day)
                 .Include(d => d.ScheduleSubjects)
                 .ProjectTo<ScheduleDayDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);

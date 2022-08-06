@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate
 {
-    internal class UpdateScheduleDayCommandHandler : IRequestHandler<UpdateSchduleDayCommand>
+    public class UpdateScheduleDayCommandHandler : IRequestHandler<UpdateSchduleDayCommand>
     {
         private IEjournalDbContext _dbContext;
-        internal UpdateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
+        public UpdateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         public async Task<Unit> Handle(UpdateSchduleDayCommand request, CancellationToken cancellationToken)
         {
