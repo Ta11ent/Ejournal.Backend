@@ -340,7 +340,7 @@ namespace Ejournal.Persistence.Migrations
                 {
                     Day = table.Column<int>(type: "int", nullable: false),
                     ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ScheduleDayId = table.Column<string>(type: "nvarchar(37)", maxLength: 37, nullable: true),
+                    ScheduleDayId = table.Column<string>(type: "nvarchar(38)", maxLength: 38, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

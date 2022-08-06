@@ -10,11 +10,14 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
         {
             return new ScheduleDay
             {
-                ScheduleDayId = scheduleId.ToString() + day.ToString(),
+                ScheduleDayId = GenerateDayId(scheduleId, day),
                 ScheduleId = scheduleId,
                 Day = day,
                 Active = true
             };
         }
+
+        internal static string GenerateDayId(Guid scheduleId, int day) =>
+                scheduleId.ToString() + day.ToString();
     }
 }

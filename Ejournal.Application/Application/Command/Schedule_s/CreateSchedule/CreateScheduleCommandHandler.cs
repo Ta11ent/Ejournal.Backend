@@ -29,7 +29,7 @@ namespace Ejournal.Application.Application.Command.Schedule_s.CreateSchedule
 
             _dbContext.Schedules.Add(schedule);
 
-            var days = new List<ScheduleDay>();
+            var days = new List<Domain.ScheduleDay>();
             for (int i = 0; i <= 5; i++)
             {
                 days.Add(ScheduleDayAction.Create(schedule.ScheduleId, i + 1));

@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateSched
     {
         public Guid ScheduleId { get; set; }
         public int Day { get; set; }
-        public Guid ScheduleSubjectId { get; set; }
+        public string ScheduleSubjectId { get; set; }
         public int Order { get; set; }
         public bool Active { get; set; }
         public Guid SubjectId { get; set; }

@@ -17,7 +17,7 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
         public async Task<int> Handle(CreateScheduleDayCommand request,
             CancellationToken cancellationToken)
         {
-            var day =  ScheduleDayAction.Create(request.ScheduleId, request.Day);
+            var day = ScheduleDayAction.Create(request.ScheduleId, request.Day);
             await _dbContext.ScheduleDays.AddAsync(day, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 

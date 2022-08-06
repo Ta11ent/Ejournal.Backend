@@ -345,8 +345,8 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ScheduleDayId")
-                        .HasMaxLength(37)
-                        .HasColumnType("nvarchar(37)");
+                        .HasMaxLength(38)
+                        .HasColumnType("nvarchar(38)");
 
                     b.HasKey("ScheduleId", "Day")
                         .IsClustered();

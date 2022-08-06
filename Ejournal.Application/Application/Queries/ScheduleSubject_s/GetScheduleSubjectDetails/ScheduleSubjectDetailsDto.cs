@@ -8,7 +8,7 @@ namespace Ejournal.Application.Application.Queries.ScheduleSubject_s.GetSchedule
     public class ScheduleSubjectDetailsDto : IMapWith<ScheduleSubject>
     {
         public Guid ScheduleSubjectId { get; set; }
-        public DayOfWeek Day { get; set; }
+        public int Day { get; set; }
         public int Order { get; set; }
         public SubjectDto Subject { get; set; }
         public ProfessorDto Professor { get; set; }

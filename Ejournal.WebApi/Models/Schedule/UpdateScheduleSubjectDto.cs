@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleSubject;
+using Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateScheduleSubject;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-
 namespace Ejournal.WebApi.Models.Schedule
 {
-    public class CreateScheduleSubjectDto : IMapWith<CreateScheduleSubjectCommand>
+    public class UpdateScheduleSubjectDto : IMapWith<UpdateScheduleSubjectCommand>
     {
+        public string ScheduleSubId { get; set; }
         public int Order { get; set; }
         public bool Active { get; set; }
         public Guid ScheduleId { get; set; }
@@ -16,7 +16,9 @@ namespace Ejournal.WebApi.Models.Schedule
         public Guid? DepartmentMemberId { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateScheduleSubjectDto, CreateScheduleSubjectCommand>()
+            profile.CreateMap<UpdateScheduleSubjectDto, UpdateScheduleSubjectCommand>()
+                 .ForMember(entityDto => entityDto.ScheduleSubId,
+                    opt => opt.MapFrom(entity => entity.ScheduleSubId))
                 .ForMember(entityDto => entityDto.Order,
                     opt => opt.MapFrom(entity => entity.Order))
                 .ForMember(entityDto => entityDto.Active,
@@ -29,6 +31,6 @@ namespace Ejournal.WebApi.Models.Schedule
                     opt => opt.MapFrom(entity => entity.SubjectId))
                 .ForMember(entityDto => entityDto.DepartmentMemberId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId));
-        }              
+        }
     }
 }

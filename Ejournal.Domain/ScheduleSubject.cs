@@ -9,7 +9,7 @@ namespace Ejournal.Domain
         public bool Active { get; set; }
 
         //ScheduleDay
-        public Guid ScheduleDayId { get; set; }
+        public string ScheduleDayId { get; set; }
         public ScheduleDay ScheduleDay { get; set; }
 
         //Subject

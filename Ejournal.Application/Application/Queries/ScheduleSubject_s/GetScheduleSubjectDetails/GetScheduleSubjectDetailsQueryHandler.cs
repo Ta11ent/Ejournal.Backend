@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDay;
 using Ejournal.Application.Common.Exceptions;
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
@@ -29,8 +30,8 @@ namespace Ejournal.Application.Application.Queries.ScheduleSubject_s.GetSchedule
             var entity =
                 await _dbContext.ScheduleSubjects
                 .Where(x =>
-                    x.ScheduleDay.ScheduleId == request.ScheduleId &&
-                    x.ScheduleDay.Day == request.Day &&
+                    x.ScheduleDay.ScheduleDayId == 
+                        ScheduleDayAction.GenerateDayId(request.ScheduleId, request.Day) &&
                     x.ScheduleSubjectId == request.ScheduleSubjectId)
                 .Include(s => s.Subject)
                 .Include(d => d.DepartmentMember)

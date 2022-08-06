@@ -1,4 +1,5 @@
-﻿using Ejournal.Application.Interfaces;
+﻿using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDay;
+using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
 using System;
@@ -20,7 +21,7 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.CreateSched
             {
                 Order = request.Order,
                 Active = true,
-                ScheduleDayId = request.
+                ScheduleDayId = ScheduleDayAction.GenerateDayId(request.ScheduleId, request.Day),
                 SubjectId = request.SubjectId,
                 DepartmentMemberId = request.DepartmentMemberId
             };

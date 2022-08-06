@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ejournal.Persistence.Migrations
 {
     [DbContext(typeof(EjournalDbContext))]
-    [Migration("20220806220803_Initial")]
+    [Migration("20220806232217_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -347,8 +347,8 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ScheduleDayId")
-                        .HasMaxLength(37)
-                        .HasColumnType("nvarchar(37)");
+                        .HasMaxLength(38)
+                        .HasColumnType("nvarchar(38)");
 
                     b.HasKey("ScheduleId", "Day")
                         .IsClustered();
