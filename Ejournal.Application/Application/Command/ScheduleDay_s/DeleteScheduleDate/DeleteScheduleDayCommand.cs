@@ -6,6 +6,7 @@ namespace Ejournal.Application.Application.Command.ScheduleDate_s.DeleteSchedule
 {
     public  class DeleteScheduleDayCommand : IRequest
     {
+        public Guid ScheduleId { get; set; }
         public DayOfWeek Day { get; set; }
     }
 }

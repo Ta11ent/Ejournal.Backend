@@ -2,6 +2,7 @@
 using Ejournal.Application.Application.Command.Schedule_s.CreateSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.DeleteSchedule;
 using Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule;
+using Ejournal.Application.Application.Command.ScheduleDate_s.DeleteScheduleDate;
 using Ejournal.Application.Application.Command.ScheduleDate_s.UpdateScheduleDate;
 using Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDate;
 using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails;
@@ -107,6 +108,19 @@ namespace Ejournal.WebApi.Controllers
             var command = new DeleteScheduleComamnd
             {
                 ScheduleId = Id
+            };
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}")]
+        public async Task<IActionResult> DeleteScheduleDay(Guid scheduleId, int day)
+        {
+            var command = new DeleteScheduleDayCommand
+            {
+                ScheduleId = scheduleId,
+                Day = (DayOfWeek)day
             };
             await Mediator.Send(command);
             return NoContent();
