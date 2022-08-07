@@ -16,6 +16,7 @@ using System;
 using System.Threading.Tasks;
 using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleSubject;
 using Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateScheduleSubject;
+using Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteScheduleSubject;
 
 namespace Ejournal.WebApi.Controllers
 {
@@ -133,7 +134,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
-        public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleSubjectDto modelDto,
+        public async Task<IActionResult> UpdateScheduleDaySubject([FromBody] UpdateScheduleSubjectDto modelDto,
             Guid scheduleId, int day, Guid subjectId)
         {
             modelDto.ScheduleId = scheduleId;
@@ -163,6 +164,19 @@ namespace Ejournal.WebApi.Controllers
             {
                 ScheduleId = scheduleId,
                 Day = day
+            };
+            await Mediator.Send(command);
+            return NoContent();
+        }
+        [HttpDelete]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        public async Task<IActionResult> DeleteScheduleDaySubject(Guid scheduleId, int day, Guid subjectId)
+        {
+            var command = new DeleteScheduleSubjectCommand
+            {
+                ScheduleId = scheduleId,
+                Day = day,
+                ScheduleSubjectId = subjectId
             };
             await Mediator.Send(command);
             return NoContent();

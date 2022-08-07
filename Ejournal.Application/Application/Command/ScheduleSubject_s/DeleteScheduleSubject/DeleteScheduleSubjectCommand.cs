@@ -5,6 +5,8 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteSched
 {
     public class DeleteScheduleSubjectCommand : IRequest
     {
+        public Guid ScheduleId { get; set; }
+        public int Day { get; set; }
         public Guid ScheduleSubjectId { get; set; }
     }
 }

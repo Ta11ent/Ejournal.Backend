@@ -1,6 +1,8 @@
 ﻿using Ejournal.Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,8 +19,11 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteSched
         {
             var entity =
                 await _dbContext.ScheduleSubjects
-                .FindAsync(new object[] { request.ScheduleSubjectId },
-                cancellationToken);
+                .Where(x =>
+                    x.ScheduleDay.ScheduleId == request.ScheduleId &&
+                    x.ScheduleDay.Day == request.Day &&
+                    x.ScheduleSubjectId == request.ScheduleSubjectId)
+                .FirstOrDefaultAsync(cancellationToken);
 
             _dbContext.ScheduleSubjects.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);

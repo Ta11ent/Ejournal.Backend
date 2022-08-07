@@ -17,8 +17,9 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.CreateSched
         public async Task<Guid> Handle(CreateScheduleSubjectCommand request,
             CancellationToken cancellationToken) 
         {
-            var subject = new ScheduleSubject
+            var entity = new ScheduleSubject
             {
+                ScheduleSubjectId = Guid.NewGuid(),
                 Order = request.Order,
                 Active = true,
                 ScheduleDayId = ScheduleDayAction.GenerateDayId(request.ScheduleId, request.Day),
@@ -26,10 +27,10 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.CreateSched
                 DepartmentMemberId = request.DepartmentMemberId
             };
 
-            await _dbContext.ScheduleSubjects.AddAsync(subject, cancellationToken);
+            await _dbContext.ScheduleSubjects.AddAsync(entity, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return subject.ScheduleSubjectId;
+            return entity.ScheduleSubjectId;
         }
     }
 }
