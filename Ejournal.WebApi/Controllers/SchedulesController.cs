@@ -14,6 +14,7 @@ using Ejournal.WebApi.Models.Schedule;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleSubject;
 
 namespace Ejournal.WebApi.Controllers
 {
@@ -78,41 +79,66 @@ namespace Ejournal.WebApi.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto createScheduleDto)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto modelDto)
         {
-            var command = _mapper.Map<CreateScheduleCommmand>(createScheduleDto);
+            var command = _mapper.Map<CreateScheduleCommmand>(modelDto);
             var scheduleId = await Mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { Id = scheduleId }, null);
         }
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/")]
-        public async Task<ActionResult<Guid>> CreateScheduleDay([FromBody] CreateScheduleDayDto createScheduleDayDto,
+        public async Task<ActionResult<Guid>> CreateScheduleDay([FromBody] CreateScheduleDayDto modelDto,
                Guid scheduleId)
         {
-            createScheduleDayDto.ScheuleId = scheduleId;
-            var command = _mapper.Map<CreateScheduleDayCommand>(createScheduleDayDto);
+            modelDto.ScheuleId = scheduleId;
+            var command = _mapper.Map<CreateScheduleDayCommand>(modelDto);
             var day = await Mediator.Send(command);
             return CreatedAtAction(nameof(GetScheduleDay), new { scheduleId, day }, null);
         }
 
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromBody] UpdateScheduleDto updateScheduleDto, Guid Id)
+        [HttpPost]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/")]
+        public async Task<ActionResult<Guid>> CreateScheduleDaySubject([FromBody] CreateScheduleSubjectDto modelDto,
+              Guid scheduleId, int day)
         {
-            updateScheduleDto.ScheduleId = Id;
-            var command = _mapper.Map<UpdateScheduleCommand>(updateScheduleDto);
+            modelDto.ScheduleId = scheduleId;
+            modelDto.Day = day;
+            var command = _mapper.Map<CreateScheduleSubjectCommand>(modelDto);
+            var dayId = await Mediator.Send(command);
+            return CreatedAtAction(nameof(GetScheduleDay), new { scheduleId, dayId }, null);
+        }
+
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update([FromBody] UpdateScheduleDto modelDto, Guid Id)
+        {
+            modelDto.ScheduleId = Id;
+            var command = _mapper.Map<UpdateScheduleCommand>(modelDto);
             await Mediator.Send(command);
             return NoContent();
         }
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}")]
-        public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleDayDto updateScheduleDayDto,
+        public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleDayDto modelDto,
             Guid scheduleId, int day)
         {
-            updateScheduleDayDto.ScheduleId = scheduleId;
-            updateScheduleDayDto.Day = day;
-            var command = _mapper.Map<UpdateSchduleDayCommand>(updateScheduleDayDto);
+            modelDto.ScheduleId = scheduleId;
+            modelDto.Day = day;
+            var command = _mapper.Map<UpdateSchduleDayCommand>(modelDto);
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleSubjectDto modelDto,
+            Guid scheduleId, int day, Guid shSubjectId)
+        {
+            modelDto.ScheduleId = scheduleId;
+            modelDto.Day = day;
+            modelDto.ScheduleSubId = shSubjectId;
+            var command = _mapper.Map<UpdateScheduleSubjectDto>(modelDto);
             await Mediator.Send(command);
             return NoContent();
         }

@@ -7,7 +7,7 @@ namespace Ejournal.WebApi.Models.Schedule
 {
     public class UpdateScheduleSubjectDto : IMapWith<UpdateScheduleSubjectCommand>
     {
-        public string ScheduleSubId { get; set; }
+        public Guid ScheduleSubId { get; set; }
         public int Order { get; set; }
         public bool Active { get; set; }
         public Guid ScheduleId { get; set; }
@@ -17,7 +17,7 @@ namespace Ejournal.WebApi.Models.Schedule
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateScheduleSubjectDto, UpdateScheduleSubjectCommand>()
-                 .ForMember(entityDto => entityDto.ScheduleSubId,
+                 .ForMember(entityDto => entityDto.ScheduleSubjectId,
                     opt => opt.MapFrom(entity => entity.ScheduleSubId))
                 .ForMember(entityDto => entityDto.Order,
                     opt => opt.MapFrom(entity => entity.Order))
