@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleSubject;
-using Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateScheduleSubject;
 
 namespace Ejournal.WebApi.Controllers
 {
@@ -64,7 +63,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:int}/")]
         public async Task<ActionResult<ScheduleDayDetailsResponseVm>> GetScheduleDaySbject(Guid scheduleId, int day, Guid subjectId)
         {
             var query = new GetScheduleSubjectDetailsQuery
@@ -134,12 +133,12 @@ namespace Ejournal.WebApi.Controllers
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
         public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleSubjectDto modelDto,
-            Guid scheduleId, int day, Guid subjectId)
+            Guid scheduleId, int day, Guid shSubjectId)
         {
             modelDto.ScheduleId = scheduleId;
             modelDto.Day = day;
-            modelDto.ScheduleSubId = subjectId;
-            var command = _mapper.Map<UpdateScheduleSubjectCommand>(modelDto);
+            modelDto.ScheduleSubId = shSubjectId;
+            var command = _mapper.Map<UpdateScheduleSubjectDto>(modelDto);
             await Mediator.Send(command);
             return NoContent();
         }
