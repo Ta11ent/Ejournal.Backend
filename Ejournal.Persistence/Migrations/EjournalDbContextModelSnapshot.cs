@@ -345,6 +345,7 @@ namespace Ejournal.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ScheduleDayId")
+                        .IsRequired()
                         .HasMaxLength(38)
                         .HasColumnType("nvarchar(38)");
 
@@ -352,8 +353,7 @@ namespace Ejournal.Persistence.Migrations
                         .IsClustered();
 
                     b.HasIndex("ScheduleDayId")
-                        .IsUnique()
-                        .HasFilter("[ScheduleDayId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ScheduleDays");
                 });
@@ -373,14 +373,8 @@ namespace Ejournal.Persistence.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ScheduleDayDay")
-                        .HasColumnType("int");
-
                     b.Property<string>("ScheduleDayId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ScheduleDayScheduleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("nvarchar(38)");
 
                     b.Property<Guid>("SubjectId")
                         .HasColumnType("uniqueidentifier");
@@ -389,12 +383,12 @@ namespace Ejournal.Persistence.Migrations
 
                     b.HasIndex("DepartmentMemberId");
 
+                    b.HasIndex("ScheduleDayId");
+
                     b.HasIndex("ScheduleSubjectId")
                         .IsUnique();
 
                     b.HasIndex("SubjectId");
-
-                    b.HasIndex("ScheduleDayScheduleId", "ScheduleDayDay");
 
                     b.ToTable("ScheduleSubjects");
                 });
@@ -725,15 +719,16 @@ namespace Ejournal.Persistence.Migrations
                         .WithMany("ScheduleSubjects")
                         .HasForeignKey("DepartmentMemberId");
 
+                    b.HasOne("Ejournal.Domain.ScheduleDay", "ScheduleDay")
+                        .WithMany("ScheduleSubjects")
+                        .HasForeignKey("ScheduleDayId")
+                        .HasPrincipalKey("ScheduleDayId");
+
                     b.HasOne("Ejournal.Domain.Subject", "Subject")
                         .WithMany("ScheduleSubjects")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Ejournal.Domain.ScheduleDay", "ScheduleDay")
-                        .WithMany("ScheduleSubjects")
-                        .HasForeignKey("ScheduleDayScheduleId", "ScheduleDayDay");
 
                     b.Navigation("DepartmentMember");
 
