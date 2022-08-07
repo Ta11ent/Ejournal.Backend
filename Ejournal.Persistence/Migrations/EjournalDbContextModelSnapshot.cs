@@ -376,8 +376,8 @@ namespace Ejournal.Persistence.Migrations
                     b.Property<int?>("ScheduleDayDay")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ScheduleDayId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ScheduleDayId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ScheduleDayScheduleId")
                         .HasColumnType("uniqueidentifier");

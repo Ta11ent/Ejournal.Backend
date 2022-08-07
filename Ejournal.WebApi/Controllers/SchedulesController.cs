@@ -106,7 +106,7 @@ namespace Ejournal.WebApi.Controllers
             modelDto.Day = day;
             var command = _mapper.Map<CreateScheduleSubjectCommand>(modelDto);
             var dayId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetScheduleDay), new { scheduleId, dayId }, null);
+            return CreatedAtAction(nameof(GetScheduleDay), new { scheduleId, day, dayId }, null);
         }
 
         [HttpPut("{Id}")]

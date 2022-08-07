@@ -403,7 +403,7 @@ namespace Ejournal.Persistence.Migrations
                     ScheduleSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
-                    ScheduleDayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleDayId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ScheduleDayScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ScheduleDayDay = table.Column<int>(type: "int", nullable: true),
                     SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

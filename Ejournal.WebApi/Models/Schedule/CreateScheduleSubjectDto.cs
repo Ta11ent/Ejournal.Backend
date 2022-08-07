@@ -9,18 +9,15 @@ namespace Ejournal.WebApi.Models.Schedule
     public class CreateScheduleSubjectDto : IMapWith<CreateScheduleSubjectCommand>
     {
         public int Order { get; set; }
-        public bool Active { get; set; }
         public Guid ScheduleId { get; set; }
         public int Day { get; set; }
         public Guid SubjectId { get; set; }
-        public Guid? DepartmentMemberId { get; set; }
+        public Guid? DepartmentMemberId { get; set; } //professor
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateScheduleSubjectDto, CreateScheduleSubjectCommand>()
                 .ForMember(entityDto => entityDto.Order,
                     opt => opt.MapFrom(entity => entity.Order))
-                .ForMember(entityDto => entityDto.Active,
-                    opt => opt.MapFrom(entity => entity.Active))
                 .ForMember(entityDto => entityDto.ScheduleId,
                     opt => opt.MapFrom(entity => entity.ScheduleId))
                 .ForMember(entityDto => entityDto.Day,

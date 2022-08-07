@@ -6,7 +6,6 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.CreateSched
     public class CreateScheduleSubjectCommand : IRequest<Guid>
     {
         public int Order { get; set; }
-        public bool Active { get; set; }
         public Guid ScheduleId { get; set; }
         public int Day { get; set; }
         public Guid SubjectId { get; set; }
