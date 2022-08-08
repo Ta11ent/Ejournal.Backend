@@ -5,7 +5,7 @@ using Ejournal.Application.Application.Command.Part_s.UpdatePart;
 using Ejournal.Application.Application.Queries.Part_s.GetPartDetails;
 using Ejournal.Application.Application.Queries.Part_s.GetPartList;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.Part;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

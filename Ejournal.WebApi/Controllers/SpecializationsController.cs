@@ -5,7 +5,7 @@ using Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecializatio
 using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationDetails;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationList;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.Specialization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromBody] UpdatePartDto updateSpecializationDto, Guid Id)
+        public async Task<IActionResult> Update([FromBody] UpdateSpecializationDto updateSpecializationDto, Guid Id)
         {
             var command = _mapper.Map<UpdateSpecializationCommand>(updateSpecializationDto);
             command.SpecializationId = Id;

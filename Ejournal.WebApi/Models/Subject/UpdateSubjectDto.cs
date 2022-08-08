@@ -3,7 +3,7 @@ using Ejournal.Application.Application.Command.Subject_s.UpdateSubject;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Subject
 {
     public class UpdateSubjectDto : IMapWith<UpdateSubjectCommand>
     {

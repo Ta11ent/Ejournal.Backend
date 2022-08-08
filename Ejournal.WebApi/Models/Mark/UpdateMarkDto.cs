@@ -4,7 +4,7 @@ using Ejournal.Application.Application.Command.Mark_s.UpdateMark;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Mark
 {
     public class UpdateMarkDto : IMapWith<CreateMarkCommand>
     {

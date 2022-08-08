@@ -2,7 +2,7 @@
 using Ejournal.Application.Application.Command.Mark_s.CreateMark;
 using Ejournal.Application.Common.Mappings;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Mark
 {
     public class CreateMarkDto : IMapWith<CreateMarkCommand>
     {

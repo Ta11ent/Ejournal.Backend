@@ -2,7 +2,7 @@
 using Ejournal.Application.Common.Mappings;
 using Ejournal.Application.Ejournal.Command.Specialization_s.CreateSpecialization;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Specialization
 {
     public class CreateSpecializationDto : IMapWith<CreateSpecializationCommand>
     {

@@ -2,7 +2,7 @@
 using Ejournal.Application.Common.Mappings;
 using Ejournal.Application.Ejournal.Command.Course_s.CreateCourse;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Course
 {
     public class CreateCourseDto : IMapWith<CreateCourseCommand>
     {

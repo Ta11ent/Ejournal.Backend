@@ -5,7 +5,7 @@ using Ejournal.Application.Application.Command.Mark_s.UpdateMark;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkDetails;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkList;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.Mark;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

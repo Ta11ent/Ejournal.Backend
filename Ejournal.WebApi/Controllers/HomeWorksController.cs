@@ -5,7 +5,7 @@ using Ejournal.Application.Application.Command.HomeWork_s.UpdateHomeWork;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkDetails;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.HomeWork;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

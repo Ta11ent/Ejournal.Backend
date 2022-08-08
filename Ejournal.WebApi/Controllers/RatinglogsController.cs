@@ -5,7 +5,7 @@ using Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetails;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.RatingLog;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

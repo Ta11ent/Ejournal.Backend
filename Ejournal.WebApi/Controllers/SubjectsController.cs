@@ -5,7 +5,7 @@ using Ejournal.Application.Application.Command.Subject_s.UpdateSubject;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDetails;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectList;
 using Ejournal.Application.Common.Helpers.Filters;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.Subject;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

@@ -3,7 +3,7 @@ using Ejournal.Application.Application.Command.HomeWork_s.CreateHomeWork;
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.HomeWork
 {
     public class CreateHomeWorkDto : IMapWith<CreateHomeWorkCommand>
     {
