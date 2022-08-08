@@ -12,7 +12,7 @@ namespace Ejournal.Application.Application.Command.ScheduleDay_s.CreateCheduleDa
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateScheduleDayCommandHandler(IEjournalDbContext dbContext) =>
-           _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+           _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<int> Handle(CreateScheduleDayCommand request,
             CancellationToken cancellationToken)

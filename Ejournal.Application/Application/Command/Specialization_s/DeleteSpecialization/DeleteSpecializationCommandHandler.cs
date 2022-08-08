@@ -12,7 +12,7 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecializ
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteSpecializationCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteSpecializationCommand request, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Specializations.

@@ -22,7 +22,7 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
         public GetSpecializationDetailsQueryHandler(IEjournalDbContext dbContext,
             IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
 

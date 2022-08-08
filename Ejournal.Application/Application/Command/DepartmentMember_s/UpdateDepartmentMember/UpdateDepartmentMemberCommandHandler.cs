@@ -14,7 +14,7 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.UpdateDepa
         private readonly IEjournalDbContext _dbContext;
 
         public UpdateDepartmentMemberCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(UpdateDepartmentMemberCommand request, CancellationToken cancellationToken)
         {

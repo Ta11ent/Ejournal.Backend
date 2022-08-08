@@ -11,7 +11,7 @@ namespace Ejournal.Application.Ejournal.Command.Curriculum_s.CreateCurriculum
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateCurriculumCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Guid> Handle(CreateCurriculumCommand request, CancellationToken cancelllationToken)
         {

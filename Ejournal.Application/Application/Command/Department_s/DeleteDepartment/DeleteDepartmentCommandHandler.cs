@@ -12,7 +12,7 @@ namespace Ejournal.Application.Ejournal.Command.Department_s.DeleteDepartment
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteDepartmentCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
         {

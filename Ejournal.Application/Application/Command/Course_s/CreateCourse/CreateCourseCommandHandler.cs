@@ -12,7 +12,7 @@ namespace Ejournal.Application.Ejournal.Command.Course_s.CreateCourse
         private readonly IEjournalDbContext _dbContext;
 
         public CreateCourseCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Guid> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
         {
             var course = new Course

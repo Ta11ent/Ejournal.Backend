@@ -16,7 +16,7 @@ namespace Ejournal.Application.Application.Queries.Mark_s.GetMarkList
         private IMapper _mapper;
         public GetMarkListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
         public async Task<MarkListResponseVm> Handle(GetMarkListQuery request, CancellationToken cancellationToken)

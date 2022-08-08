@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejournal.Person
 {
-    public class PersonDbContext : DbContext, IPersonDbContext
+    public class PersonDbContext : DbContext, IIdentityDbContext
     {
         public DbSet<AspNetUser> AspNetUsers { get; set; }
         public PersonDbContext(DbContextOptions<PersonDbContext> options)

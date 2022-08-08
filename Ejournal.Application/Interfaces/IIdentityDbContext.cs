@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejournal.Application.Interfaces
 {
-    public interface IPersonDbContext
+    public interface IIdentityDbContext
     {
-      //  DbSet<AspNetUser> AspNetUsers { get; set; }
+        DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

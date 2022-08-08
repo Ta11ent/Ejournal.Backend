@@ -11,7 +11,7 @@ namespace Ejournal.Application.Ejournal.Command.Department_s.CreateDepartment
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateDepartmentCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Guid> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
         {

@@ -14,7 +14,7 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.DeleteDepa
         private readonly IEjournalDbContext _dbContext;
 
         public DeleteDepartmentMemberCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteDepartmentMemberCommand request, CancellationToken cancellationToken)
         {
             var entity = await

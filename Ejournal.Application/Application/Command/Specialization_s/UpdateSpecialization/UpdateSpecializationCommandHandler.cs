@@ -13,7 +13,7 @@ namespace Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecializ
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdateSpecializationCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(UpdateSpecializationCommand request, CancellationToken cancellationToken)
         {
             var entity = await 

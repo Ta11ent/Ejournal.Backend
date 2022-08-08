@@ -19,7 +19,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
         private readonly IMapper _mapper;
         public GetGroupMemberListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
         public async Task<GroupMemberListResponseVm> Handle(GetGroupMemberListQuery request, CancellationToken cancellationToken)

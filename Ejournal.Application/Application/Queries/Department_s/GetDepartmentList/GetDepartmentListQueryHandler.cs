@@ -17,7 +17,7 @@ namespace Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList
 
         public GetDepartmentListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
 

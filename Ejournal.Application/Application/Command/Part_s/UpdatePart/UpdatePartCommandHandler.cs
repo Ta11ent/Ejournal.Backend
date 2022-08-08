@@ -13,7 +13,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdatePartCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(UpdatePartCommand request, CancellationToken cancellationToken)
         {

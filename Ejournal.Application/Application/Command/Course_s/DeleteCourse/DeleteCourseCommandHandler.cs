@@ -12,7 +12,7 @@ namespace Ejournal.Application.Ejournal.Command.Course_s.DeleteCourse
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteCourseCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
         {
             var entity =

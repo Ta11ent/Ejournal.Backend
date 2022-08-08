@@ -13,7 +13,7 @@ namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
     {
         private readonly IEjournalDbContext _dbContxt;
         public UpdateMarkCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContxt = dbContext ?? throw new ArgumentNullException(nameof(_dbContxt));
+            _dbContxt = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(UpdateMarkCommand request, CancellationToken cancellationToken)
         {
             var entity =

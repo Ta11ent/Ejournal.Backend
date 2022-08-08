@@ -13,7 +13,7 @@ namespace Ejournal.Application.Application.Command.GroupMember.DeleteGroupMember
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteGroupMemberCommandHandler(IEjournalDbContext dbContext) =>
-           _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+           _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteGroupMemberCommand request, CancellationToken cancellationToken)
         {
             var entity = await

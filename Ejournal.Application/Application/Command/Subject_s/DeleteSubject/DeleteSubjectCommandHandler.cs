@@ -12,7 +12,7 @@ namespace Ejournal.Application.Application.Command.Subject_s.DeleteSubject
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteSubjectCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Subjects.

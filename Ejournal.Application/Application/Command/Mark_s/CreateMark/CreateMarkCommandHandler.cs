@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Command.Mark_s.CreateMark
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateMarkCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Guid> Handle(CreateMarkCommand request, CancellationToken cancellationToken)
         {
             var entity = new Mark

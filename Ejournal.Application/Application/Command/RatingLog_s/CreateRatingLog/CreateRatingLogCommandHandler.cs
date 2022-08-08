@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Command.RatingLog_s.CreateRatingLog
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateRatingLogCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Guid> Handle(CreateRatingLogCommand request, CancellationToken cancellationToken)
         {

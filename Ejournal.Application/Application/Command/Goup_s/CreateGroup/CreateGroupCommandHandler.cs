@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Command.Goup_s.CreateGroup
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateGroupCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Guid> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {

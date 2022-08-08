@@ -13,7 +13,7 @@ namespace Ejournal.Application.Ejournal.Command.Curriculum_s.UpdateCurriculum
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdateCurriculumCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             
         public async Task<Unit> Handle(UpdateCurriculumCommand request, CancellationToken cancellationToken)
         {

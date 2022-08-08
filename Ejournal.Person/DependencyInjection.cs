@@ -15,7 +15,7 @@ namespace Ejournal.Person
             {
                 options.UseSqlServer(connectionString);
             });
-            services.AddScoped<IPersonDbContext>(provide => provide.GetService<PersonDbContext>());
+            services.AddScoped<IIdentityDbContext>(provide => provide.GetService<PersonDbContext>());
 
             return services;
         }

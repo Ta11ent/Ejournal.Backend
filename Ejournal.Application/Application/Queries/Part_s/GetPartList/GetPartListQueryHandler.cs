@@ -16,7 +16,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
         private readonly IMapper _mapper;
         public GetPartListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
 

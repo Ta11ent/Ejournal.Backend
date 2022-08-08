@@ -17,10 +17,10 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         private readonly IEjournalDbContext _dbContext;
         
         public GetDepartmentMemberListQueryHandler(IMapper mapper,
-            IEjournalDbContext dbContext,  IPersonDbContext identityDbContext)
+            IEjournalDbContext dbContext)
         {
             _mapper = mapper;
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
         
         public async Task<DepartmentMemberListResponseVm> Handle(GetDepartmentMemberListQuery request,

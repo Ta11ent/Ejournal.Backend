@@ -18,7 +18,7 @@ namespace Ejournal.Application.Application.Queries.Mark_s.GetMarkDetails
         private readonly IMapper _mapper;
         public GetMarkDetailsQueryHandller(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
         public async Task<MarkDetailsResponseVm> Handle(GetMarkDetailsQuery request, CancellationToken cancellationToken)

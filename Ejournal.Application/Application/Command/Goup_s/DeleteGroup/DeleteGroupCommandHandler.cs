@@ -12,7 +12,7 @@ namespace Ejournal.Application.Application.Command.Goup_s.DeleteGroup
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteGroupCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(DeleteGroupCommand request, CancellationToken cancellationToken)
         {
             var entity =

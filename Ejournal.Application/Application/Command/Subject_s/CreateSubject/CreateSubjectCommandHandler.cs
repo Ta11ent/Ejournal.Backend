@@ -11,7 +11,7 @@ namespace Ejournal.Application.Application.Command.Subject_s.CreateSubject
     {
         private readonly IEjournalDbContext _dbContext;
         public CreateSubjectCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Guid> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
         {
             var subject = new Subject

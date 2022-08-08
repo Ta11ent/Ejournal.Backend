@@ -10,7 +10,7 @@ namespace Ejournal.Application.Application.Command.Mark_s.DeleteMark
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteMarkCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(DeleteMarkCommand request, CancellationToken cancellationToken)
         {

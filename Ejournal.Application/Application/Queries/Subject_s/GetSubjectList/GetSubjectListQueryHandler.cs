@@ -16,7 +16,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
         private readonly IMapper _mapper;
         public GetSubjectListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
 

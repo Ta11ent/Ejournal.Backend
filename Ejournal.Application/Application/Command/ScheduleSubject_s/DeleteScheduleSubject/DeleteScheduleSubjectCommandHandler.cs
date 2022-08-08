@@ -12,7 +12,7 @@ namespace Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteSched
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteScheduleSubjectCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(DeleteScheduleSubjectCommand request, 
             CancellationToken cancellationToken)

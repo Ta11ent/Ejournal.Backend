@@ -13,7 +13,7 @@ namespace Ejournal.Application.Application.Command.Schedule_s.UpdateSchedule
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdatescheduleCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         public async Task<Unit> Handle(UpdateScheduleCommand request, CancellationToken cancellationToken)
         {
             var entity =

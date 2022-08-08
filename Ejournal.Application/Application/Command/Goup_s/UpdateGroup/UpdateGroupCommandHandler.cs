@@ -13,7 +13,7 @@ namespace Ejournal.Application.Application.Command.Goup_s.UpdateGroup
     {
         private readonly IEjournalDbContext _dbContext;
         public UpdateGroupCommandHandler(IEjournalDbContext dbContext) =>
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Unit> Handle(UpdateGroupCommand request, CancellationToken cancellationToken)
         {

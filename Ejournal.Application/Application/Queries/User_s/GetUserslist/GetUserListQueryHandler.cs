@@ -13,10 +13,10 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
     public class GetUserListQueryHandler 
         //: IRequestHandler<GetUserListQuery, UserListVm>
     {
-        private readonly IPersonDbContext _dbContext;
+        private readonly IIdentityDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetUserListQueryHandler(IPersonDbContext dbContext, IMapper mapper)
+        public GetUserListQueryHandler(IIdentityDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
             _mapper = mapper;

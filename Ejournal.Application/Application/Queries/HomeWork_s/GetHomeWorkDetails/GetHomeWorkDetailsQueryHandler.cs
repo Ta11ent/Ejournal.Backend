@@ -18,7 +18,7 @@ namespace Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkDetails
         private readonly IMapper _mapper;
         public GetHomeWorkDetailsQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
         public async Task<HomeWorkDetailsResponseVm> Handle(GetHomeWorkDetailsQuery request,

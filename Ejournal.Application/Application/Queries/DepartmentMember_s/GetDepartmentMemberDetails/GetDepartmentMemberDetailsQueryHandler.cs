@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
 using Ejournal.Application.Common.Exceptions;
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
@@ -18,15 +17,12 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     {
         private readonly IMapper _mapper;
         private readonly IEjournalDbContext _dbContext;
-        private readonly IPersonDbContext _identityDbContext;
 
         public GetDepartmentMemberDetailsQueryHandler(IMapper mapper, 
-            IEjournalDbContext dbContext, IPersonDbContext identityDbContext)
+            IEjournalDbContext dbContext)
         {
             _mapper = mapper;
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-            _identityDbContext = identityDbContext ?? throw new ArgumentNullException(nameof(_identityDbContext));
-
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<DepartmentMemberDetailsResponseVm> Handle(GetDepartmentMemberDetailsQuery request,

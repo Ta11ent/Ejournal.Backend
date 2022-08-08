@@ -10,8 +10,8 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepa
     public class CreateDepartmentMemberCommandHandler : IRequestHandler<CreateDepartmentMemberCommand, Guid>
     {
         private readonly IEjournalDbContext _dbContext;
-        public CreateDepartmentMemberCommandHandler(IEjournalDbContext dbcontext) =>
-            _dbContext = dbcontext ?? throw new ArgumentNullException(nameof(_dbContext));
+        public CreateDepartmentMemberCommandHandler(IEjournalDbContext dbContext) =>
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<Guid> Handle(CreateDepartmentMemberCommand request, CancellationToken cancellatiionToken)
         {
