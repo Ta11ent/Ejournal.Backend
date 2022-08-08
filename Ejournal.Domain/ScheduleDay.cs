@@ -9,11 +9,9 @@ namespace Ejournal.Domain
         public bool Active { get; set; }
         public int Day { get; set; }
 
-        //Schedule
         public Guid ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
 
-        //ScheduleSubject 
         public IEnumerable<ScheduleSubject> ScheduleSubjects { get; set; }
 
     }

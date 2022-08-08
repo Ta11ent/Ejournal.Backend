@@ -11,10 +11,7 @@ namespace Ejournal.Domain
         public string LastName { get; set; }
         public bool Gender { get; set; }
         public bool Active { get; set; }
-
-        //DepartmentMember
         public IEnumerable<DepartmentMember> DepartmentMembers { get; set; }
-        //Students
         public IEnumerable<StudentGroupMember> GroupMembers { get; set; }
     }
 }

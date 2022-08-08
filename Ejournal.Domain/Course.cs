@@ -8,8 +8,6 @@ namespace Ejournal.Domain
         public Guid CourseId { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
-
-        //Curriculum
         public IEnumerable<Curriculum> Curriculums { get; set; }
     }
 }

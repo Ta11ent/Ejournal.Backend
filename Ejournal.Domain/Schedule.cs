@@ -10,15 +10,12 @@ namespace Ejournal.Domain
         public bool Active { get; set; }
         public DateTime Date { get; set; } 
         
-        //StudentGroup
         public Guid StudentGroupId { get; set; }
         public StudentGroup StudentGroup { get; set; }
 
-        //Part
         public Guid? PartId { get; set; }
         public Part Part { get; set; }
 
-        //ScheduleDays
         public IEnumerable<ScheduleDay> ScheduleDays { get; set; }
     }
 }

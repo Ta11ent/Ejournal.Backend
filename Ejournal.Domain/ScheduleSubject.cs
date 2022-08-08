@@ -8,15 +8,12 @@ namespace Ejournal.Domain
         public int Order { get; set; }
         public bool Active { get; set; }
 
-        //ScheduleDay
         public string ScheduleDayId { get; set; }
         public ScheduleDay ScheduleDay { get; set; }
 
-        //Subject
         public Guid SubjectId { get; set; }
         public Subject Subject { get; set; }
 
-        //DEpartmentMember
         public Guid? DepartmentMemberId { get; set; }
         public DepartmentMember DepartmentMember { get; set; }
     }

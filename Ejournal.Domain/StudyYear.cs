@@ -9,6 +9,5 @@ namespace Ejournal.Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        //Schedules
     }
 }

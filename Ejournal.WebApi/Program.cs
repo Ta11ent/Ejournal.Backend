@@ -17,7 +17,9 @@ namespace Ejournal.WebApi
             {
                 var serviceProvider = scope.ServiceProvider;
 
-                //Sourse Db initialization
+                /*summary:
+                *Sourse Db initialization
+                */
                 try 
                 {
                     var context = serviceProvider.GetRequiredService<EjournalDbContext>();
@@ -29,8 +31,10 @@ namespace Ejournal.WebApi
                     logger.LogError(exception, "Ann error ocurred while app initialization");
                 }
 
-                //Identity Db Initialization
-                try 
+                /*summary:
+                *Identity Db initialization
+                */
+                try
                 {
                     var context = serviceProvider.GetRequiredService<PersonDbContext>();
                     Person.DbInitializer.Initialize(context);

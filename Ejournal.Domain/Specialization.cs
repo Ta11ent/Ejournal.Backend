@@ -11,10 +11,7 @@ namespace Ejournal.Domain
         public DateTime CreationDate { get; set; }
         public bool Active { get; set; }
 
-        //Curriculum
         public IEnumerable<Curriculum> Curriculums { get; set; }
-
-        //StudentGroup
         public IEnumerable<StudentGroup> StudentGroups { get; set; }
     }
 }

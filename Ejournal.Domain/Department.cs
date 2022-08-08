@@ -10,10 +10,7 @@ namespace Ejournal.Domain
         public string Description { get; set; }
         public bool Active { get; set; }
 
-        //DepartmentMember
         public IEnumerable<DepartmentMember> DepartmentMembers { get; set; }
-
-        //Subjects
         public IEnumerable<Subject> Subjects { get; set; }
     }
 }

@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Command\User_s\" />
+    <Folder Include="Application\Command\User_s\DeleteUser\" />
+    <Folder Include="Application\Command\User_s\UpdateUser\" />
   </ItemGroup>
 
 </Project>
