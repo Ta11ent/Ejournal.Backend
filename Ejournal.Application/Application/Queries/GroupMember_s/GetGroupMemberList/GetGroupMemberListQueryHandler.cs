@@ -29,7 +29,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
                 .Where(e => 
                     e.StudentGroupId == request.GroupId &&
                     e.Active == request.Parametrs.Active)
-                .Include(x => x.Student)
+                .Include(x => x.User)
                 .Include(p => p.StudentGroup)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)

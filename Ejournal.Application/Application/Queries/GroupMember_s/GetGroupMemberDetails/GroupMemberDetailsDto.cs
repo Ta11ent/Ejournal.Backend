@@ -8,8 +8,8 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
 {
     public class GroupMemberDetailsDto : IMapWith<StudentGroupMember>
     {
-        public Guid GroupMemberId { get; set; }
-        public Guid StudentId { get; set; }
+        public Guid ClassMemberId { get; set; }
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -19,18 +19,18 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroupMember, GroupMemberDetailsDto>()
-                 .ForMember(entityDto => entityDto.GroupMemberId,
+                 .ForMember(entityDto => entityDto.ClassMemberId,
                      opt => opt.MapFrom(entity => entity.StudentGroupMemberId))
-                 .ForMember(entityDto => entityDto.StudentId,
-                     opt => opt.MapFrom(entity => entity.StudentId))
+                 .ForMember(entityDto => entityDto.UserId,
+                     opt => opt.MapFrom(entity => entity.UserId))
                  .ForMember(entityDto => entityDto.FirstName,
-                     opt => opt.MapFrom(entity => entity.Student.FirstName))
+                     opt => opt.MapFrom(entity => entity.User.FirstName))
                  .ForMember(entityDto => entityDto.MiddleName,
-                     opt => opt.MapFrom(entity => entity.Student.MiddleName))
+                     opt => opt.MapFrom(entity => entity.User.MiddleName))
                  .ForMember(entityDto => entityDto.LastName,
-                     opt => opt.MapFrom(entity => entity.Student.LastName))
+                     opt => opt.MapFrom(entity => entity.User.LastName))
                  .ForMember(entityDto => entityDto.Gender,
-                     opt => opt.MapFrom(entity => entity.Student.Gender))
+                     opt => opt.MapFrom(entity => entity.User.Gender))
                  .ForMember(entityDto => entityDto.Group,
                      opt => opt.MapFrom(entity => entity.StudentGroup))
                  .ForMember(entityDto => entityDto.Active,

@@ -43,24 +43,24 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
 
     public class StudentDto : IMapWith<StudentGroupMember>
     {
-        public Guid GroupMemberId { get; set; } 
-        public Guid StudentId { get; set; }
+        public Guid ClassMemberId { get; set; } 
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroupMember, StudentDto>()
-                .ForMember(entityDto => entityDto.GroupMemberId,
+                .ForMember(entityDto => entityDto.ClassMemberId,
                     opt => opt.MapFrom(entiity => entiity.StudentGroupMemberId))
-                .ForMember(entityDto => entityDto.StudentId,
-                    opt => opt.MapFrom(entiity => entiity.Student.UserId))
+                .ForMember(entityDto => entityDto.UserId,
+                    opt => opt.MapFrom(entiity => entiity.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
-                    opt => opt.MapFrom(entiity => entiity.Student.FirstName))
+                    opt => opt.MapFrom(entiity => entiity.User.FirstName))
                 .ForMember(entityDto => entityDto.MiddleName,
-                    opt => opt.MapFrom(entiity => entiity.Student.MiddleName))
+                    opt => opt.MapFrom(entiity => entiity.User.MiddleName))
                 .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entiity => entiity.Student.LastName));
+                    opt => opt.MapFrom(entiity => entiity.User.LastName));
         }
     }
     public class ProfessorDto : IMapWith<DepartmentMember>

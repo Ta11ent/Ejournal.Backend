@@ -33,7 +33,7 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                 await _dbContext.RaitingLogs
                 .Where(x => x.RaitingLogId == request.RatingLogId)
                 .Include(s => s.StudentGroupMember)
-                    .ThenInclude(u => u.Student)
+                    .ThenInclude(u => u.User)
                 .Include(d => d.DepartmentMember)
                     .ThenInclude(p => p.User)
                 .ProjectTo<RatingLogDetailsDto>(_mapper.ConfigurationProvider)

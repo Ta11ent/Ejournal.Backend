@@ -21,14 +21,14 @@ namespace Ejournal.Application.Application.Command.GroupMember.UpdateGroupMember
                 await _dbContext.StudentGroupMembers
                 .FirstOrDefaultAsync(gm => 
                 gm.StudentGroupId == request.GroupId &&
-                gm.StudentGroupMemberId == request.GroupMemberId,
+                gm.StudentGroupMemberId == request.ClassMemberId,
                 cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(StudentGroupMember), request.GroupMemberId);
+                throw new NotFoundException(nameof(StudentGroupMember), request.ClassMemberId);
 
             entity.StudentGroupId = request.GroupId;
-            entity.StudentId = request.StudentId;
+            entity.UserId = request.UserId;
             entity.Active = request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

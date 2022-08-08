@@ -12,6 +12,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public bool Gender { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, DepartmentMemberLookupDto>()
@@ -24,7 +25,9 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
                 .ForMember(entityDto => entityDto.MiddleName,
                     opt => opt.MapFrom(entity => entity.User.MiddleName))
                 .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entity => entity.User.LastName));
+                    opt => opt.MapFrom(entity => entity.User.LastName))
+                .ForMember(entityDto => entityDto.Gender,
+                    opt => opt.MapFrom(entity => entity.User.Gender));
         }
     }
 }

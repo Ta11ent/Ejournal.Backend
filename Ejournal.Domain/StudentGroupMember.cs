@@ -13,8 +13,8 @@ namespace Ejournal.Domain
         public StudentGroup StudentGroup { get; set; }
 
         //User
-        public Guid StudentId { get; set; }
-        public User Student { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
 
         //RairingLog
         public IEnumerable<RatingLog> RaitingLogs { get; set; }

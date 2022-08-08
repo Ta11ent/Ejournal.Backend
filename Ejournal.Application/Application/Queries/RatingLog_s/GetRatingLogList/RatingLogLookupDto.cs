@@ -51,9 +51,9 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
                 .ForMember(entityDto => entityDto.GroupMemberId,
                     opt => opt.MapFrom(entiity => entiity.StudentGroupMemberId))
                 .ForMember(entityDto => entityDto.StudentId,
-                    opt => opt.MapFrom(entiity => entiity.Student.UserId))
+                    opt => opt.MapFrom(entiity => entiity.UserId))
                 .ForMember(entityDto => entityDto.FullName,
-                    opt => opt.MapFrom(entiity => $"{entiity.Student.LastName} { entiity.Student.FirstName} {entiity.Student.MiddleName}" ));
+                    opt => opt.MapFrom(entiity => $"{entiity.User.LastName} { entiity.User.FirstName} {entiity.User.MiddleName}" ));
         }
     }
     public class ProfessorDto : IMapWith<DepartmentMember>

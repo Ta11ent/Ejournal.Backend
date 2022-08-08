@@ -30,15 +30,15 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberD
             var entity =
                 await _dbContext.StudentGroupMembers
                 .Include(gm => gm.StudentGroup)
-                .Include(s => s.Student)
+                .Include(s => s.User)
                 .Where(e =>
                   e.StudentGroupId == request.GroupId &&
-                  e.StudentGroupMemberId == request.MemberId)
+                  e.StudentGroupMemberId == request.ClassMemberId)
                 .ProjectTo<GroupMemberDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(StudentGroupMember), request.MemberId);
+                throw new NotFoundException(nameof(StudentGroupMember), request.ClassMemberId);
 
             return new GroupMemberDetailsResponseVm(entity);
         }

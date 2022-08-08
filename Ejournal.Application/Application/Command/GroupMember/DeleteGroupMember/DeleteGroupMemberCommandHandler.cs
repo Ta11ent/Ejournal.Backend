@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Ejournal.Application.Common.Exceptions;
+﻿using Ejournal.Application.Common.Exceptions;
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
@@ -21,11 +20,11 @@ namespace Ejournal.Application.Application.Command.GroupMember.DeleteGroupMember
               _dbContext.StudentGroupMembers
               .FirstOrDefaultAsync(gm =>
                   gm.StudentGroupId == request.GroupId &&
-                  gm.StudentGroupMemberId == request.GroupMemberId,
+                  gm.StudentGroupMemberId == request.ClassMemberId,
                   cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(StudentGroupMember), request.GroupMemberId);
+                throw new NotFoundException(nameof(StudentGroupMember), request.ClassMemberId);
 
             _dbContext.StudentGroupMembers.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);

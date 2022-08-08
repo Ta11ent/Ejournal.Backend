@@ -8,8 +8,8 @@ namespace Ejournal.Application.Interfaces
         DateTime? DateFrom { get; set; }
         DateTime? DateTo { get; set; }
         Guid? Group { get; set; }
-        Guid? GroupMember { get; set; }
-        Guid? DepartmentMember { get; set; }
+        Guid? ClassMember { get; set; }
+        Guid? Membership { get; set; }
         Guid? Subject { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Ejournal.Application.Application.Command.GroupMember.CreateGroupMember
             {
                 StudentGroupMemberId = Guid.NewGuid(),
                 StudentGroupId = request.GroupId,
-                StudentId = request.StudentId,
+                UserId = request.UserId,
                 Active = true,
             };
 
