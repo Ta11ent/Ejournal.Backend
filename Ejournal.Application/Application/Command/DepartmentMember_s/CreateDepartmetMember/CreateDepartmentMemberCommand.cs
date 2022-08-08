@@ -6,7 +6,7 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepa
     public class CreateDepartmentMemberCommand : IRequest<Guid>
     {
         public Guid DepartmentId { get; set; }
-        public Guid ProfessorId { get; set; }
+        public Guid UserId { get; set; }
         public bool bActive { get; set; }
     }
 }

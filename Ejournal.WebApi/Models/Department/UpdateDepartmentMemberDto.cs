@@ -3,23 +3,23 @@ using Ejournal.Application.Application.Command.DepartmentMember_s.UpdateDepartme
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Department
 {
     public class UpdateDepartmentMemberDto : IMapWith<UpdateDepartmentMemberCommand>
     {
-        public Guid DepartmentMemberId { get; set; }
+        public Guid MembershipId { get; set; }
         public Guid DepartmentId { get; set; }
-        public Guid ProfessorId { get; set; }
+        public Guid UserId { get; set; }
         public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateDepartmentMemberDto, UpdateDepartmentMemberCommand>()
                 .ForMember(entityDto => entityDto.DepartmentId,
                     opt => opt.MapFrom(entity => entity.DepartmentId))
-                .ForMember(entityDto => entityDto.DepartmentMemberId,
-                    opt => opt.MapFrom(entity => entity.DepartmentMemberId))
-                .ForMember(entityDto => entityDto.ProfessorId,
-                    opt => opt.MapFrom(entity => entity.ProfessorId))
+                .ForMember(entityDto => entityDto.MembershipId,
+                    opt => opt.MapFrom(entity => entity.MembershipId))
+                .ForMember(entityDto => entityDto.UserId,
+                    opt => opt.MapFrom(entity => entity.UserId))
                 .ForMember(entityDto => entityDto.Active,
                     opt => opt.MapFrom(entity => entity.Active));
         }

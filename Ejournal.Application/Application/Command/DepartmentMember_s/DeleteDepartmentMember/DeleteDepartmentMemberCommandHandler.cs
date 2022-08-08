@@ -21,11 +21,11 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.DeleteDepa
                 _dbContext.DepartmentMembers
                 .FirstOrDefaultAsync(dm => 
                     dm.DepartmentId == request.DepartmentId && 
-                    dm.DepartmentMemberId == request.DepartmentMemberId, 
+                    dm.DepartmentMemberId == request.MembershipId, 
                     cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(DepartmentMember), request.DepartmentMemberId);
+                throw new NotFoundException(nameof(DepartmentMember), request.MembershipId);
 
             _dbContext.DepartmentMembers.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);

@@ -35,7 +35,7 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetai
                 .Include(s => s.StudentGroupMember)
                     .ThenInclude(u => u.Student)
                 .Include(d => d.DepartmentMember)
-                    .ThenInclude(p => p.Professor)
+                    .ThenInclude(p => p.User)
                 .ProjectTo<RatingLogDetailsDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 

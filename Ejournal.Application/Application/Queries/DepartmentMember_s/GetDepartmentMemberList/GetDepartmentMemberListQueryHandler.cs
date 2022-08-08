@@ -31,7 +31,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
                 .Where(dm =>
                     dm.DepartmentId == request.DepartmentId &&
                     dm.Active == request.Parametrs.Active)
-                .Include(x => x.Professor)
+                .Include(x => x.User)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<DepartmentMemberLookupDto>(_mapper.ConfigurationProvider)

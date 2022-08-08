@@ -3,16 +3,16 @@ using Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepartme
 using Ejournal.Application.Common.Mappings;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Department
 {
     public class CreateDeartmentMemberDto : IMapWith<CreateDepartmentMemberCommand>
     {
-        public Guid ProfessorId { get; set; }
+        public Guid UserId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateDeartmentMemberDto, CreateDepartmentMemberCommand>()
-                .ForMember(entityCommnd => entityCommnd.ProfessorId,
-                    opt => opt.MapFrom(entity => entity.ProfessorId));
+                .ForMember(entityCommnd => entityCommnd.UserId,
+                    opt => opt.MapFrom(entity => entity.UserId));
         }
     }
 }

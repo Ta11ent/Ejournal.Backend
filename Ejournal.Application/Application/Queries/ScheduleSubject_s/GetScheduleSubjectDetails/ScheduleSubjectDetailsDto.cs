@@ -34,16 +34,16 @@ namespace Ejournal.Application.Application.Queries.ScheduleSubject_s.GetSchedule
 
     public class ProfessorDto : IMapWith<DepartmentMember>
     {
-        public Guid ProfessorId { get; set; }
+        public Guid MembershipId { get; set; }
         public string FullName { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, ProfessorDto>()
-                 .ForMember(entityDto => entityDto.ProfessorId,
+                 .ForMember(entityDto => entityDto.MembershipId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
                 .ForMember(entityDto => entityDto.FullName,
                     opt => opt.MapFrom(entity =>
-                        $"{entity.Professor.LastName} {entity.Professor.MiddleName} {entity.Professor.FirstName}"));
+                        $"{entity.User.LastName} {entity.User.MiddleName} {entity.User.FirstName}"));
         }
     }
     public class SubjectDto : IMapWith<Subject>

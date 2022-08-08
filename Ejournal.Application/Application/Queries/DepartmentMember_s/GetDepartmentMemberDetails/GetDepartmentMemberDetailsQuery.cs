@@ -6,6 +6,6 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
     public class GetDepartmentMemberDetailsQuery : IRequest<DepartmentMemberDetailsResponseVm>
     {
         public Guid DepartmentId { get; set; }
-        public Guid DepartmentMemberId { get; set; }
+        public Guid MembershipId { get; set; }
     }
 }

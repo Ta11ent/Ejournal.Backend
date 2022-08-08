@@ -58,18 +58,18 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
     }
     public class ProfessorDto : IMapWith<DepartmentMember>
     {
-        public Guid DepartmentMemberId { get; set; } //Summary: not UserID !!!
-        public Guid ProfessorId { get; set; }
+        public Guid MembershipId { get; set; } //Summary: not UserID !!!
+        public Guid UserId { get; set; }
         public string FullName { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, ProfessorDto>()
-                .ForMember(entityDto => entityDto.DepartmentMemberId,
+                .ForMember(entityDto => entityDto.MembershipId,
                     opt => opt.MapFrom(entiity => entiity.DepartmentMemberId))
-                .ForMember(entityDto => entityDto.ProfessorId,
-                    opt => opt.MapFrom(entiity => entiity.Professor.UserId))
+                .ForMember(entityDto => entityDto.UserId,
+                    opt => opt.MapFrom(entiity => entiity.UserId))
                  .ForMember(entityDto => entityDto.FullName,
-                    opt => opt.MapFrom(entiity => $"{entiity.Professor.LastName} {entiity.Professor.FirstName} {entiity.Professor.MiddleName}"));
+                    opt => opt.MapFrom(entiity => $"{entiity.User.LastName} {entiity.User.FirstName} {entiity.User.MiddleName}"));
         }
     }
     public class GroupDto : IMapWith<StudentGroup>

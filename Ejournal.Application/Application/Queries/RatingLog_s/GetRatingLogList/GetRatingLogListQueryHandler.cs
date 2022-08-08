@@ -45,7 +45,7 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
                     .Include(s => s.StudentGroupMember)
                         .ThenInclude(u => u.Student)
                     .Include(d => d.DepartmentMember)
-                        .ThenInclude(p => p.Professor)
+                        .ThenInclude(p => p.User)
                     .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                     .Take(request.Parametrs.PageSize)
                     .ProjectTo<RatingLogLookupDto>(_mapper.ConfigurationProvider)

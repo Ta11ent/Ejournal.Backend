@@ -7,24 +7,24 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
 {
     public class DepartmentMemberLookupDto : IMapWith<DepartmentMember>
     {
-        public Guid DepartmenMemberId { get; set; }
-        public Guid ProfessorId { get; set; }
+        public Guid MembershipId { get; set; }
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, DepartmentMemberLookupDto>()
-                .ForMember(entityDto => entityDto.DepartmenMemberId,
+                .ForMember(entityDto => entityDto.MembershipId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
-                .ForMember(entityDto => entityDto.ProfessorId,
-                    opt => opt.MapFrom(entity => entity.Professor.UserId))
+                .ForMember(entityDto => entityDto.UserId,
+                    opt => opt.MapFrom(entity => entity.User.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
-                    opt => opt.MapFrom(entity => entity.Professor.FirstName))
+                    opt => opt.MapFrom(entity => entity.User.FirstName))
                 .ForMember(entityDto => entityDto.MiddleName,
-                    opt => opt.MapFrom(entity => entity.Professor.MiddleName))
+                    opt => opt.MapFrom(entity => entity.User.MiddleName))
                 .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entity => entity.Professor.LastName));
+                    opt => opt.MapFrom(entity => entity.User.LastName));
         }
     }
 }

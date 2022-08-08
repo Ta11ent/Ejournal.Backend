@@ -19,13 +19,15 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.UpdateDepa
         public async Task<Unit> Handle(UpdateDepartmentMemberCommand request, CancellationToken cancellationToken)
         {
             var entity =
-                await _dbContext.DepartmentMembers.FirstOrDefaultAsync(dm => dm.DepartmentMemberId ==
-                request.DepartmentMemberId && dm.DepartmentId == request.DepartmentId,
+                await _dbContext.DepartmentMembers
+                .FirstOrDefaultAsync(dm =>
+                dm.DepartmentId == request.DepartmentId && 
+                dm.DepartmentMemberId == request.MembershipId,
                 cancellationToken);
             if (entity == null)
-                throw new NotFoundException(nameof(DepartmentMember), request.DepartmentMemberId);
+                throw new NotFoundException(nameof(DepartmentMember), request.MembershipId);
 
-            entity.ProfessorId = request.ProfessorId;
+            entity.UserId = request.UserId;
             entity.Active = request.Active;
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

@@ -10,7 +10,7 @@ using Ejournal.Application.Ejournal.Command.Department_s.DeleteDepartment;
 using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList;
-using Ejournal.WebApi.Models;
+using Ejournal.WebApi.Models.Department;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -62,13 +62,13 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{memberId:Guid}")]
-        public async Task<ActionResult<DepartmentMemberDetailsResponseVm>> GetDepartmentMember(Guid departmentId, Guid memberId)
+        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
+        public async Task<ActionResult<DepartmentMemberDetailsResponseVm>> GetDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var query = new GetDepartmentMemberDetailsQuery
             {
                 DepartmentId = departmentId,
-                DepartmentMemberId = memberId
+                MembershipId = membershipId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -103,13 +103,13 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{memberId:Guid}")]
+        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
         public async Task<IActionResult> UpdateDepartmentMember([FromBody] UpdateDepartmentMemberDto updateDepartmentMemberDto,
-            Guid departmentId, Guid memberId)
+            Guid departmentId, Guid membershipId)
         {
             var command = _mapper.Map<UpdateDepartmentMemberCommand>(updateDepartmentMemberDto);
             command.DepartmentId = departmentId;
-            command.DepartmentMemberId = memberId;
+            command.MembershipId = membershipId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -126,13 +126,13 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{memberId:Guid}")]
-        public async Task<IActionResult> DeleteDepartmentMember(Guid departmentId, Guid memberId)
+        [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
+        public async Task<IActionResult> DeleteDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var command = new DeleteDepartmentMemberCommand
             {
                 DepartmentId = departmentId,
-                DepartmentMemberId = memberId
+                MembershipId = membershipId
             };
             await Mediator.Send(command);
             return NoContent();

@@ -7,8 +7,8 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
 {
     public class DepartmentMemberDetailsDto : IMapWith<DepartmentMember>
     {
-        public Guid DepartmentMemberId { get; set; }
-        public Guid ProfessorId { get; set; }
+        public Guid MembershipId { get; set; }
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -17,16 +17,16 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentMember, DepartmentMemberDetailsDto>()
-                .ForMember(entityVm => entityVm.DepartmentMemberId,
+                .ForMember(entityVm => entityVm.MembershipId,
                     opt => opt.MapFrom(entity => entity.DepartmentMemberId))
-                .ForMember(entityVm => entityVm.ProfessorId,
-                    opt => opt.MapFrom(entity => entity.Professor.UserId))
+                .ForMember(entityVm => entityVm.UserId,
+                    opt => opt.MapFrom(entity => entity.User.UserId))
                 .ForMember(entityVm => entityVm.FirstName,
-                    opt => opt.MapFrom(entity => entity.Professor.FirstName))
+                    opt => opt.MapFrom(entity => entity.User.FirstName))
                 .ForMember(entityVm => entityVm.MiddleName,
-                    opt => opt.MapFrom(entity => entity.Professor.MiddleName))
+                    opt => opt.MapFrom(entity => entity.User.MiddleName))
                 .ForMember(entityVm => entityVm.LastName,
-                    opt => opt.MapFrom(entity => entity.Professor.LastName))
+                    opt => opt.MapFrom(entity => entity.User.LastName))
                 .ForMember(entityVm => entityVm.Department,
                     opt => opt.MapFrom(entity => entity.Department))
                  .ForMember(entityVm => entityVm.Active,

@@ -19,7 +19,7 @@ namespace Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepa
             {
                 DepartmentMemberId = Guid.NewGuid(),
                 DepartmentId = request.DepartmentId,
-                ProfessorId = request.ProfessorId,
+                UserId = request.UserId,
                 Active = true
             };
 

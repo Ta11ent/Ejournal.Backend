@@ -35,15 +35,15 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
             var entity =
                 await _dbContext.DepartmentMembers
                   .Include(d => d.Department)
-                  .Include(p => p.Professor)
+                  .Include(p => p.User)
                   .Where(e =>
                     e.DepartmentId == request.DepartmentId &&
-                    e.DepartmentMemberId == request.DepartmentMemberId)
+                    e.DepartmentMemberId == request.MembershipId)
                  .ProjectTo<DepartmentMemberDetailsDto>(_mapper.ConfigurationProvider)
                  .FirstOrDefaultAsync(cancellationToken);
 
             if (entity == null)
-                throw new NotFoundException(nameof(DepartmentMember), request.DepartmentMemberId);
+                throw new NotFoundException(nameof(DepartmentMember), request.MembershipId);
 
             return new DepartmentMemberDetailsResponseVm(entity);
         }

@@ -12,9 +12,9 @@ namespace Ejournal.Domain
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        //Professor - User
-        public Guid ProfessorId { get; set; } //only id because user data located on  another context
-        public User Professor { get; set; }
+       //User
+        public Guid UserId { get; set; } //only id because user data located on  another context
+        public User User { get; set; }
 
         //ScheduleSubject
         public IEnumerable<ScheduleSubject> ScheduleSubjects { get; set; }
