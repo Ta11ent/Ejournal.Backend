@@ -3,7 +3,7 @@ using Ejournal.Application.Common.Mappings;
 using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
 using System;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Department
 {
     public class UpdateDepartmentDto : IMapWith<UpdateDepartmentCommand>
     {

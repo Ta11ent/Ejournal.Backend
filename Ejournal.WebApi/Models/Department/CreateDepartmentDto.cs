@@ -2,7 +2,7 @@
 using Ejournal.Application.Common.Mappings;
 using Ejournal.Application.Ejournal.Command.Department_s.CreateDepartment;
 
-namespace Ejournal.WebApi.Models
+namespace Ejournal.WebApi.Models.Department
 {
     public class CreateDepartmentDto : IMapWith<CreateDepartmentCommand>
     {
