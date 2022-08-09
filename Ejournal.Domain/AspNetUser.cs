@@ -2,7 +2,7 @@
 
 namespace Ejournal.Domain
 {
-    public class AspNetUser
+    public class AspNetUser 
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }
