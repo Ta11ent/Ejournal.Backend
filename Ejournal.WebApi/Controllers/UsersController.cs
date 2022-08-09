@@ -14,21 +14,29 @@ namespace Ejournal.WebApi.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UsersController : BaseController
     {
-
         private readonly IMapper _mapper;
         public UsersController(IMapper mapper) => _mapper = mapper;
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto,
-            [FromBody] CreateIdentityUserDto createIdentityUser)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto userDto)
         {
-            var command = _mapper.Map<CreateUserCommand>(createUserDto);
+            var command = _mapper.Map<CreateUserCommand>(userDto);
             var userId = await Mediator.Send(command);
-            if (createIdentityUser.CreateIdentity)
+            if (userDto.CreateIdentity)
             {
-                createIdentityUser.Id = userId;
-                var identityCommand = _mapper.Map<CreateAspNetUserCommand>(createIdentityUser);
+                var identityUser = new CreateAspNetUserCommand
+                {
+                    Id = userId,
+                    Email = userDto.Email,
+                    PhoneNumber = userDto.PhoneNumber
+                };
+                
+               
+                //var newCommand = _mapper.Map<CreateIdentityUserDto>(identityUser);
+                await Mediator.Send(identityUser);
             }
+
+                       
             return Ok();
           //  return CreatedAtAction(nameof(Get), new { Id = specializationId }, null);
         }
