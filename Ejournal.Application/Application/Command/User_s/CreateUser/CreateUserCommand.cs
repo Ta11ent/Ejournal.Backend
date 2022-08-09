@@ -12,6 +12,7 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
         public bool Active { get; set; }
         public bool CreateIdentity { get; set; }
         public string UserName { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
