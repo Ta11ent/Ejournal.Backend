@@ -40,7 +40,14 @@ namespace Ejournal.WebApi.Controllers
           //  return CreatedAtAction(nameof(Get), new { Id = specializationId }, null);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create
+        [HttpPost]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Account/")]
+        public async Task<IActionResult> CreateAccount([FromBody] CreateIdentityUserDto identityUserDto, Guid userId)
+        {
+            identityUserDto.Id = userId;
+            var command = _mapper.Map<CreateAspNetUserCommand>(identityUserDto);
+            await Mediator.Send(command);
+            return Ok();
+        }
     }
 }

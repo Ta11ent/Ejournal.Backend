@@ -13,13 +13,13 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserDetails
     public class GetUserDetailsQueryHandler 
         //: IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
     {
-        private readonly IPersonDbContext _dbContext;
-        private readonly IMapper _mapper;
-        public GetUserDetailsQueryHandler(IPersonDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-            _mapper = mapper;
-        }
+        //private readonly IIdentityDbContext _dbContext;
+        //private readonly IMapper _mapper;
+        //public GetUserDetailsQueryHandler(IIdentityDbContext dbContext, IMapper mapper)
+        //{
+        //    _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+        //    _mapper = mapper;
+        //}
         //public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
         //{
         //    var entity = await

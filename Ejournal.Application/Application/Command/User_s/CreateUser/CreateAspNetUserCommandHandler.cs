@@ -16,21 +16,20 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
 
         public async Task<Unit> Handle(CreateAspNetUserCommand request, CancellationToken cancellationToken)
         {
-            var _hash = new PasswordHasher().HashPassword(request.Password);
             var user = new AspNetUser
             {
                 Id = request.Id,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
                 NormalizedEmail = request.Email.ToUpper(),
-                UserName = request.UserName,
-                NormalizedUserName = request.UserName.ToUpper(),
+                UserName = request.Email,
+                NormalizedUserName = request.Email.ToUpper(),
                 AccessFailedCount = 0,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
                 LockoutEnabled = true,
-                PasswordHash = _hash,
+                PasswordHash = new PasswordHasher().HashPassword(request.Password),
                 Active = true,
                 AccountConfirmed = false
             };

@@ -22,9 +22,7 @@ namespace Ejournal.WebApi.Models.User
                 .ForMember(entityDto => entityDto.PhoneNumber,
                     opt => opt.MapFrom(entity => entity.PhoneNumber))
                 .ForMember(entityDto => entityDto.Password,
-                    opt => opt.MapFrom(entity => entity.Password))
-                .ForMember(entityDto => entityDto.UserName,
-                    opt => opt.MapFrom(entity => entity.Email));
+                    opt => opt.MapFrom(entity => entity.Password));
         }
     }
 }
