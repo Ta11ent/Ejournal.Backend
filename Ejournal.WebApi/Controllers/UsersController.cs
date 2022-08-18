@@ -28,11 +28,10 @@ namespace Ejournal.WebApi.Controllers
                 {
                     Id = userId,
                     Email = userDto.Email,
-                    PhoneNumber = userDto.PhoneNumber
+                    PhoneNumber = userDto.PhoneNumber,
+                    Password = userDto.Password
                 };
-                
-               
-                //var newCommand = _mapper.Map<CreateIdentityUserDto>(identityUser);
+
                 await Mediator.Send(identityUser);
             }
 
@@ -40,5 +39,8 @@ namespace Ejournal.WebApi.Controllers
             return Ok();
           //  return CreatedAtAction(nameof(Get), new { Id = specializationId }, null);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create
     }
 }
