@@ -23,7 +23,8 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
                 Gender = request.Gender,
-                Active = true
+                Active = request.Active,
+                HasAccount = request.CreateIdentity
             };
 
             await _dbContext.Users.AddAsync(user, cancellationToken);

@@ -25,7 +25,9 @@ namespace Ejournal.WebApi.Models.User
                 .ForMember(entityDto => entityDto.LastName,
                     opt => opt.MapFrom(entity => entity.LastName))
                 .ForMember(entityDto => entityDto.Gender,
-                    opt => opt.MapFrom(entity => entity.Gender));
+                    opt => opt.MapFrom(entity => entity.Gender))
+                .ForMember(entityDto => entityDto.CreateIdentity,
+                    opt => opt.MapFrom(entity => entity.CreateIdentity));
         }
     }
 }

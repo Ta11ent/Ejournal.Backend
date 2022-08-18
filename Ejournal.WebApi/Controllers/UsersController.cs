@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Application.Command.User_s.CreateUser;
+using Ejournal.Application.Application.Command.User_s.DeleteUser;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
@@ -41,13 +40,35 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Account/")]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateIdentityUserDto identityUserDto, Guid userId)
         {
             identityUserDto.Id = userId;
             var command = _mapper.Map<CreateAspNetUserCommand>(identityUserDto);
             await Mediator.Send(command);
             return Ok();
+        }
+
+        [HttpDelete("{userId:Guid}")]
+        public async Task<IActionResult> Delete(Guid userId)
+        {
+            var command = new DeleteUserCommand { UserId = Id };
+            var hasAccount = await Mediator.Send(command);
+            if (hasAccount)
+            {
+                var identityCommand = new DeleteAspNetUserCommand { UserId = Id };
+                await Mediator.Send(identityCommand);
+            }
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
+        public async Task<IActionResult> DeleteAccount(Guid userId)
+        {
+            var command = new DeleteAspNetUserCommand { UserId = userId };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

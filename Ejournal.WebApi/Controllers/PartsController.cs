@@ -31,7 +31,7 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{Id:Guid}")]
         public async Task<ActionResult<PartDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetPartDetailsQuery
@@ -59,7 +59,7 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("{Id:Guid}")]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeletePartCommand
