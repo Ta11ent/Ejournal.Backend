@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,27 +13,34 @@ using System.Threading.Tasks;
 namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
 {
     public class GetUserListQueryHandler 
-        //: IRequestHandler<GetUserListQuery, UserListVm>
+        : IRequestHandler<GetUserListQuery, UserListResponseVm>
     {
-        private readonly IPersonDbContext _dbContext;
+        private readonly IEjournalDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetUserListQueryHandler(IPersonDbContext dbContext, IMapper mapper)
+        public GetUserListQueryHandler(IEjournalDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper;
         }
 
-        //public async Task<UserListVm> Handle(GetUserListQuery request, CancellationToken cancellationToken)
-        //{
-        //    var entity =
-        //        await _dbContext.AspNetUsers
-        //        .Where(b => b.Active == request.Active)
-        //        .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
-        //        .ToListAsync(cancellationToken);
+        public async Task<UserListResponseVm> Handle(GetUserListQuery request, CancellationToken cancellationToken)
+        {
+            var predicate = CustomPredicateBuilder.True<User>();
+            var data = 
+                await _dbContext.Users
+                .Where(predicate
+                    .And(x => x.Active == request.Parametrs.Active)
+                    .And(x => x.Birthday >= request.Parametrs.DateFrom,
+                        request.Parametrs.DateFrom)
+                    .And(x => x.Birthday <= request.Parametrs.DateTo,
+                        request.Parametrs.DateTo))
+                .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
+                .Take(request.Parametrs.PageSize)
+                .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
-        //    return new UserListVm { Users = entity };
-        //}
-
+            return new UserListResponseVm(data, request.Parametrs);    
+        }
     }
 }

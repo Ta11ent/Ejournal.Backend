@@ -1,25 +1,25 @@
 ﻿using AutoMapper;
-using Ejournal.Application.Application.Command.User_s.CreateUser;
+using Ejournal.Application.Application.Command.User_s.UpdateUser;
 using Ejournal.Application.Common.Mappings;
 using System;
 
 namespace Ejournal.WebApi.Models.User
 {
-    public class CreateUserDto : IMapWith<CreateUserCommand>
+    public class UpdateUserDto : IMapWith<UpdateUserCommand>
     {
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool Gender { get; set; }
         public DateTime Birthday { get; set; }
-        public bool CreateIdentity { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Password { get; set; }
-
+        public bool UserActive { get; set; }
+        public bool AccountActive { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateUserDto, CreateUserCommand>()
+            profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
+                .ForMember(entityDto => entityDto.UserId,
+                    opt => opt.MapFrom(entity => entity.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
                     opt => opt.MapFrom(entity => entity.FirstName))
                 .ForMember(entityDto => entityDto.MiddleName,
@@ -30,8 +30,8 @@ namespace Ejournal.WebApi.Models.User
                     opt => opt.MapFrom(entity => entity.Gender))
                 .ForMember(entityDto => entityDto.Birthday,
                     opt => opt.MapFrom(entity => entity.Birthday))
-                .ForMember(entityDto => entityDto.HasAccount,
-                    opt => opt.MapFrom(entity => entity.CreateIdentity));
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.UserActive));
         }
     }
 }

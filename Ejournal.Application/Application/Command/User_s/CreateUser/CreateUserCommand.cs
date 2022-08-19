@@ -9,5 +9,7 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool Gender { get; set; }
+        public DateTime Birthday { get; set; }
+        public bool HasAccount { get; set; }
     }
 }

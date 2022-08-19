@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Application.Command.User_s.CreateUser;
 using Ejournal.Application.Application.Command.User_s.DeleteUser;
+using Ejournal.Application.Application.Command.User_s.UpdateUser;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -49,26 +50,38 @@ namespace Ejournal.WebApi.Controllers
             return Ok();
         }
 
+        [HttpPut("{userId:Guid}")]
+        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto, Guid userId)
+        {
+            updateUserDto.UserId = userId;
+            var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
+            await Mediator.Send(command);
+            var identityCommand = new UpdateAspNetUserCommannd { UserId = userId };
+            await Mediator.Send(identityCommand);
+            return NoContent();
+            //добавить логику, если диактивируют пользователя, то и аккаунт надо даективировать. (active = false)
+        }
+
         [HttpDelete("{userId:Guid}")]
         public async Task<IActionResult> Delete(Guid userId)
         {
-            var command = new DeleteUserCommand { UserId = Id };
+            var command = new DeleteUserCommand { UserId = userId };
             var hasAccount = await Mediator.Send(command);
             if (hasAccount)
             {
-                var identityCommand = new DeleteAspNetUserCommand { UserId = Id };
+                var identityCommand = new DeleteAspNetUserCommand { UserId = userId };
                 await Mediator.Send(identityCommand);
             }
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
-        public async Task<IActionResult> DeleteAccount(Guid userId)
-        {
-            var command = new DeleteAspNetUserCommand { UserId = userId };
-            await Mediator.Send(command);
-            return NoContent();
-        }
+        //[HttpDelete]
+        //[Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
+        //public async Task<IActionResult> DeleteAccount(Guid userId)
+        //{
+        //    var command = new DeleteAspNetUserCommand { UserId = userId };
+        //    await Mediator.Send(command);
+        //    return NoContent();
+        //}
     }
 }
