@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ejournal.Persistence.Migrations
 {
     [DbContext(typeof(EjournalDbContext))]
-    [Migration("20220808211308_Initial")]
+    [Migration("20220819123211_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -544,10 +544,16 @@ namespace Ejournal.Persistence.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasAccount")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")

@@ -2,6 +2,9 @@
 using Ejournal.Application.Application.Command.User_s.CreateUser;
 using Ejournal.Application.Application.Command.User_s.DeleteUser;
 using Ejournal.Application.Application.Command.User_s.UpdateUser;
+using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
+using Ejournal.Application.Application.Queries.User_s.GetUserslist;
+using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,6 +20,22 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public UsersController(IMapper mapper) => _mapper = mapper;
 
+        [HttpGet]
+        public async Task<ActionResult<UserListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        {
+            var query = new GetUserListQuery { Parametrs = parametrs };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<UserDetailsResponseVm>> Get(Guid Id)
+        {
+            var query = new GetUserDetailsQuery { UserId = Id };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto userDto)
         {
@@ -34,10 +53,7 @@ namespace Ejournal.WebApi.Controllers
 
                 await Mediator.Send(identityUser);
             }
-
-                       
-            return Ok();
-          //  return CreatedAtAction(nameof(Get), new { Id = specializationId }, null);
+            return CreatedAtAction(nameof(Get), new { Id = userId }, null);
         }
 
         [HttpPost]
@@ -74,14 +90,5 @@ namespace Ejournal.WebApi.Controllers
             }
             return NoContent();
         }
-
-        //[HttpDelete]
-        //[Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
-        //public async Task<IActionResult> DeleteAccount(Guid userId)
-        //{
-        //    var command = new DeleteAspNetUserCommand { UserId = userId };
-        //    await Mediator.Send(command);
-        //    return NoContent();
-        //}
     }
 }
