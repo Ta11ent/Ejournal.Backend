@@ -18,7 +18,7 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserLookupDto>()
-                .ForMember(entityDto => entityDto.Id,
+                .ForMember(entityDto => entityDto.UserId,
                     opt => opt.MapFrom(entity => entity.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
                     opt => opt.MapFrom(entity => entity.FirstName))
