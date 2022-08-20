@@ -12,5 +12,6 @@ namespace Ejournal.Application.Application.Command.User_s.UpdateUser
         public bool Gender { get; set; }
         public DateTime Birthday { get; set; }
         public bool Active { get; set; }
+        public bool HasAccount { get; set; }
     }
 }

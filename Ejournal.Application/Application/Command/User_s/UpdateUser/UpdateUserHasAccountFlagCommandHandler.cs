@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Command.User_s.UpdateUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
+    public class UpdateUserHasAccountFlagCommandHandler : IRequestHandler<UpdateUserHasAccountFlagCommand>
     {
         private readonly IEjournalDbContext _dbContext;
-        public UpdateUserCommandHandler(IEjournalDbContext dbContext) =>
+        public UpdateUserHasAccountFlagCommandHandler(IEjournalDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateUserHasAccountFlagCommand request, CancellationToken cancellationToken)
         {
             var entity = await
                 _dbContext.Users
@@ -25,12 +25,6 @@ namespace Ejournal.Application.Application.Command.User_s.UpdateUser
             if (entity == null)
                 throw new NotFoundException(nameof(User), request.UserId);
 
-            entity.FirstName = request.FirstName;
-            entity.MiddleName = request.MiddleName;
-            entity.LastName = request.LastName;
-            entity.Gender = request.Gender;
-            entity.Active = request.Active;
-            entity.Birthday = request.Birthday;
             entity.HasAccount = request.HasAccount;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

@@ -61,7 +61,13 @@ namespace Ejournal.WebApi.Controllers
         public async Task<IActionResult> CreateAccount([FromBody] CreateIdentityUserDto identityUserDto, Guid userId)
         {
             identityUserDto.Id = userId;
-            var command = _mapper.Map<CreateAspNetUserCommand>(identityUserDto);
+            var identityCommand = _mapper.Map<CreateAspNetUserCommand>(identityUserDto);
+            await Mediator.Send(identityCommand);
+            var command = new UpdateUserHasAccountFlagCommand
+            {
+                UserId = userId,
+                HasAccount = true
+            };
             await Mediator.Send(command);
             return Ok();
         }
@@ -72,8 +78,11 @@ namespace Ejournal.WebApi.Controllers
             updateUserDto.UserId = userId;
             var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
             await Mediator.Send(command);
-            var identityCommand = new UpdateAspNetUserCommannd { UserId = userId };
-            await Mediator.Send(identityCommand);
+            if (updateUserDto.HasAccount)
+            {
+                var identityCommand = new UpdateAspNetUserCommannd { UserId = userId };
+                await Mediator.Send(identityCommand);
+            }
             return NoContent();
             //добавить логику, если диактивируют пользователя, то и аккаунт надо даективировать. (active = false)
         }
@@ -90,5 +99,21 @@ namespace Ejournal.WebApi.Controllers
             }
             return NoContent();
         }
+
+        [HttpDelete]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
+        public async Task<IActionResult> DeleteAccount(Guid userId)
+        {
+            var identityCommand = new DeleteAspNetUserCommand { UserId = userId };
+            await Mediator.Send(identityCommand);
+            var command = new UpdateUserHasAccountFlagCommand
+            {
+                UserId = userId,
+                HasAccount = false
+            };
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
     }
 }

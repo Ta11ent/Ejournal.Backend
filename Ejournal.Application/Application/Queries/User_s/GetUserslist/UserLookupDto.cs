@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Common.Mappings;
 using Ejournal.Domain;
+using System;
 
 namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
 {
@@ -11,6 +12,7 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool Gender { get; set; }
+        public DateTime Birthday { get; set; }
         public bool HasAccount { get; set; }
 
         public void Mapping(Profile profile)
@@ -23,7 +25,9 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
                 .ForMember(entityDto => entityDto.MiddleName,
                     opt => opt.MapFrom(entity => entity.MiddleName))
                 .ForMember(entityDto => entityDto.LastName,
-                    opt => opt.MapFrom(entity => entity.LastName));
+                    opt => opt.MapFrom(entity => entity.LastName))
+                .ForMember(entityDto => entityDto.Birthday,
+                    opt => opt.MapFrom(entity => entity.Birthday));
         }
 
     }

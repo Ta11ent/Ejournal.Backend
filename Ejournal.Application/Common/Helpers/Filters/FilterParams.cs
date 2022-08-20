@@ -20,7 +20,7 @@ namespace Ejournal.Application.Common.Helpers.Filters
             set => _active = value ?? true;
         }
 
-        private DateTime _dateFrom = new DateTime(2000, 1, 1);
+        private DateTime _dateFrom = new DateTime(1900, 1, 1);
         private DateTime _dateTo = new DateTime(2099, 12, 31);
         public DateTime? DateFrom
         {

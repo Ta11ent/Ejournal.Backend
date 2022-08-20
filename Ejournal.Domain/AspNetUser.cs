@@ -17,7 +17,6 @@ namespace Ejournal.Domain
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        public bool Active { get; set; }
         public bool AccountConfirmed { get; set; }
     }
 }

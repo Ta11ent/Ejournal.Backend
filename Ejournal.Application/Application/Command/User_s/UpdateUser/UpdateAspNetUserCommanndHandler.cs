@@ -24,7 +24,7 @@ namespace Ejournal.Application.Application.Command.User_s.UpdateUser
             if (entity == null)
                 throw new NotFoundException("IdentityUser", request.UserId);
 
-            entity.Active = request.Active;
+            entity.LockoutEnabled = !request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

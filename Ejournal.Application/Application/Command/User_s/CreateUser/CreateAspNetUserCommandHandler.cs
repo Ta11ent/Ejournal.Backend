@@ -28,9 +28,8 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
-                LockoutEnabled = true,
+                LockoutEnabled = false,
                 PasswordHash = new PasswordHasher().HashPassword(request.Password),
-                Active = true,
                 AccountConfirmed = false
             };
 

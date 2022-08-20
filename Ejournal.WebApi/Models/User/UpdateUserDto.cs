@@ -14,7 +14,8 @@ namespace Ejournal.WebApi.Models.User
         public bool Gender { get; set; }
         public DateTime Birthday { get; set; }
         public bool UserActive { get; set; }
-        public bool AccountActive { get; set; }
+        public bool? AccountActive { get; set; }
+        public bool HasAccount { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
@@ -31,7 +32,9 @@ namespace Ejournal.WebApi.Models.User
                 .ForMember(entityDto => entityDto.Birthday,
                     opt => opt.MapFrom(entity => entity.Birthday))
                 .ForMember(entityDto => entityDto.Active,
-                    opt => opt.MapFrom(entity => entity.UserActive));
+                    opt => opt.MapFrom(entity => entity.UserActive))
+                .ForMember(entityDto => entityDto.HasAccount,
+                    opt => opt.MapFrom(entity => entity.HasAccount));
         }
     }
 }
