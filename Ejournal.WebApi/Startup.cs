@@ -34,7 +34,7 @@ namespace Ejournal.WebApi
             services.AddPersistence(Configuration);
             services.AddPerson(Configuration);
             services.AddControllers();
-            //надо будет почитать и донастроить
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -55,7 +55,7 @@ namespace Ejournal.WebApi
                 .AddJwtBearer("Bearer", options =>
                 {
                     options.Authority = "https://localhost:44384/";
-                    options.Audience = "EjournalWebApi";
+                    options.Audience = "ejournal_web_api";
                     options.RequireHttpsMetadata = false;
                 });
 
@@ -73,7 +73,7 @@ namespace Ejournal.WebApi
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
             app.UseAuthentication();
-            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseApiVersioning();
             app.UseEndpoints(endpoints =>
             {

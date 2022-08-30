@@ -6,6 +6,7 @@ using Ejournal.Application.Application.Queries.Part_s.GetPartDetails;
 using Ejournal.Application.Application.Queries.Part_s.GetPartList;
 using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models.Part;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class PartsController : BaseController

@@ -11,6 +11,7 @@ using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberDetai
 using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberList;
 using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models.Group;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class GroupsController : BaseController

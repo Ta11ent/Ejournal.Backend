@@ -6,6 +6,7 @@ using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecializatio
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationDetails;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationList;
 using Ejournal.WebApi.Models.Specialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SpecializationsController : BaseController

@@ -8,7 +8,7 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
     public class UserLookupDto : IMapWith<User>
     {
         public string UserId { get; set; }
-       public string FirstName { get; set; }
+        public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool Gender { get; set; }

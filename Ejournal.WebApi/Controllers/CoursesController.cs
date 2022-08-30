@@ -6,6 +6,7 @@ using Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList;
 using Ejournal.WebApi.Models.Course;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CoursesController : BaseController

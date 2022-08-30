@@ -11,6 +11,7 @@ using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList;
 using Ejournal.WebApi.Models.Department;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DepartmentsController : BaseController
