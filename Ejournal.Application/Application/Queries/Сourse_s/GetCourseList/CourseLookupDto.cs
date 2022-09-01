@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Ejournal.Application.Common.Mappings;
-using Ejournal.Application.Ejournal.Queries.Curriculum_s.GetCurriculumList;
 using Ejournal.Domain;
 using System;
-using System.Collections.Generic;
 
 namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
 {

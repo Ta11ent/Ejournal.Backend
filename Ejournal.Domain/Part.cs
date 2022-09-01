@@ -10,7 +10,6 @@ namespace Ejournal.Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public IEnumerable<CurriculumPart> CurriculumParts { get; set; }
         public IEnumerable<Schedule> Schedules { get; set; }
 
     }

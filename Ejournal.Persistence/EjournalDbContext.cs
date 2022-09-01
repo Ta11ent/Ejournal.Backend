@@ -9,9 +9,6 @@ namespace Ejournal.Persistence
     {
         #region DbSet
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Curriculum> Curriculums { get; set; }
-        public DbSet<CurriculumPart> CurriculumParts { get; set; }
-        public DbSet<CurriculumPartSubject> CurriculumPartSubjects { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentMember> DepartmentMembers { get; set; }
         public DbSet<HomeWork> HomeWorks { get; set; }
@@ -37,9 +34,6 @@ namespace Ejournal.Persistence
         {
             #region builder.ApplyConfiguration
             builder.ApplyConfiguration(new CourseConfiguration());
-            builder.ApplyConfiguration(new CurriculumConfiguration());
-            builder.ApplyConfiguration(new CurriculumPartConfiguration());
-            builder.ApplyConfiguration(new CurriculumPartSubjectConfiguration());
             builder.ApplyConfiguration(new DepartmentConfiguration());
             builder.ApplyConfiguration(new DepartmentMemberConfiguration());
             builder.ApplyConfiguration(new HomeWorkConfiguration());

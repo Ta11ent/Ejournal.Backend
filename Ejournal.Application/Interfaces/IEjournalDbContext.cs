@@ -8,9 +8,6 @@ namespace Ejournal.Application.Interfaces
     public interface IEjournalDbContext
     {
         DbSet<Course> Courses { get; set; }
-        DbSet<Curriculum> Curriculums { get; set; }
-        DbSet<CurriculumPart> CurriculumParts { get; set; }
-        DbSet<CurriculumPartSubject> CurriculumPartSubjects { get; set; }
         DbSet<Department> Departments { get; set; }
         DbSet<DepartmentMember> DepartmentMembers { get; set; }
         DbSet<HomeWork> HomeWorks { get; set; }

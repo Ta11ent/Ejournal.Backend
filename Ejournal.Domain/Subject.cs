@@ -13,7 +13,6 @@ namespace Ejournal.Domain
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public IEnumerable<CurriculumPartSubject> CurriculumPartSubjects { get; set; }
         public IEnumerable<ScheduleSubject> ScheduleSubjects { get; set; }
         public IEnumerable<RatingLog> RaitingLogs { get; set; }
         public IEnumerable<HomeWork> HomeWorks { get; set; }
