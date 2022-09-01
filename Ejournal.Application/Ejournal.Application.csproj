@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Ejournal.Domain\Ejournal.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Command\User_s\DeleteUser\" />
-  </ItemGroup>
-
 </Project>

@@ -85,7 +85,7 @@ namespace Ejournal.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto modelDto)
         {
-            var command = _mapper.Map<CreateScheduleCommmand>(modelDto);
+            var command = _mapper.Map<CreateScheduleCommand>(modelDto);
             var scheduleId = await Mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { Id = scheduleId }, null);
         }

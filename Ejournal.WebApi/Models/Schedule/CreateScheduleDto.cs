@@ -5,7 +5,7 @@ using System;
 
 namespace Ejournal.WebApi.Models.Schedule
 {
-    public class CreateScheduleDto : IMapWith<CreateScheduleCommmand>
+    public class CreateScheduleDto : IMapWith<CreateScheduleCommand>
     {
         public string Description { get; set; }
         public DateTime Date { get; set; }
@@ -14,7 +14,7 @@ namespace Ejournal.WebApi.Models.Schedule
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateScheduleDto, CreateScheduleCommmand>()
+            profile.CreateMap<CreateScheduleDto, CreateScheduleCommand>()
                 .ForMember(entiityDto => entiityDto.Description,
                     opt => opt.MapFrom(entity => entity.Description))
                 .ForMember(entiityDto => entiityDto.Date,

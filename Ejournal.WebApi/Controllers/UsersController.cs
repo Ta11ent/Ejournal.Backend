@@ -82,7 +82,7 @@ namespace Ejournal.WebApi.Controllers
             await Mediator.Send(command);
             if (updateUserDto.HasAccount)
             {
-                var identityCommand = new UpdateAspNetUserCommannd { UserId = userId };
+                var identityCommand = new UpdateAspNetUserCommand { UserId = userId };
                 await Mediator.Send(identityCommand);
             }
             return NoContent();
