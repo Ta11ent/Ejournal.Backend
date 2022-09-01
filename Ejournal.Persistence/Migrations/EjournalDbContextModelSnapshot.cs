@@ -41,96 +41,6 @@ namespace Ejournal.Persistence.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Ejournal.Domain.Curriculum", b =>
-                {
-                    b.Property<Guid>("CurriculumId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<Guid>("SpecializationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CurriculumId");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("CurriculumId")
-                        .IsUnique();
-
-                    b.HasIndex("SpecializationId");
-
-                    b.ToTable("Curriculums");
-                });
-
-            modelBuilder.Entity("Ejournal.Domain.CurriculumPart", b =>
-                {
-                    b.Property<Guid>("CurriculumPartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("CurriculumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CurriculumPartId");
-
-                    b.HasIndex("CurriculumId");
-
-                    b.HasIndex("CurriculumPartId")
-                        .IsUnique();
-
-                    b.HasIndex("PartId");
-
-                    b.ToTable("CurriculumParts");
-                });
-
-            modelBuilder.Entity("Ejournal.Domain.CurriculumPartSubject", b =>
-                {
-                    b.Property<Guid>("CurriculumPartSubjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CurriculumPartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Time")
-                        .HasColumnType("int");
-
-                    b.HasKey("CurriculumPartSubjectId");
-
-                    b.HasIndex("CurriculumPartId");
-
-                    b.HasIndex("CurriculumPartSubjectId")
-                        .IsUnique();
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("CurriculumPartSubjects");
-                });
-
             modelBuilder.Entity("Ejournal.Domain.Department", b =>
                 {
                     b.Property<Guid>("DepartmentId")
@@ -565,63 +475,6 @@ namespace Ejournal.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Ejournal.Domain.Curriculum", b =>
-                {
-                    b.HasOne("Ejournal.Domain.Course", "Course")
-                        .WithMany("Curriculums")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ejournal.Domain.Specialization", "Specialization")
-                        .WithMany("Curriculums")
-                        .HasForeignKey("SpecializationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Specialization");
-                });
-
-            modelBuilder.Entity("Ejournal.Domain.CurriculumPart", b =>
-                {
-                    b.HasOne("Ejournal.Domain.Curriculum", "Curriculum")
-                        .WithMany("CurriculumParts")
-                        .HasForeignKey("CurriculumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ejournal.Domain.Part", "Part")
-                        .WithMany("CurriculumParts")
-                        .HasForeignKey("PartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Curriculum");
-
-                    b.Navigation("Part");
-                });
-
-            modelBuilder.Entity("Ejournal.Domain.CurriculumPartSubject", b =>
-                {
-                    b.HasOne("Ejournal.Domain.CurriculumPart", "CurriculumPart")
-                        .WithMany()
-                        .HasForeignKey("CurriculumPartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ejournal.Domain.Subject", "Subject")
-                        .WithMany("CurriculumPartSubjects")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CurriculumPart");
-
-                    b.Navigation("Subject");
-                });
-
             modelBuilder.Entity("Ejournal.Domain.DepartmentMember", b =>
                 {
                     b.HasOne("Ejournal.Domain.Department", "Department")
@@ -784,16 +637,6 @@ namespace Ejournal.Persistence.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Ejournal.Domain.Course", b =>
-                {
-                    b.Navigation("Curriculums");
-                });
-
-            modelBuilder.Entity("Ejournal.Domain.Curriculum", b =>
-                {
-                    b.Navigation("CurriculumParts");
-                });
-
             modelBuilder.Entity("Ejournal.Domain.Department", b =>
                 {
                     b.Navigation("DepartmentMembers");
@@ -815,8 +658,6 @@ namespace Ejournal.Persistence.Migrations
 
             modelBuilder.Entity("Ejournal.Domain.Part", b =>
                 {
-                    b.Navigation("CurriculumParts");
-
                     b.Navigation("Schedules");
                 });
 
@@ -832,8 +673,6 @@ namespace Ejournal.Persistence.Migrations
 
             modelBuilder.Entity("Ejournal.Domain.Specialization", b =>
                 {
-                    b.Navigation("Curriculums");
-
                     b.Navigation("StudentGroups");
                 });
 
@@ -853,8 +692,6 @@ namespace Ejournal.Persistence.Migrations
 
             modelBuilder.Entity("Ejournal.Domain.Subject", b =>
                 {
-                    b.Navigation("CurriculumPartSubjects");
-
                     b.Navigation("HomeWorks");
 
                     b.Navigation("RaitingLogs");
