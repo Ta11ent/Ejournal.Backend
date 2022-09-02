@@ -30,7 +30,8 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
             var data = 
                 await _dbContext.Users
                 .Where(predicate
-                    .And(x => x.Active == request.Parametrs.Active)
+                    .And(x => x.Active == request.Parametrs.Active, 
+                        request.Parametrs.Active)
                     .And(x => x.Birthday >= request.Parametrs.DateFrom,
                         request.Parametrs.DateFrom)
                     .And(x => x.Birthday <= request.Parametrs.DateTo,

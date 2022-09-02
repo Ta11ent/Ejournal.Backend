@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,9 +27,13 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
         public async Task<SpecializationListResponseVm> Handle(GetSpecializationListQuery request,
             CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<Specialization>();
             var entity =
                 await _dbContext.Specializations
-                    .Where(sp => sp.Active == request.Parametrs.Active)
+                    .Where(predicate
+                        .And(x => x.Active == request.Parametrs.Active, request.Parametrs.Active)
+                        .And(x => x.CreationDate >= request.Parametrs.DateFrom, request.Parametrs.DateFrom)
+                        .And(x => x.CreationDate <= request.Parametrs.DateTo, request.Parametrs.DateTo))
                     .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                     .Take(request.Parametrs.PageSize)
                     .ProjectTo<SpecializationLookupDto>(_mapper.ConfigurationProvider)

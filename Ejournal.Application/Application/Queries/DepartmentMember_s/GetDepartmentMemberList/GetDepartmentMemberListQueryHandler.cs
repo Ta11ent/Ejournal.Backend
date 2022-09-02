@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,11 +28,13 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
         public async Task<DepartmentMemberListResponseVm> Handle(GetDepartmentMemberListQuery request,
             CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<DepartmentMember>();
             var entity =
                 await _dbContext.DepartmentMembers
-                .Where(dm =>
-                    dm.DepartmentId == request.DepartmentId &&
-                    dm.Active == request.Parametrs.Active)
+                .Where(predicate
+                    .And(x => x.DepartmentId == request.DepartmentId)
+                    .And(x => x.Active == request.Parametrs.Active,
+                        request.Parametrs.Active))
                 .Include(x => x.User)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)

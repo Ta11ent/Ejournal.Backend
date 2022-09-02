@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Ejournal.Application.Common.Exceptions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
 using Ejournal.Domain;
 using MediatR;
@@ -24,11 +25,13 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
         }
         public async Task<GroupMemberListResponseVm> Handle(GetGroupMemberListQuery request, CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<StudentGroupMember>();
             var entity =
               await _dbContext.StudentGroupMembers
-                .Where(e => 
-                    e.StudentGroupId == request.GroupId &&
-                    e.Active == request.Parametrs.Active)
+                .Where(predicate 
+                    .And(x => x.StudentGroupId == request.GroupId)
+                    .And(x => x.Active == request.Parametrs.Active,
+                        request.Parametrs.Active))
                 .Include(x => x.User)
                 .Include(p => p.StudentGroup)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)

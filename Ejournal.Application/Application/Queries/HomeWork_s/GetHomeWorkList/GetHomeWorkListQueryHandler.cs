@@ -32,8 +32,10 @@ namespace Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList
                         request.Parametrs.Subject)
                     .And(x => x.StudentGroupId == request.Parametrs.Group,
                         request.Parametrs.Group)
-                    .And(x => x.Date >= request.Parametrs.DateFrom)
-                    .And(x => x.Date <= request.Parametrs.DateTo))
+                    .And(x => x.Date >= request.Parametrs.DateFrom,
+                        request.Parametrs.DateFrom)
+                    .And(x => x.Date <= request.Parametrs.DateTo,
+                        request.Parametrs.DateTo))
                 .Include(s => s.Subject)
                 .Include(g => g.StudentGroup)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)

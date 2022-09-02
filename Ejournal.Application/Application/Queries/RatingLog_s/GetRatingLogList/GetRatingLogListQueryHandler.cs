@@ -40,8 +40,10 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
                             request.Parametrs.Subject)
                         .And(x => x.StudentGroupMember.StudentGroupId == request.Parametrs.Group, 
                             request.Parametrs.Group)
-                        .And(x => x.Date >= request.Parametrs.DateFrom)
-                        .And(x => x.Date <= request.Parametrs.DateTo))
+                        .And(x => x.Date >= request.Parametrs.DateFrom,
+                            request.Parametrs.DateFrom)
+                        .And(x => x.Date <= request.Parametrs.DateTo,
+                            request.Parametrs.DateTo))
                     .Include(s => s.StudentGroupMember)
                         .ThenInclude(u => u.User)
                     .Include(d => d.DepartmentMember)

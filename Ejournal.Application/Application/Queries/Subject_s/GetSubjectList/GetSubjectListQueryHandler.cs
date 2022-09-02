@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,9 +24,11 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
 
         public async Task<SubjectListResponseVm> Handle(GetSubjectListQuery request, CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<Subject>();
             var entity =
                 await _dbContext.Subjects
-                .Where(x => x.Active == request.Parametrs.Active)
+                .Where(predicate
+                    .And(x => x.Active == request.Parametrs.Active, request.Parametrs.Active))
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<SubjectLookupDto>(_mapper.ConfigurationProvider)

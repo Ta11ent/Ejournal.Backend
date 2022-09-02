@@ -27,13 +27,13 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList
         public async Task<ScheduleListResponseVm> Handle(GetScheduleListQuery request, CancellationToken cancellationToken)
         {
             var predicate = CustomPredicateBuilder.True<Schedule>();
-
             var entity =
                 await _dbContext.Schedules
                 .Where(predicate
-                    .And(x => x.Active == request.Parametrs.Active)
-                    .And(x => x.StudentGroupId == request.Parametrs.Group, 
-                        request.Parametrs.Group))
+                    .And(x => x.Active == request.Parametrs.Active, request.Parametrs.Active)
+                    .And(x => x.StudentGroupId == request.Parametrs.Group, request.Parametrs.Group)
+                    .And(x => x.Date >= request.Parametrs.DateFrom, request.Parametrs.DateFrom)
+                    .And(x => x.Date <= request.Parametrs.DateTo, request.Parametrs.DateTo))
                 .Include(g => g.StudentGroup)
                 .Include(p => p.Part)
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,9 +25,12 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
         public async Task<CourseListResponseVm> Handle(GetCourseListQuery request,
             CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<Course>();
             var entity =
                 await _dbContext.Courses
-                .Where(b => b.Active == request.Parametrs.Active)
+                .Where(predicate
+                    .And(x => x.Active == request.Parametrs.Active,
+                        request.Parametrs.Active))
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<CourseLookupDto>(_mapper.ConfigurationProvider)
