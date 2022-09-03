@@ -19,8 +19,8 @@ namespace Ejournal.Application.Application.Command.Claim_s.CreateClaim
             var claim = new AspNetUserClaim
             {
                UserId = request.UserId,
-               ClaimType = request.Claim.Type,
-               ClaimValue = request.Claim.Value
+               ClaimType = request.ClaimType,
+               ClaimValue = request.ClaimValue
             };
 
             await _dbContext.AspNetUserClaims.AddAsync(claim, cancellationToken);

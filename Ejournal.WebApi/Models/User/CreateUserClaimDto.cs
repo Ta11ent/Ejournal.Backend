@@ -9,18 +9,17 @@ namespace Ejournal.WebApi.Models.User
     public class CreateUserClaimDto : IMapWith<CreateClaimCommand>
     {
         public Guid UserId { get; set; }
-        /// <summary>
-        /// Need to fill ClaimValue and ClaimType field
-        /// </summary>
-        public Claim Claim { get; set; }
-
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateUserClaimDto, CreateClaimCommand>()
                 .ForMember(entityDto => entityDto.UserId,
                     opt => opt.MapFrom(entity => entity.UserId))
-                .ForMember(entityDto => entityDto.Claim,
-                    opt => opt.MapFrom(entity => entity.Claim));
+                .ForMember(entityDto => entityDto.ClaimType,
+                    opt => opt.MapFrom(entity => entity.ClaimType))
+                .ForMember(entityDto => entityDto.ClaimValue,
+                    opt => opt.MapFrom(entity => entity.ClaimValue));
         }
     }
 }

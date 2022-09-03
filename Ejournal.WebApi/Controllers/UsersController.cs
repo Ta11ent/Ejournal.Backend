@@ -6,6 +6,7 @@ using Ejournal.Application.Application.Command.User_s.UpdateUser;
 using Ejournal.Application.Application.Command.UserClaim_s.DeleteClaim;
 using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
 using Ejournal.Application.Application.Queries.User_s.GetUserslist;
+using Ejournal.Application.Application.Queries.UserClaim_s.GetUserClaimsList;
 using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,16 @@ namespace Ejournal.WebApi.Controllers
         public async Task<ActionResult<UserListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetUserListQuery { Parametrs = parametrs };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+
+        }
+
+        [HttpGet]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/")]
+        public async Task<ActionResult<UserListResponseVm>> GetUserClaims([FromQuery] FilterParams parametrs, Guid userId)
+        {
+            var query = new GetClaimListQuery { Parametrs = parametrs, UserId = userId };
             var vm = await Mediator.Send(query);
             return Ok(vm);
 

@@ -8,8 +8,8 @@ namespace Ejournal.Application.Application.Command.Claim_s.CreateClaim
         public CreateClaimCommandValidator()
         {
             RuleFor(x => x.UserId).NotEqual(Guid.Empty);
-            RuleFor(x => x.Claim.Type).NotEmpty();
-            RuleFor(x => x.Claim.Value).NotEmpty();
+            RuleFor(x => x.ClaimType).NotEmpty();
+            RuleFor(x => x.ClaimValue).NotEmpty();
         }
     }
 }
