@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Ejournal.Application.Application.Command.Claim_s.CreateClaim;
 using Ejournal.Application.Application.Command.User_s.CreateUser;
 using Ejournal.Application.Application.Command.User_s.DeleteUser;
 using Ejournal.Application.Application.Command.User_s.UpdateUser;
+using Ejournal.Application.Application.Command.UserClaim_s.DeleteClaim;
 using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
 using Ejournal.Application.Application.Queries.User_s.GetUserslist;
 using Ejournal.Application.Common.Helpers.Filters;
@@ -74,6 +76,16 @@ namespace Ejournal.WebApi.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/")]
+        public async Task<IActionResult> CreateClaim([FromBody] CreateUserClaimDto createUserClaimDto, Guid userId)
+        {
+            createUserClaimDto.UserId = userId;
+            var claimCommand = _mapper.Map<CreateClaimCommand>(createUserClaimDto);
+            await Mediator.Send(claimCommand);
+            return Ok();
+        }
+
         [HttpPut("{userId:Guid}")]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto, Guid userId)
         {
@@ -86,7 +98,6 @@ namespace Ejournal.WebApi.Controllers
                 await Mediator.Send(identityCommand);
             }
             return NoContent();
-            //добавить логику, если диактивируют пользователя, то и аккаунт надо даективировать. (active = false)
         }
 
         [HttpDelete("{userId:Guid}")]
@@ -114,6 +125,15 @@ namespace Ejournal.WebApi.Controllers
                 HasAccount = false
             };
             await Mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/{id:int}")]
+        public async Task<IActionResult> DeleteClaim(Guid userId, int id)
+        {
+            var claimCommand = new DeleteClaimCommand { UserId = userId, Id = id};
+            await Mediator.Send(claimCommand);
             return NoContent();
         }
 

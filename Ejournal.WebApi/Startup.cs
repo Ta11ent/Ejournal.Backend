@@ -59,6 +59,14 @@ namespace Ejournal.WebApi
                     options.Audience = "ejournal_web_api";
                     options.RequireHttpsMetadata = false;
                 });
+            services.AddAuthorization(config =>
+           {
+               config.AddPolicy("Test", policy =>
+               {
+                   policy.RequireClaim("Type", "Value"); 
+                   //policy.RequireRole("Admin");
+               });
+           });
 
             services.AddApiVersioning();
         }

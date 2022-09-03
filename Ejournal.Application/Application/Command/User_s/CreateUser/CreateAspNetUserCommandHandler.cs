@@ -5,6 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace Ejournal.Application.Application.Command.User_s.CreateUser
 {
@@ -33,9 +34,18 @@ namespace Ejournal.Application.Application.Command.User_s.CreateUser
                 AccountConfirmed = false
             };
 
-            
-
             await _dbContext.AspNetUsers.AddAsync(user, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+
+            var claim = new AspNetUserClaim
+            {
+                UserId = request.Id,
+                ClaimType = "type",
+                ClaimValue = "Value2"
+
+            };
+            await _dbContext.AspNetUserClaims.AddAsync(claim, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

@@ -8,6 +8,7 @@ namespace Ejournal.Application.Interfaces
     public interface IPersonDbContext
     {
         DbSet<AspNetUser> AspNetUsers { get; set; }
+        DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

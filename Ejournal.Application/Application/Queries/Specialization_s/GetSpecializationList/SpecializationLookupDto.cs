@@ -9,6 +9,8 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
     {
         public Guid SpecializationId { get; set; }
         public string Name { get; set; }
+        
+
 
 
         public void Mapping(Profile profile)

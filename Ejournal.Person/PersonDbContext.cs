@@ -7,6 +7,7 @@ namespace Ejournal.Person
     public class PersonDbContext : DbContext, IPersonDbContext
     {
         public DbSet<AspNetUser> AspNetUsers { get; set; }
+        public DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public PersonDbContext(DbContextOptions<PersonDbContext> options)
             : base(options) { }
 
