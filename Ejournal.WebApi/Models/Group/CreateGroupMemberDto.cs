@@ -8,11 +8,14 @@ namespace Ejournal.WebApi.Models.Group
     public class CreateGroupMemberDto : IMapWith<CreateGroupMemberCommand>
     {
         public Guid UserId { get; set; }
+        public Guid GroupId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateGroupMemberDto, CreateGroupMemberCommand>()
                 .ForMember(entityDto => entityDto.UserId,
-                    opt => opt.MapFrom(entity => entity.UserId));
+                    opt => opt.MapFrom(entity => entity.UserId))
+                .ForMember(entityDto => entityDto.GroupId,
+                    opt => opt.MapFrom(entity => entity.GroupId));
         }
     }
 }

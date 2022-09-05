@@ -7,12 +7,15 @@ namespace Ejournal.WebApi.Models.Department
 {
     public class CreateDeartmentMemberDto : IMapWith<CreateDepartmentMemberCommand>
     {
+        public Guid MembershipId { get; set; }
         public Guid UserId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateDeartmentMemberDto, CreateDepartmentMemberCommand>()
                 .ForMember(entityCommnd => entityCommnd.UserId,
-                    opt => opt.MapFrom(entity => entity.UserId));
+                    opt => opt.MapFrom(entity => entity.UserId))
+                .ForMember(entityCommnd => entityCommnd.DepartmentId,
+                    opt => opt.MapFrom(entity => entity.MembershipId));
         }
     }
 }

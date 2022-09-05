@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Ejournal.Application.Application.Command.Claim_s.CreateClaim;
 using Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepartmetMember;
 using Ejournal.Application.Application.Command.DepartmentMember_s.DeleteDepartmentMember;
 using Ejournal.Application.Application.Command.DepartmentMember_s.UpdateDepartmentMember;
+using Ejournal.Application.Application.Command.UserClaim_s.DeleteClaim;
 using Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartmentMemberDetails;
 using Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartmentMemberList;
 using Ejournal.Application.Common.Helpers.Filters;
@@ -15,6 +17,8 @@ using Ejournal.WebApi.Models.Department;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ejournal.WebApi.Controllers
@@ -95,10 +99,21 @@ namespace Ejournal.WebApi.Controllers
         public async Task<ActionResult<Guid>> CreateDepartmentMember([FromBody] CreateDeartmentMemberDto createDeartmentMemberDto,
                 Guid departmentId)
         {
+            createDeartmentMemberDto.MembershipId = departmentId;
             var command = _mapper.Map<CreateDepartmentMemberCommand>(createDeartmentMemberDto);
-            command.DepartmentId = departmentId;
-            var memberId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetDepartmentMember), new { departmentId, memberId }, null);
+            var membershipId = await Mediator.Send(command);
+
+            var cliaimCommand = new CreateClaimsCommand
+            {
+                UserId = createDeartmentMemberDto.UserId,
+                Claims = new List<Claim>()
+                {
+                    new Claim(ClaimLevel.Type, ClaimLevel.Medium),
+                    new Claim(ClaimLevel.Type, ClaimLevel.Low)
+                }
+            };
+            await Mediator.Send(cliaimCommand);
+            return CreatedAtAction(nameof(GetDepartmentMember), new { departmentId, membershipId }, null);
         }
 
         [HttpPut("{Id:Guid}")]

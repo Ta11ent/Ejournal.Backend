@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ejournal.Application.Application.Command.Claim_s.CreateClaim;
 using Ejournal.Application.Application.Command.Goup_s.CreateGroup;
 using Ejournal.Application.Application.Command.Goup_s.DeleteGroup;
 using Ejournal.Application.Application.Command.Goup_s.UpdateGroup;
@@ -96,10 +97,17 @@ namespace Ejournal.WebApi.Controllers
         public async Task<ActionResult<Guid>> CreateGroupMember([FromBody] CreateGroupMemberDto createGroupMemberDto,
                 Guid groupId)
         {
+            createGroupMemberDto.GroupId = groupId;
             var command = _mapper.Map<CreateGroupMemberCommand>(createGroupMemberDto);
-            command.GroupId = groupId;
-            var memberId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetGroupMember), new { groupId, memberId }, null);
+            var classMemberId = await Mediator.Send(command);
+            var cliaimCommand = new CreateClaimCommand
+            {
+                UserId = createGroupMemberDto.UserId,
+                ClaimType = ClaimLevel.Type,
+                ClaimValue = ClaimLevel.Low
+            };
+            await Mediator.Send(cliaimCommand);
+            return CreatedAtAction(nameof(GetGroupMember), new { groupId, classMemberId }, null);
         }
 
         [HttpPut("{Id}")]

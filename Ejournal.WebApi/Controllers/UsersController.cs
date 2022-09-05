@@ -95,7 +95,7 @@ namespace Ejournal.WebApi.Controllers
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/")]
         [Authorize(Policy.Admin)]
-        public async Task<IActionResult> CreateClaim([FromBody] CreateUserClaimDto createUserClaimDto, Guid userId)
+        public async Task<IActionResult> UserClaim([FromBody] CreateUserClaimDto createUserClaimDto, Guid userId)
         {
             createUserClaimDto.UserId = userId;
             var claimCommand = _mapper.Map<CreateClaimCommand>(createUserClaimDto);
@@ -145,6 +145,10 @@ namespace Ejournal.WebApi.Controllers
                 HasAccount = false
             };
             await Mediator.Send(command);
+
+            var claimCommand = new DeleteClaimCommand { UserId = userId };
+            await Mediator.Send(claimCommand);
+
             return NoContent();
         }
 

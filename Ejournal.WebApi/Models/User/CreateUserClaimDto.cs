@@ -2,7 +2,7 @@
 using Ejournal.Application.Application.Command.Claim_s.CreateClaim;
 using Ejournal.Application.Common.Mappings;
 using System;
-using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace Ejournal.WebApi.Models.User
 {

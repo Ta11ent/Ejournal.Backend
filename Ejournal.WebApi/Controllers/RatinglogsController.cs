@@ -22,7 +22,7 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public RatingLogsController(IMapper mapper) => _mapper = mapper;
 
-        [HttpGet
+        [HttpGet]
         [Authorize(Policy.Student)]
         public async Task<ActionResult<RatingLogListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
