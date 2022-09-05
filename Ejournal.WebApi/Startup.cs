@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using System.Security.Claims;
+using Ejournal.WebApi.Helpers;
 
 namespace Ejournal.WebApi
 {
@@ -59,12 +59,28 @@ namespace Ejournal.WebApi
                     options.Audience = "ejournal_web_api";
                     options.RequireHttpsMetadata = false;
                 });
+
             services.AddAuthorization(config =>
            {
-               config.AddPolicy("Test", policy =>
+               config.AddPolicy(Policy.Admin, policy =>
                {
-                   policy.RequireClaim("Type", "Value"); 
-                   //policy.RequireRole("Admin");
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.High);
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Medium);
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Low);
+               });
+               config.AddPolicy(Policy.Management, policy =>
+               {
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.High);
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Medium);
+               });
+               config.AddPolicy(Policy.Professor, policy =>
+               {
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Medium);
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Low);
+               });
+               config.AddPolicy(Policy.Student, policy =>
+               {
+                   policy.RequireClaim(ClaimLevel.Type, ClaimLevel.Low);
                });
            });
 

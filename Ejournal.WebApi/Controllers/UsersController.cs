@@ -8,6 +8,7 @@ using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
 using Ejournal.Application.Application.Queries.User_s.GetUserslist;
 using Ejournal.Application.Application.Queries.UserClaim_s.GetUserClaimsList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UsersController : BaseController
@@ -26,7 +26,8 @@ namespace Ejournal.WebApi.Controllers
         public UsersController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
-        public async Task<ActionResult<UserListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        [Authorize(Policy.Management)]
+        public async Task<ActionResult<UserListResponseVm>> GetAllUsers([FromQuery] FilterParams parametrs)
         {
             var query = new GetUserListQuery { Parametrs = parametrs };
             var vm = await Mediator.Send(query);
@@ -36,6 +37,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<UserListResponseVm>> GetUserClaims([FromQuery] FilterParams parametrs, Guid userId)
         {
             var query = new GetClaimListQuery { Parametrs = parametrs, UserId = userId };
@@ -45,6 +47,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<UserDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetUserDetailsQuery { UserId = Id };
@@ -52,7 +55,8 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto userDto)
+        [Authorize(Policy.Management)]
+        public async Task<ActionResult<Guid>> CreateUser([FromBody] CreateUserDto userDto)
         {
             var command = _mapper.Map<CreateUserCommand>(userDto);
             var userId = await Mediator.Send(command);
@@ -73,6 +77,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> CreateAccount([FromBody] CreateIdentityUserDto identityUserDto, Guid userId)
         {
             identityUserDto.Id = userId;
@@ -89,6 +94,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/")]
+        [Authorize(Policy.Admin)]
         public async Task<IActionResult> CreateClaim([FromBody] CreateUserClaimDto createUserClaimDto, Guid userId)
         {
             createUserClaimDto.UserId = userId;
@@ -98,6 +104,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{userId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto, Guid userId)
         {
             updateUserDto.UserId = userId;
@@ -112,6 +119,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{userId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid userId)
         {
             var command = new DeleteUserCommand { UserId = userId };
@@ -126,6 +134,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Accounts/")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteAccount(Guid userId)
         {
             var identityCommand = new DeleteAspNetUserCommand { UserId = userId };
@@ -141,6 +150,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{userId:Guid}/Claims/{id:int}")]
+        [Authorize(Policy.Admin)]
         public async Task<IActionResult> DeleteClaim(Guid userId, int id)
         {
             var claimCommand = new DeleteClaimCommand { UserId = userId, Id = id};

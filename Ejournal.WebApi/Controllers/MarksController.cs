@@ -5,6 +5,7 @@ using Ejournal.Application.Application.Command.Mark_s.UpdateMark;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkDetails;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Mark;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class MarksController : BaseController
@@ -23,6 +23,7 @@ namespace Ejournal.WebApi.Controllers
         public MarksController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<MarkListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetMarkListQuery
@@ -35,6 +36,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Admin)]
         public async Task<ActionResult<MarkDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetMarkDetailsQuery
@@ -46,6 +48,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Admin)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateMarkDto createMarkDto)
         {
             var command = _mapper.Map<CreateMarkCommand>(createMarkDto);
@@ -54,6 +57,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Admin)]
         public async Task<IActionResult> Update([FromBody] UpdateMarkDto updateMarkDto, Guid Id)
         {
             var command = _mapper.Map<UpdateMarkCommand>(updateMarkDto);
@@ -63,6 +67,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Admin)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteMarkCommand

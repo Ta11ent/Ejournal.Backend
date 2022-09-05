@@ -10,6 +10,7 @@ using Ejournal.Application.Application.Queries.Goup_s.GetGroupList;
 using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberDetails;
 using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Group;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class GroupsController : BaseController
@@ -28,6 +28,7 @@ namespace Ejournal.WebApi.Controllers
         public GroupsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<GroupListResponseVm>> GetGroups([FromQuery] FilterParams parametrs)
         {
             var query = new GetGroupListQuery
@@ -41,6 +42,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/")]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<GroupMemberListResponseVm>> GetGroupMembers(Guid groupId, 
             [FromQuery] FilterParams parametrs)
         {
@@ -54,6 +56,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<GroupDetailsResponseVm>> GetGroupId(Guid Id)
         {
             var query = new GetGroupDetailsQuery
@@ -66,6 +69,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{classMemberId:Guid}")]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<GroupMemberDetailsResponseVm>> GetGroupMember(Guid groupId, Guid classMemberId)
         {
             var query = new GetGroupMemberDetailsQuery
@@ -78,6 +82,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateGroupDto createGroupDto)
         {
             var command = _mapper.Map<CreateGroupCommand>(createGroupDto);
@@ -87,6 +92,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> CreateGroupMember([FromBody] CreateGroupMemberDto createGroupMemberDto,
                 Guid groupId)
         {
@@ -97,6 +103,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> UpdateGroup([FromBody] UpdateGroupDto updateGroupDto, Guid Id)
         {
             var command = _mapper.Map<UpdateGroupCommand>(updateGroupDto);
@@ -107,6 +114,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{classMemberId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> UpdateGroupMember([FromBody] UpdateGroupMemberDto updateGroupMemberDto,
             Guid groupId, Guid classMemberId)
         {
@@ -118,6 +126,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteGroup(Guid Id)
         {
             var command = new DeleteGroupCommand
@@ -130,6 +139,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{groupId:Guid}/Members/{classMemberId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteGroupMember(Guid groupId, Guid classMemberId)
         {
             var command = new DeleteGroupMemberCommand

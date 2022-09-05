@@ -18,11 +18,11 @@ using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleS
 using Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateScheduleSubject;
 using Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteScheduleSubject;
 using Microsoft.AspNetCore.Authorization;
+using Ejournal.WebApi.Helpers;
 
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SchedulesController : BaseController
@@ -31,6 +31,7 @@ namespace Ejournal.WebApi.Controllers
         public SchedulesController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<ScheduleListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetScheduleListQuery
@@ -43,6 +44,7 @@ namespace Ejournal.WebApi.Controllers
 
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<ScheduleDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetScheduleDetailsQuery
@@ -55,6 +57,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}")]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<ScheduleDayDetailsResponseVm>> GetScheduleDay(Guid scheduleId, int day)
         {
             var query = new GetScheduleDayDetailsQuery
@@ -68,6 +71,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<ScheduleDayDetailsResponseVm>> GetScheduleDaySbject(Guid scheduleId, int day, Guid subjectId)
         {
             var query = new GetScheduleSubjectDetailsQuery
@@ -83,6 +87,7 @@ namespace Ejournal.WebApi.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateScheduleDto modelDto)
         {
             var command = _mapper.Map<CreateScheduleCommand>(modelDto);
@@ -92,6 +97,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> CreateScheduleDay([FromBody] CreateScheduleDayDto modelDto,
                Guid scheduleId)
         {
@@ -103,6 +109,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> CreateScheduleDaySubject([FromBody] CreateScheduleSubjectDto modelDto,
               Guid scheduleId, int day)
         {
@@ -114,6 +121,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdateScheduleDto modelDto, Guid Id)
         {
             modelDto.ScheduleId = Id;
@@ -124,6 +132,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> UpdateScheduleDay([FromBody] UpdateScheduleDayDto modelDto,
             Guid scheduleId, int day)
         {
@@ -136,6 +145,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> UpdateScheduleDaySubject([FromBody] UpdateScheduleSubjectDto modelDto,
             Guid scheduleId, int day, Guid subjectId)
         {
@@ -148,6 +158,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteScheduleComamnd
@@ -160,6 +171,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteScheduleDay(Guid scheduleId, int day)
         {
             var command = new DeleteScheduleDayCommand
@@ -172,6 +184,7 @@ namespace Ejournal.WebApi.Controllers
         }
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/{subjectId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteScheduleDaySubject(Guid scheduleId, int day, Guid subjectId)
         {
             var command = new DeleteScheduleSubjectCommand

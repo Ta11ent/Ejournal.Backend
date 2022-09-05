@@ -10,6 +10,7 @@ using Ejournal.Application.Ejournal.Command.Department_s.DeleteDepartment;
 using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Department;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DepartmentsController : BaseController
@@ -28,6 +28,7 @@ namespace Ejournal.WebApi.Controllers
         public DepartmentsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<DepartmentListResponseVm>> GetAllDeprtments([FromQuery] FilterParams parametrs)
         {
             var query = new GetDepartmentListQuery
@@ -40,6 +41,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/")]
+        [Authorize]
         public async Task<ActionResult<DepartmentMemberListResponseVm>> GetDepartmentMembers(Guid departmentId, 
             [FromQuery] FilterParams parametrs)
         {
@@ -53,6 +55,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id:Guid}")]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<DepartmentDetailsResponseVm>> GetDepartment(Guid Id)
         {
             var query = new GetDepartmentDetailsQuery
@@ -65,6 +68,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<DepartmentMemberDetailsResponseVm>> GetDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var query = new GetDepartmentMemberDetailsQuery
@@ -77,6 +81,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> CreateDepartment([FromBody] CreateDepartmentDto createDepartmentDto)
         {
             var commad = _mapper.Map<CreateDepartmentCommand>(createDepartmentDto);
@@ -86,6 +91,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/")]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> CreateDepartmentMember([FromBody] CreateDeartmentMemberDto createDeartmentMemberDto,
                 Guid departmentId)
         {
@@ -96,6 +102,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentDto updateDepartmentDto, Guid Id)
         {
             var command = _mapper.Map<UpdateDepartmentCommand>(updateDepartmentDto);
@@ -106,7 +113,8 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
-        public async Task<IActionResult> UpdateDepartmentMember([FromBody] UpdateDepartmentMemberDto updateDepartmentMemberDto,
+        [Authorize(Policy.Management)]
+        public async Task<IActionResult> UpdateDepartmentMember ([FromBody] UpdateDepartmentMemberDto updateDepartmentMemberDto,
             Guid departmentId, Guid membershipId)
         {
             var command = _mapper.Map<UpdateDepartmentMemberCommand>(updateDepartmentMemberDto);
@@ -117,6 +125,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteDepartment(Guid Id)
         {
             var command = new DeleteDepartmentCommand
@@ -129,6 +138,7 @@ namespace Ejournal.WebApi.Controllers
 
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> DeleteDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var command = new DeleteDepartmentMemberCommand

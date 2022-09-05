@@ -5,6 +5,7 @@ using Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetails;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.RatingLog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class RatingLogsController : BaseController
@@ -22,7 +22,8 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public RatingLogsController(IMapper mapper) => _mapper = mapper;
 
-        [HttpGet]
+        [HttpGet
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<RatingLogListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetRatingLogListQuery
@@ -35,6 +36,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<RatingLogDetailsReponseVm>> Get(Guid Id)
         {
             var query = new GetRatingLogDetailsQuery
@@ -47,6 +49,7 @@ namespace Ejournal.WebApi.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateRatingLogDto createRatingLogDto)
         {
             var command = _mapper.Map<CreateRatingLogCommand>(createRatingLogDto);
@@ -55,6 +58,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Professor)]
         public async Task<IActionResult> Update([FromBody] UpdateRatingLogDto updateRatingLogDto, Guid Id)
         {
             var command = _mapper.Map<UpdateRatingLogCommand>(updateRatingLogDto);
@@ -64,6 +68,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Professor)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteRatingLogCommand

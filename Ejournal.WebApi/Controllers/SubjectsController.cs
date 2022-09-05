@@ -5,6 +5,7 @@ using Ejournal.Application.Application.Command.Subject_s.UpdateSubject;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDetails;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Subject;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SubjectsController : BaseController
@@ -23,6 +23,7 @@ namespace Ejournal.WebApi.Controllers
         public SubjectsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<SubjectListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetSubjectListQuery
@@ -35,6 +36,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy.Student)]
         public async Task<ActionResult<SubjectDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetSubjectDetailsQuery
@@ -46,6 +48,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateSubjectDto createSubjectDto)
         {
             var command = _mapper.Map<CreateSubjectCommand>(createSubjectDto);
@@ -54,6 +57,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdateSubjectDto updateSubjectDto, Guid Id)
         {
             var command = _mapper.Map<UpdateSubjectCommand>(updateSubjectDto);
@@ -63,6 +67,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteSubjectCommand

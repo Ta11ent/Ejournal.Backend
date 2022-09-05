@@ -5,6 +5,7 @@ using Ejournal.Application.Application.Command.Part_s.UpdatePart;
 using Ejournal.Application.Application.Queries.Part_s.GetPartDetails;
 using Ejournal.Application.Application.Queries.Part_s.GetPartList;
 using Ejournal.Application.Common.Helpers.Filters;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Part;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class PartsController : BaseController
@@ -23,6 +23,7 @@ namespace Ejournal.WebApi.Controllers
         public PartsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetPartListQuery
@@ -34,6 +35,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id:Guid}")]
+        [Authorize(Policy.Professor)]
         public async Task<ActionResult<PartDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetPartDetailsQuery
@@ -45,6 +47,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePartDto createPartDto)
         {
             var command = _mapper.Map<CreatePartCommand>(createPartDto);
@@ -53,6 +56,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdatePartDto updatePartDto, Guid Id)
         {
             var command = _mapper.Map<UpdatePartCommand>(updatePartDto);
@@ -62,6 +66,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id:Guid}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeletePartCommand

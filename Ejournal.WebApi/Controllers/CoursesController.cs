@@ -5,6 +5,7 @@ using Ejournal.Application.Ejournal.Command.Course_s.DeleteCourse;
 using Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize(Policy = "Test")]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CoursesController : BaseController
@@ -23,6 +23,7 @@ namespace Ejournal.WebApi.Controllers
         public CoursesController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<CourseListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetCourseListQuery
@@ -35,6 +36,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize]
         public async Task<ActionResult<CourseDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetCourseDetailsQuery
@@ -47,6 +49,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateCourseDto createCourseDto)
         {
             var command = _mapper.Map<CreateCourseCommand>(createCourseDto);
@@ -55,6 +58,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdateCourseDto updateCourseDto, Guid CourseId)
         {
             var command = _mapper.Map<UpdateCourseCommand>(updateCourseDto);
@@ -64,6 +68,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteCourseCommand

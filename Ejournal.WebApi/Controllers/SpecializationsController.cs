@@ -5,6 +5,7 @@ using Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecializatio
 using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationDetails;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationList;
+using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Specialization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 namespace Ejournal.WebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SpecializationsController : BaseController
@@ -23,6 +23,7 @@ namespace Ejournal.WebApi.Controllers
         public SpecializationsController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<SpecializationListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
         {
             var query = new GetSpecializationListQuery
@@ -35,6 +36,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize]
         public async Task<ActionResult<SpecializationDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetSpecializationDetailsQuery
@@ -46,6 +48,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy.Management)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateSpecializationDto createSpecializationDto)
         {
             var command = _mapper.Map<CreateSpecializationCommand>(createSpecializationDto);
@@ -54,6 +57,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpPut("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Update([FromBody] UpdateSpecializationDto updateSpecializationDto, Guid Id)
         {
             var command = _mapper.Map<UpdateSpecializationCommand>(updateSpecializationDto);
@@ -63,6 +67,7 @@ namespace Ejournal.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(Policy.Management)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteSpecializationCommand
