@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Ejournal.WebApi.Helpers;
+using System.IO;
+using System;
 
 namespace Ejournal.WebApi
 {
@@ -84,6 +86,13 @@ namespace Ejournal.WebApi
                });
            });
 
+            services.AddSwaggerGen(config =>
+            {
+                config.CustomSchemaIds(type => type.ToString());
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments(xmlPath);
+            });
             services.AddApiVersioning();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -93,6 +102,12 @@ namespace Ejournal.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(config => 
+            {
+                config.RoutePrefix = string.Empty;
+                config.SwaggerEndpoint("swagger/v1/swagger.json", "Ejournal API");
+            });
             app.UseCustomExceptionHandler();
             app.UseRouting();
             app.UseHttpsRedirection();
