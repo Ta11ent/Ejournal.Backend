@@ -3,10 +3,8 @@ using Ejournal.Application.Application.Command.Claim_s.CreateClaim;
 using Ejournal.Application.Application.Command.DepartmentMember_s.CreateDepartmetMember;
 using Ejournal.Application.Application.Command.DepartmentMember_s.DeleteDepartmentMember;
 using Ejournal.Application.Application.Command.DepartmentMember_s.UpdateDepartmentMember;
-using Ejournal.Application.Application.Command.UserClaim_s.DeleteClaim;
 using Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartmentMemberDetails;
 using Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartmentMemberList;
-using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.Application.Ejournal.Command.Department_s.CreateDepartment;
 using Ejournal.Application.Ejournal.Command.Department_s.DeleteDepartment;
 using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
@@ -15,6 +13,7 @@ using Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList;
 using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Department;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -31,35 +30,75 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public DepartmentsController(IMapper mapper) => _mapper = mapper;
 
+        /// <summary>
+        /// Get the list of Departments
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Departments
+        /// </remarks>
+        /// <param name="filterDto">Filter params</param>
+        /// <returns>DepartmentListResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<DepartmentListResponseVm>> GetAllDeprtments([FromQuery] FilterParams parametrs)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<DepartmentListResponseVm>> GetAllDeprtments([FromQuery] GetDepartmentListDto filterDto)
         {
-            var query = new GetDepartmentListQuery
-            {
-                Parametrs = parametrs,
-            };
+            var query = _mapper.Map<GetDepartmentListQuery>(filterDto);
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Get the list of Department Members
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Departments
+        /// </remarks>
+        /// <param name="departmentId">MembershipId (Guid)</param>
+        /// <param name="filterDto">Filter params</param>
+        /// <returns>DepartmentMemberListResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<DepartmentMemberListResponseVm>> GetDepartmentMembers(Guid departmentId, 
-            [FromQuery] FilterParams parametrs)
+            [FromQuery] GetDepartmentMemberListDto filterDto)
         {
-            var query = new GetDepartmentMemberListQuery
-            {
-                DepartmentId = departmentId,
-                Parametrs = parametrs,
-            };
+            var query = _mapper.Map<GetDepartmentMemberListQuery>(filterDto);
+            query.DepartmentId = departmentId;
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Get the Department by Id
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Department/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">Department Id (Guid)</param>
+        /// <returns>DepartmentDetailsResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet("{Id:Guid}")]
         [Authorize(Policy.Professor)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<DepartmentDetailsResponseVm>> GetDepartment(Guid Id)
         {
             var query = new GetDepartmentDetailsQuery
@@ -70,9 +109,25 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Get the DepartmentMember by Id
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Department/A5DC9FC3-438B-43C8-B562-09552D22E211/Members/EF23D499-B69D-479C-A4D8-2B8B39871978
+        /// </remarks>
+        /// <param name="departmentId">DepartmentId (Guid)</param>
+        /// <param name="membershipId">DepartmentId (Guid)</param>
+        /// <returns>DepartmentMemberDetailsResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<DepartmentMemberDetailsResponseVm>> GetDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var query = new GetDepartmentMemberDetailsQuery
@@ -84,8 +139,27 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Create a Department
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Post /Departments
+        /// {
+        ///     name: "Name of a Department",
+        ///     decription: "Description of a Department"
+        /// }
+        /// </remarks>
+        /// <param name="createDepartmentDto">createDepartmentDto object</param>
+        /// <returns>Returns Id (Guid)</returns>
+        /// <response code="201">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Guid>> CreateDepartment([FromBody] CreateDepartmentDto createDepartmentDto)
         {
             var commad = _mapper.Map<CreateDepartmentCommand>(createDepartmentDto);
@@ -93,14 +167,33 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(GetDepartment), new { Id = departmentId }, null);
         }
 
+        /// <summary>
+        /// Create a Department Member
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Post /Departments/A5DC9FC3-438B-43C8-B562-09552D22E211/Members/
+        /// {
+        ///     UserId: "EF23D499-B69D-479C-A4D8-2B8B39871978"
+        /// }
+        /// </remarks>
+        /// <param name="departmentId">departmentId (Guid)</param>
+        /// <param name="createDeartmentMemberDto">createDeartmentMemberDto object</param>
+        /// <returns>Returns Id (Guid)</returns>
+        /// <response code="201">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Guid>> CreateDepartmentMember([FromBody] CreateDeartmentMemberDto createDeartmentMemberDto,
                 Guid departmentId)
         {
-            createDeartmentMemberDto.MembershipId = departmentId;
             var command = _mapper.Map<CreateDepartmentMemberCommand>(createDeartmentMemberDto);
+            command.DepartmentId = departmentId;
             var membershipId = await Mediator.Send(command);
 
             var cliaimCommand = new CreateClaimsCommand
@@ -116,8 +209,29 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(GetDepartmentMember), new { departmentId, membershipId }, null);
         }
 
+        /// <summary>
+        /// Update the Department
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Put /Departments/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// {
+        ///     name: "Name of the Department",
+        ///     description: "Description of the Department"
+        ///     active: "State of the Department"
+        /// }
+        /// </remarks>
+        /// <param name="Id">Department Id</param>
+        /// <param name="updateDepartmentDto">updateDepartmentDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPut("{Id:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentDto updateDepartmentDto, Guid Id)
         {
             var command = _mapper.Map<UpdateDepartmentCommand>(updateDepartmentDto);
@@ -126,9 +240,31 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update the Department Member
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Put /Departments/A5DC9FC3-438B-43C8-B562-09552D22E211/Members/EF23D499-B69D-479C-A4D8-2B8B39871978
+        /// {
+        ///     name: "Name of the Department",
+        ///     description: "Description of the Department"
+        ///     active: "State of the Department"
+        /// }
+        /// </remarks>
+        /// <param name="departmentId">departmentId {Guid}</param>
+        /// <param name="membershipId">membershipId {Guid}</param>
+        /// <param name="updateDepartmentMemberDto">updateDepartmentMemberDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPut]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateDepartmentMember ([FromBody] UpdateDepartmentMemberDto updateDepartmentMemberDto,
             Guid departmentId, Guid membershipId)
         {
@@ -139,8 +275,23 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete the Department
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Delete /Departents/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">Department Id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpDelete("{Id:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteDepartment(Guid Id)
         {
             var command = new DeleteDepartmentCommand
@@ -151,6 +302,19 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete the Department Member
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Delete /Departents/A5DC9FC3-438B-43C8-B562-09552D22E211/Members/EF23D499-B69D-479C-A4D8-2B8B39871978
+        /// </remarks>
+        /// <param name="departmentId">departmentId (Guid)</param>
+        /// <param name="membershipId">Membership Id (Guid)</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
         [Authorize(Policy.Management)]

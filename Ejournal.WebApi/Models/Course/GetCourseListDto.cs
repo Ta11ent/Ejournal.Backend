@@ -5,7 +5,7 @@ using Ejournal.Application.Interfaces;
 
 namespace Ejournal.WebApi.Models.Course
 {
-    public class GetCoursesFilterDto : IMapWith<GetCourseListQuery>, IPaginationParams
+    public class GetCourseListDto : IMapWith<GetCourseListQuery>, IPaginationParams
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
@@ -13,7 +13,7 @@ namespace Ejournal.WebApi.Models.Course
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<GetCoursesFilterDto, GetCourseListQuery>()
+            profile.CreateMap<GetCourseListDto, GetCourseListQuery>()
                 .ForPath(entityDto => entityDto.Parametrs.Page,
                     opt => opt.MapFrom(entity => entity.Page))
                 .ForPath(entityDto => entityDto.Parametrs.PageSize,
