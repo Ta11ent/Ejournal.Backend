@@ -131,7 +131,7 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Delete /Specialiations/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">SpecialiationIs (Guid)</param>
+        /// <param name="Id">SpecialiationId (Guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>

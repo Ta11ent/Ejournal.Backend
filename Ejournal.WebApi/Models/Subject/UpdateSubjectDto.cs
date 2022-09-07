@@ -7,7 +7,6 @@ namespace Ejournal.WebApi.Models.Subject
 {
     public class UpdateSubjectDto : IMapWith<UpdateSubjectCommand>
     {
-        public Guid SubjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid DepartmentId { get; set; }
@@ -15,8 +14,6 @@ namespace Ejournal.WebApi.Models.Subject
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateSubjectDto, UpdateSubjectCommand>()
-                .ForMember(entityCommand => entityCommand.SubjectId,
-                    opt => opt.MapFrom(entityDto => entityDto.SubjectId))
                 .ForMember(entityCommand => entityCommand.Name,
                     opt => opt.MapFrom(entityDto => entityDto.Name))
                 .ForMember(entityCommand => entityCommand.Description,
