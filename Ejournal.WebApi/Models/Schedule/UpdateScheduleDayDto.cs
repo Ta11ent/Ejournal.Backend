@@ -11,8 +11,6 @@ namespace Ejournal.WebApi.Models.Schedule
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateScheduleDayDto, UpdateSchduleDayCommand>()
-                .ForMember(entityDto => entityDto.Day,
-                    opt => opt.MapFrom(entity => entity.Day))
                 .ForMember(entityDto => entityDto.Active,
                     opt => opt.MapFrom(entity => entity.Active));
         }

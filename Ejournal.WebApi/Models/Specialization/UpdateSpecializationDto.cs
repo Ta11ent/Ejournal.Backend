@@ -7,7 +7,6 @@ namespace Ejournal.WebApi.Models.Specialization
 {
     public class UpdateSpecializationDto : IMapWith<UpdateSpecializationCommand>
     {
-        public Guid SpecializationId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
@@ -15,8 +14,6 @@ namespace Ejournal.WebApi.Models.Specialization
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateSpecializationDto, UpdateSpecializationCommand>()
-                .ForMember(entityCommand => entityCommand.SpecializationId,
-                    opt => opt.MapFrom(entityDto => entityDto.SpecializationId))
                 .ForMember(entityCommand => entityCommand.Name,
                     opt => opt.MapFrom(entityDto => entityDto.Name))
                 .ForMember(entityCommand => entityCommand.Description,
