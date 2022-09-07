@@ -41,14 +41,14 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
 
     public class StudentDto : IMapWith<StudentGroupMember>
     {
-        public Guid GroupMemberId { get; set; } //Summary: not UserID !!!
+        public Guid ClassMemberId { get; set; }
         public Guid StudentId { get; set; }
         public string FullName { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StudentGroupMember, StudentDto>()
-                .ForMember(entityDto => entityDto.GroupMemberId,
+                .ForMember(entityDto => entityDto.ClassMemberId,
                     opt => opt.MapFrom(entiity => entiity.StudentGroupMemberId))
                 .ForMember(entityDto => entityDto.StudentId,
                     opt => opt.MapFrom(entiity => entiity.UserId))
@@ -58,7 +58,7 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
     }
     public class ProfessorDto : IMapWith<DepartmentMember>
     {
-        public Guid MembershipId { get; set; } //Summary: not UserID !!!
+        public Guid MembershipId { get; set; }
         public Guid UserId { get; set; }
         public string FullName { get; set; }
         public void Mapping(Profile profile)

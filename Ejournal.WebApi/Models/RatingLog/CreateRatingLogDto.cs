@@ -11,8 +11,8 @@ namespace Ejournal.WebApi.Models.RatingLog
         public string Description { get; set; }
         public Guid SubjectId { get; set; }
         public Guid MarkId { get; set; }
-        public Guid GroupMemberId { get; set; }
-        public Guid DepartmentMemberId { get; set; }
+        public Guid ClassMemberId { get; set; }
+        public Guid MembershipId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateRatingLogDto, CreateRatingLogCommand>()
@@ -25,9 +25,9 @@ namespace Ejournal.WebApi.Models.RatingLog
                 .ForMember(entityDto => entityDto.MarkId,
                     opt => opt.MapFrom(entiity => entiity.MarkId))
                 .ForMember(entityDto => entityDto.GroupMemberId,
-                    opt => opt.MapFrom(entiity => entiity.GroupMemberId))
+                    opt => opt.MapFrom(entiity => entiity.ClassMemberId))
                 .ForMember(entityDto => entityDto.DepartmentMemberId,
-                    opt => opt.MapFrom(entiity => entiity.DepartmentMemberId));
+                    opt => opt.MapFrom(entiity => entiity.MembershipId));
         }
     }
 }

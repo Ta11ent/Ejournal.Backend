@@ -4,10 +4,10 @@ using Ejournal.Application.Application.Command.HomeWork_s.DeleteHomeWork;
 using Ejournal.Application.Application.Command.HomeWork_s.UpdateHomeWork;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkDetails;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList;
-using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.HomeWork;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -23,21 +23,44 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public HomeWorksController(IMapper mapper) => _mapper = mapper;
 
+        /// <summary>Get the list of HomeWork</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /HomeWorks
+        /// </remarks>
+        /// <param name="filterDto">Filter params</param>
+        /// <returns>HomeWorkListResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
         [Authorize(Policy.Student)]
-        public async Task<ActionResult<HomeWorkListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<HomeWorkListResponseVm>> GetAll([FromQuery] GetHomeWorkListDto filterDto)
         {
-            var query = new GetHomeWorkListQuery
-            {
-                Parametrs = parametrs,
-            };
+            var query = _mapper.Map<GetHomeWorkListQuery>(filterDto);
             var vm = await Mediator.Send(query);
             return Ok(vm);
 
         }
 
+        /// <summary>Get the HomeWork by Id</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /HomeWorks/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">HomeWorkId (Guid)</param>
+        /// <returns>HomeWorkDetailsResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet("{Id}")]
         [Authorize(Policy.Student)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<HomeWorkDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetHomeWorkDetailsQuery
@@ -48,8 +71,28 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>Create a HomeWork</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Post /HomeWorks
+        /// {
+        ///     Date: "Date of a HomeWork",
+        ///     Description : "Description of a HomeWork",
+        ///     GroupId : "Id by Group",
+        ///     SubjectId: "Id by Subject"
+        ///     
+        /// }
+        /// </remarks>
+        /// <param name="createHomeWorkDto">CreateHomeWorkDto object</param>
+        /// <returns>Returns Id (Guid)</returns>
+        /// <response code="201">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
         [Authorize(Policy.Professor)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateHomeWorkDto createHomeWorkDto)
         {
             var command = _mapper.Map<CreateHomeWorkCommand>(createHomeWorkDto);
@@ -57,8 +100,28 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(Get), new { Id = homeWorkId }, null);
         }
 
+        /// <summary>Update the HomeWork</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Put /HomeWorks/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// {
+        ///     Date: "Date of a HomeWork",
+        ///     Description : "Description of a HomeWork",
+        ///     GroupId : "Id by Group",
+        ///     SubjectId: "Id by Subject"
+        /// }
+        /// </remarks>
+        /// <param name="Id">HomeWork Id</param>
+        /// <param name="updateHomeWorkDto">updateCourseDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPut("{Id}")]
         [Authorize(Policy.Professor)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Update([FromBody] UpdateHomeWorkDto updateHomeWorkDto, Guid Id)
         {
             var command = _mapper.Map<UpdateHomeWorkCommand>(updateHomeWorkDto);
@@ -67,8 +130,23 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete the HomeWork
+        /// </summary>
+        /// <remarks>
+        /// Simple request:
+        /// Delete /HomeWorks/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">HomeWork Id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpDelete("{Id}")]
         [Authorize(Policy.Professor)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeleteHomeWorkCommand

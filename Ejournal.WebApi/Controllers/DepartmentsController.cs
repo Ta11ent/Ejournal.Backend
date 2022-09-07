@@ -59,7 +59,7 @@ namespace Ejournal.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Simple request:
-        /// Get /Departments
+        /// Get /Departments/A5DC9FC3-438B-43C8-B562-09552D22E211/Members
         /// </remarks>
         /// <param name="departmentId">MembershipId (Guid)</param>
         /// <param name="filterDto">Filter params</param>
@@ -221,7 +221,7 @@ namespace Ejournal.WebApi.Controllers
         ///     active: "State of the Department"
         /// }
         /// </remarks>
-        /// <param name="Id">Department Id</param>
+        /// <param name="Id">Department Id (Guid)</param>
         /// <param name="updateDepartmentDto">updateDepartmentDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
@@ -318,6 +318,9 @@ namespace Ejournal.WebApi.Controllers
         [HttpDelete]
         [Route("/api/v{version:apiVersion}/[controller]/{departmentId:Guid}/Members/{membershipId:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteDepartmentMember(Guid departmentId, Guid membershipId)
         {
             var command = new DeleteDepartmentMemberCommand

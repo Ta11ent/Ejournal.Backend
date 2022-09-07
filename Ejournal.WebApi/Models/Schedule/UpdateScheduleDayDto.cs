@@ -7,8 +7,6 @@ namespace Ejournal.WebApi.Models.Schedule
 {
     public class UpdateScheduleDayDto : IMapWith<UpdateSchduleDayCommand>
     {
-        public Guid ScheduleId { get; set; }
-        public int Day { get; set; }
         public bool Active { get; set; }
         public void Mapping(Profile profile)
         {

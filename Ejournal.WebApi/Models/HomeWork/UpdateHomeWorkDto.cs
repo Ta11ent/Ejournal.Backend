@@ -7,7 +7,6 @@ namespace Ejournal.WebApi.Models.HomeWork
 {
     public class UpdateHomeWorkDto : IMapWith<UpdateHomeWorkCommand>
     {
-        public Guid HomeWorkId { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public Guid GroupId { get; set; }
@@ -15,8 +14,6 @@ namespace Ejournal.WebApi.Models.HomeWork
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateHomeWorkDto, UpdateHomeWorkCommand>()
-                .ForMember(entityCommand => entityCommand.HomeWorkId,
-                    opt => opt.MapFrom(entityDto => entityDto.HomeWorkId))
                 .ForMember(entityCommand => entityCommand.Date,
                     opt => opt.MapFrom(entityDto => entityDto.Date))
                 .ForMember(entityCommand => entityCommand.Description,

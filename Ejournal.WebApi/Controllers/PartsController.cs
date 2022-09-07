@@ -4,10 +4,10 @@ using Ejournal.Application.Application.Command.Part_s.DeletePart;
 using Ejournal.Application.Application.Command.Part_s.UpdatePart;
 using Ejournal.Application.Application.Queries.Part_s.GetPartDetails;
 using Ejournal.Application.Application.Queries.Part_s.GetPartList;
-using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.Part;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -22,20 +22,43 @@ namespace Ejournal.WebApi.Controllers
         private readonly IMapper _mapper;
         public PartsController(IMapper mapper) => _mapper = mapper;
 
+        /// <summary>Get the list of Parts</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Parts
+        /// </remarks>
+        /// <param name="filterDto">Filter params</param>
+        /// <returns>PartListResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
         [Authorize(Policy.Professor)]
-        public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] FilterParams parametrs)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<PartListResponseVm>> GetAll([FromQuery] GetPartListDto filterDto)
         {
-            var query = new GetPartListQuery
-            {
-                Parametrs = parametrs,
-            };
+            var query = _mapper.Map<GetPartListQuery>(filterDto);
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
+        /// <summary>Get the Part by Id</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Get /Parts/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">PartId (Guid)</param>
+        /// <returns>PartDetailsResponseVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet("{Id:Guid}")]
         [Authorize(Policy.Professor)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<PartDetailsResponseVm>> Get(Guid Id)
         {
             var query = new GetPartDetailsQuery
@@ -46,8 +69,26 @@ namespace Ejournal.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>Create a Part</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Post /Parts
+        /// {
+        ///     name: "Name of Part",
+        ///     startDate: "Start date of a Part",
+        ///     endDate: "End Daate of a Part"
+        /// }
+        /// </remarks>
+        /// <param name="createPartDto">createPartDto object</param>
+        /// <returns>Returns Id (Guid)</returns>
+        /// <response code="201">Success</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePartDto createPartDto)
         {
             var command = _mapper.Map<CreatePartCommand>(createPartDto);
@@ -55,8 +96,27 @@ namespace Ejournal.WebApi.Controllers
             return CreatedAtAction(nameof(Get), new { Id = partId }, null);
         }
 
+        /// <summary>Update the Part</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Put /Parts/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// {
+        ///     name: "Name of Part",
+        ///     startDate: "Start date of a Part",
+        ///     endDate: "End Daate of a Part"
+        /// }
+        /// </remarks>
+        /// <param name="Id">Part Id</param>
+        /// <param name="updatePartDto">updateMarkDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPut("{Id}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Update([FromBody] UpdatePartDto updatePartDto, Guid Id)
         {
             var command = _mapper.Map<UpdatePartCommand>(updatePartDto);
@@ -65,8 +125,21 @@ namespace Ejournal.WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>Delete the Part</summary>
+        /// <remarks>
+        /// Simple request:
+        /// Delete /Parts/A5DC9FC3-438B-43C8-B562-09552D22E211
+        /// </remarks>
+        /// <param name="Id">Part Id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">NoContent</response>
+        /// <response code="401">If the user unauthorized</response>
+        /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpDelete("{Id:Guid}")]
         [Authorize(Policy.Management)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var command = new DeletePartCommand

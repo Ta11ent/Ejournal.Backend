@@ -7,7 +7,6 @@ namespace Ejournal.WebApi.Models.Schedule
 {
     public class UpdateScheduleDto : IMapWith<UpdateScheduleCommand>
     {
-        public Guid ScheduleId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public Guid GroupId { get; set; }
@@ -17,8 +16,6 @@ namespace Ejournal.WebApi.Models.Schedule
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateScheduleDto, UpdateScheduleCommand>()
-                .ForMember(entiityDto => entiityDto.ScheduleId,
-                    opt => opt.MapFrom(entity => entity.ScheduleId))
                 .ForMember(entiityDto => entiityDto.Description,
                     opt => opt.MapFrom(entity => entity.Description))
                 .ForMember(entiityDto => entiityDto.Date,
