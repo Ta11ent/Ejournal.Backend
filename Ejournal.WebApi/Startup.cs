@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Ejournal.WebApi.Helpers;
 using System.IO;
+using Ejournal.WebApi.ServiceExtensions;
 using System;
 
 namespace Ejournal.WebApi
@@ -86,6 +87,7 @@ namespace Ejournal.WebApi
                });
            });
 
+            services.AddConfigureSwaggerExtensions();
             services.AddSwaggerGen(config =>
             {
                 config.CustomSchemaIds(type => type.ToString());
