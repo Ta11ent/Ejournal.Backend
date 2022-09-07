@@ -7,7 +7,6 @@ namespace Ejournal.WebApi.Models.User
 {
     public class UpdateUserDto : IMapWith<UpdateUserCommand>
     {
-        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -19,8 +18,6 @@ namespace Ejournal.WebApi.Models.User
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
-                .ForMember(entityDto => entityDto.UserId,
-                    opt => opt.MapFrom(entity => entity.UserId))
                 .ForMember(entityDto => entityDto.FirstName,
                     opt => opt.MapFrom(entity => entity.FirstName))
                 .ForMember(entityDto => entityDto.MiddleName,
