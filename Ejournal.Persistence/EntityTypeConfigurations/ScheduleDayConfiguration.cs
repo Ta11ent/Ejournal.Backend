@@ -8,7 +8,6 @@ namespace Ejournal.Persistence.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<ScheduleDay> builder)
         {
-            // builder.HasKey(x => x.ScheduleDayId);
             builder.HasKey(x => new { x.ScheduleId, x.Day }).IsClustered();
             builder.HasIndex(x => x.ScheduleDayId).IsUnique();
             builder.Property(x => x.ScheduleDayId).HasMaxLength(38);

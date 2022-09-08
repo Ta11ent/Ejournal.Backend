@@ -11,7 +11,6 @@ namespace Ejournal.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.StudentGroupMemberId);
             builder.HasIndex(x => x.StudentGroupMemberId).IsUnique();
-            //builder.Property(x => x.bActive).HasDefaultValue(true);
         }
     }
 }

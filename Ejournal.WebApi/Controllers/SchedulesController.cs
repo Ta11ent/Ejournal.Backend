@@ -9,7 +9,6 @@ using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleDetails;
 using Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList;
 using Ejournal.Application.Application.Queries.ScheduleDay_s.GetScheduleDayDetails;
 using Ejournal.Application.Application.Queries.ScheduleSubject_s.GetScheduleSubjectDetails;
-using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.WebApi.Models.Schedule;
 using Microsoft.AspNetCore.Mvc;
 using System;

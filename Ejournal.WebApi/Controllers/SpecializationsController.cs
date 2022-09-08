@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Ejournal.Application.Common.Helpers.Filters;
 using Ejournal.Application.Ejournal.Command.Specialization_s.CreateSpecialization;
 using Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecialization;
 using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization;

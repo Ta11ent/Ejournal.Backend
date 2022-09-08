@@ -11,7 +11,7 @@ namespace Ejournal.Domain
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public Guid UserId { get; set; } //only id because user data located on  another context
+        public Guid UserId { get; set; }
         public User User { get; set; }
 
         public IEnumerable<ScheduleSubject> ScheduleSubjects { get; set; }

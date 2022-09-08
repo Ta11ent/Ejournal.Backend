@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{CADB8938-6A0D-4C39-B125-229E89542472}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F90CC633-0B59-44FA-9CA7-23BC0B62BB1A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Domain", "Ejournal.Domain\Ejournal.Domain.csproj", "{2D7EC64F-3705-47D1-9A3D-72D23860B4F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Application", "Ejournal.Application\Ejournal.Application.csproj", "{5FABA33B-F548-42A5-84B0-A5EA94E10424}"
@@ -19,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Persistence", "Ejo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.WebApi", "Ejournal.WebApi\Ejournal.WebApi.csproj", "{FDA982A9-94DF-4233-8649-698CD92A2FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejournal.Person", "Ejournal.Person\Ejournal.Person.csproj", "{BB91E371-094B-4F2F-B675-08F677455B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Person", "Ejournal.Person\Ejournal.Person.csproj", "{BB91E371-094B-4F2F-B675-08F677455B8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

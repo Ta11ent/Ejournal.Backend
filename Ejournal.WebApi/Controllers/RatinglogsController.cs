@@ -4,7 +4,6 @@ using Ejournal.Application.Application.Command.RatingLog_s.DeleteRatingLog;
 using Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetails;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList;
-
 using Ejournal.WebApi.Helpers;
 using Ejournal.WebApi.Models.RatingLog;
 using Microsoft.AspNetCore.Authorization;

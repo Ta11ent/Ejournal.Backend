@@ -47,6 +47,3 @@ namespace Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList
         }
     }
 }
-////x =>
-//x.Date >= request.Parametrs.DateFrom &&
-//x.Date <= request.Parametrs.DateTo
