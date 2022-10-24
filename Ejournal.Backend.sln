@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.WebApi", "Ejournal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Person", "Ejournal.Person\Ejournal.Person.csproj", "{BB91E371-094B-4F2F-B675-08F677455B8E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DC1721CA-21B1-4E83-879D-7EA3D3CC0372}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejournal.Test", "Ejournal.Test\Ejournal.Test.csproj", "{36C82EE9-8336-4139-BE75-DEA7DBE089FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,10 @@ Global
 		{BB91E371-094B-4F2F-B675-08F677455B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB91E371-094B-4F2F-B675-08F677455B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB91E371-094B-4F2F-B675-08F677455B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C82EE9-8336-4139-BE75-DEA7DBE089FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C82EE9-8336-4139-BE75-DEA7DBE089FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C82EE9-8336-4139-BE75-DEA7DBE089FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C82EE9-8336-4139-BE75-DEA7DBE089FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{D8BD7013-865D-48B4-B4C9-90D79D276349} = {238588A9-B578-4A14-BF9B-E5BEFC01AFC6}
 		{FDA982A9-94DF-4233-8649-698CD92A2FFD} = {CADB8938-6A0D-4C39-B125-229E89542472}
 		{BB91E371-094B-4F2F-B675-08F677455B8E} = {238588A9-B578-4A14-BF9B-E5BEFC01AFC6}
+		{36C82EE9-8336-4139-BE75-DEA7DBE089FB} = {DC1721CA-21B1-4E83-879D-7EA3D3CC0372}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC1294CF-91ED-4FA5-8462-1F25A05B5C76}
