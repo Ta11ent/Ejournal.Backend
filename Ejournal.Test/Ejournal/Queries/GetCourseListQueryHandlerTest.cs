@@ -6,11 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shouldly;
 using Xunit;
+using Ejournal.Test.Common.Factories;
 
 namespace Ejournal.Test.Ejournal.Queries
 {
     [Collection("QueryCollection")]
-    public class GetCourseListQueryHandlerTest : TestCommandBase
+    public class GetCourseListQueryHandlerTest : CommandTestBase<CourseContextFactory>
     {
         private readonly EjournalDbContext context;
         private readonly IMapper mapper;

@@ -6,10 +6,11 @@ using Xunit;
 using System.Threading;
 using Ejournal.Application.Common.Exceptions;
 using System;
+using Ejournal.Test.Common.Factories;
 
 namespace Ejournal.Test.Ejournal.Command
 {
-    public class DeleteCourseCommandHandlerTest : TestCommandBase
+    public class DeleteCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {
         [Fact]
         public async Task DeleteCourseCommandHandler_Succees()

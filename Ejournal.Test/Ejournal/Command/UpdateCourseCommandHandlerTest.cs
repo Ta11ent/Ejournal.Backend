@@ -1,6 +1,7 @@
 ﻿using Ejournal.Application.Common.Exceptions;
 using Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse;
 using Ejournal.Test.Common;
+using Ejournal.Test.Common.Factories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -9,7 +10,7 @@ using Xunit;
 
 namespace Ejournal.Test.Ejournal.Command
 {
-    public class UpdateCourseCommandHandlerTest : TestCommandBase
+    public class UpdateCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {
         [Fact]
         public async Task UpdateCourseCommandHandler_Succes()

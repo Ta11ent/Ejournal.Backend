@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Ejournal.Test.Common.Factories;
 
 namespace Ejournal.Test.Ejournal.Command
 {
-    public class CreateCourseCommandHandlerTest : TestCommandBase
+    public class CreateCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {
         [Fact]
         public async Task CreateCourseCommandHandler_Succes()
