@@ -12,24 +12,24 @@ using Xunit;
 
 namespace Ejournal.Test.Ejournal.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetCourseDetailsQueryHandlerTest
+    //[Collection("QueryCollection")]
+    public class GetCourseDetailsQueryHandlerTest : QueryTestFixture<CourseContextFactory>
     {
-        private readonly EjournalDbContext context;
-        private readonly IMapper mapper;
+        //private readonly EjournalDbContext context;
+        //private readonly IMapper mapper;
 
-        public GetCourseDetailsQueryHandlerTest(QueryTestFixture<CourseContextFactory> fixture)
-        {
-            context = fixture.context;
-            mapper = fixture.mapper;
-        }
+        //public GetCourseDetailsQueryHandlerTest(QueryTestFixture<CourseContextFactory> fixture)
+        //{
+        //    context = fixture.context;
+        //    mapper = fixture.mapper;
+        //}
 
         [Fact]
         public async Task GetCourseDetailsQueryHandler_Succes()
         {
             //Arrange
             var handler = new GetCourseDetailsQueryHandler(context, mapper);
-            var course = new DataCourse(Guid.Parse("F0580A10-BC8B-4C2D-83CA-18732B01DBA5"));
+            var course = new DataCourse(ContextFactory.IdForDelete);
             //Act
             var result = await handler.Handle(
                     new GetCourseDetailsQuery

@@ -10,18 +10,18 @@ namespace Ejournal.Test.Common
         internal static Guid IdForDelete = Guid.NewGuid();
         internal static Guid IdForUpdate = Guid.NewGuid();
 
-        protected static EjournalDbContext context;
+       // protected static EjournalDbContext context;
         public static EjournalDbContext Create()
         {
             var options = new DbContextOptionsBuilder<EjournalDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            context = new EjournalDbContext(options);
+            var context = new EjournalDbContext(options);
             context.Database.EnsureCreated();
             return context;
         }
 
-        public abstract void FillContext();
+        public abstract void FillContext(EjournalDbContext context);
         public static void Destroy(EjournalDbContext context)
         {
             context.Database.EnsureCreated();

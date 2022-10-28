@@ -5,22 +5,21 @@ using System.Threading.Tasks;
 using Shouldly;
 using Xunit;
 using Ejournal.Test.Common.Factories;
-using Ejournal.Persistence;
-using AutoMapper;
+using Ejournal.Application.Common.Helpers.Filters;
 
 namespace Ejournal.Test.Ejournal.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetCourseListQueryHandlerTest
+    //[Collection("QueryCollection")]
+    public class GetCourseListQueryHandlerTest : QueryTestFixture<CourseContextFactory>
     {
-        private readonly EjournalDbContext context;
-        private readonly IMapper mapper;
+        //private readonly EjournalDbContext context;
+        //private readonly IMapper mapper;
 
-        public GetCourseListQueryHandlerTest(QueryTestFixture<CourseContextFactory> fixture)
-        {
-            context = fixture.context;
-            mapper = fixture.mapper;
-        }
+        //public GetCourseListQueryHandlerTest(QueryTestFixture<CourseContextFactory> fixture)
+        //{
+        //    context = fixture.context;
+        //    mapper = fixture.mapper;
+        //}
 
         [Fact]
         public async Task GetCourseListQueryHandler_Succes()
@@ -30,12 +29,14 @@ namespace Ejournal.Test.Ejournal.Queries
 
             //Act
             var result = await handler.Handle(
-                new GetCourseListQuery { },
+                new GetCourseListQuery() {
+                    Parametrs = new FilterParams()
+                },
                     CancellationToken.None);
 
             //Assert
             result.ShouldBeOfType<CourseListResponseVm>();
-            result.Records.ShouldBe(1);
+            result.Records.ShouldBe(2);
         }
     }
 }

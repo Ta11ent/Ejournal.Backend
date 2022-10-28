@@ -9,7 +9,7 @@ namespace Ejournal.Test.Common
         internal CommandTestBase()
         {
             context = ContextFactory.Create();
-            new T().FillContext();
+            new T().FillContext(context);
         }
         public void Dispose() => ContextFactory.Destroy(context);
     }
