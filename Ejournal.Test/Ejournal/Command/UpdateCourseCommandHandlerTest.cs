@@ -16,7 +16,7 @@ namespace Ejournal.Test.Ejournal.Command
         public async Task UpdateCourseCommandHandler_Succes()
         {
             //Arrange
-            var handler = new UpdateCourseCommandHandler(Context);
+            var handler = new UpdateCourseCommandHandler(context);
             var updateName = "Test Name Update";
             var active = false;
 
@@ -31,7 +31,7 @@ namespace Ejournal.Test.Ejournal.Command
 
             //Assert
             Assert.NotNull(
-                await Context.Courses.SingleOrDefaultAsync(course =>
+                await context.Courses.SingleOrDefaultAsync(course =>
                     course.CourseId == ContextFactory.IdForUpdate &&
                     course.Name == updateName &&
                     course.Active == active));
@@ -41,7 +41,7 @@ namespace Ejournal.Test.Ejournal.Command
         public async Task UpdateCourseCommandHandler_FailOnWrongId()
         {
             //Arrange
-            var handler = new UpdateCourseCommandHandler(Context);
+            var handler = new UpdateCourseCommandHandler(context);
 
             //Act
             //Assert

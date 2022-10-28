@@ -14,7 +14,7 @@ namespace Ejournal.Test.Ejournal.Command
         public async Task CreateCourseCommandHandler_Succes()
         {
             //Arrange
-            var handler = new CreateCourseCommandHandler(Context);
+            var handler = new CreateCourseCommandHandler(context);
             var courseName = "Test Course Name";
 
             //Act
@@ -28,7 +28,7 @@ namespace Ejournal.Test.Ejournal.Command
 
             //Assert
             Assert.NotNull(
-                await Context.Courses.SingleOrDefaultAsync(course =>
+                await context.Courses.SingleOrDefaultAsync(course =>
                     course.CourseId == courseId &&
                     course.Name == courseName));
 

@@ -5,12 +5,12 @@ namespace Ejournal.Test.Common
 {
     public class CommandTestBase<T> : IDisposable where T : ContextFactory, new()
     {
-        protected readonly EjournalDbContext Context;
+        protected readonly EjournalDbContext context;
         internal CommandTestBase()
         {
-            Context = ContextFactory.Create();
-            Context = new T().GetContext();
+            context = ContextFactory.Create();
+            new T().FillContext();
         }
-        public void Dispose() => ContextFactory.Destroy(Context);
+        public void Dispose() => ContextFactory.Destroy(context);
     }
 }

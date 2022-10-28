@@ -16,7 +16,7 @@ namespace Ejournal.Test.Ejournal.Command
         public async Task DeleteCourseCommandHandler_Succees()
         {
             //Arrange
-            var handler = new DeleteCourseCommandHandler(Context);
+            var handler = new DeleteCourseCommandHandler(context);
 
             //Act
             await handler.Handle(
@@ -28,7 +28,7 @@ namespace Ejournal.Test.Ejournal.Command
             );
 
             //Assert
-            Assert.Null(Context.Courses.SingleOrDefault(course =>
+            Assert.Null(context.Courses.SingleOrDefault(course =>
                 course.CourseId == ContextFactory.IdForDelete));
         }
 
@@ -36,7 +36,7 @@ namespace Ejournal.Test.Ejournal.Command
         public async Task DeleteCourseCommandHandler_FailOnWrongId()
         {
             //Arrange
-            var handler = new DeleteCourseCommandHandler(Context);
+            var handler = new DeleteCourseCommandHandler(context);
 
             //Act
             //Assert

@@ -13,15 +13,15 @@ using Xunit;
 namespace Ejournal.Test.Ejournal.Queries
 {
     [Collection("QueryCollection")]
-    public class GetCourseDetailsQueryHandlerTest : CommandTestBase<CourseContextFactory>
+    public class GetCourseDetailsQueryHandlerTest
     {
         private readonly EjournalDbContext context;
         private readonly IMapper mapper;
 
-        public GetCourseDetailsQueryHandlerTest(QueryTestFixture fixture)
+        public GetCourseDetailsQueryHandlerTest(QueryTestFixture<CourseContextFactory> fixture)
         {
-            context = fixture.Context;
-            mapper = fixture.Mapper;
+            context = fixture.context;
+            mapper = fixture.mapper;
         }
 
         [Fact]
@@ -29,18 +29,18 @@ namespace Ejournal.Test.Ejournal.Queries
         {
             //Arrange
             var handler = new GetCourseDetailsQueryHandler(context, mapper);
-            var course = new DataCourse(Guid.Parse("F0580A10-BC8B-4C2D-83CA-18732B01DBA5")).GetData();
+            var course = new DataCourse(Guid.Parse("F0580A10-BC8B-4C2D-83CA-18732B01DBA5"));
             //Act
             var result = await handler.Handle(
                     new GetCourseDetailsQuery
                     {
-                        CourseId = course.CourseId
+                        CourseId = course.Data.CourseId
                     },
                     CancellationToken.None
                 );
             result.ShouldBeOfType<CourseDetailsResponseVm>();
-            result.Data.Name.ShouldBe(course.Name);
-            result.Data.Active.ShouldBe(course.Active);
+            result.Data.Name.ShouldBe(course.Data.Name);
+            result.Data.Active.ShouldBe(course.Data.Active);
         }
     }
 }

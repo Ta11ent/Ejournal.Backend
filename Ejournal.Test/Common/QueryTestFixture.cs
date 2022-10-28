@@ -7,29 +7,28 @@ using Xunit;
 
 namespace Ejournal.Test.Common
 {
-    public class QueryTestFixture : IDisposable
+    public class QueryTestFixture<T> : IDisposable where T : ContextFactory, new()
     {
-        internal EjournalDbContext Context;
-        internal IMapper Mapper;
+        internal EjournalDbContext context;
+        internal IMapper mapper;
 
         public QueryTestFixture()
         {
-            Context = ContextFactory.Create();
+            context = ContextFactory.Create();
+            new T().FillContext();
+
             var configurationBuilder = new MapperConfiguration(config =>
             {
                 config.AddProfile(new AssemblyMappingProfile(
                     typeof(IEjournalDbContext).Assembly));
             });
 
-            Mapper = configurationBuilder.CreateMapper();
+            mapper = configurationBuilder.CreateMapper();
         }
 
-        public void Dispose()
-        {
-            ContextFactory.Destroy(Context);
-        }
+        public void Dispose() => ContextFactory.Destroy(context);
 
         [CollectionDefinition("QueryCollection")]
-        public class QueryCollection : ICollectionFixture<QueryTestFixture> { }
+        public class QueryCollection : ICollectionFixture<QueryTestFixture<T>> { }
     }
 }

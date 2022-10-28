@@ -5,11 +5,10 @@ namespace Ejournal.Test.Common.DataDomains
 {
     internal class DataCourse : IDomain<Course>
     {
-        public Guid Id { get; }
-        internal DataCourse(Guid Id) => this.Id = Id;
-        public Course GetData()
+        public Course Data { get; }
+        internal DataCourse(Guid Id)
         {
-            return new Course
+            Data = new Course
             {
                 CourseId = Id,
                 Name = "Test Name " + Id.ToString().Substring(0, 5),
