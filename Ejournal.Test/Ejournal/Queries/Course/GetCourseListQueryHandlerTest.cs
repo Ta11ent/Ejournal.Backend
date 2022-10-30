@@ -7,7 +7,7 @@ using Xunit;
 using Ejournal.Test.Common.Factories;
 using Ejournal.Application.Common.Helpers.Filters;
 
-namespace Ejournal.Test.Ejournal.Queries
+namespace Ejournal.Test.Ejournal.Queries.Course
 {
     //[Collection("QueryCollection")]
     public class GetCourseListQueryHandlerTest : QueryTestFixture<CourseContextFactory>
@@ -36,7 +36,31 @@ namespace Ejournal.Test.Ejournal.Queries
 
             //Assert
             result.ShouldBeOfType<CourseListResponseVm>();
-            result.Records.ShouldBe(2);
+            result.Records.ShouldBe(3);
+        }
+
+        [Fact]
+        public async Task GetCourseFilteredListQueryHandler_Succes()
+        {
+            //Arrange
+            var handler = new GetCourseListQueryHandler(context, mapper);
+
+            //Act
+            var result = await handler.Handle(
+                new GetCourseListQuery()
+                {
+                    Parametrs = new FilterParams()
+                    {
+                        Page = 1,
+                        PageSize = 2,
+                        Active = false
+                    }
+                },
+                    CancellationToken.None);
+
+            //Assert
+            result.ShouldBeOfType<CourseListResponseVm>();
+            result.Records.ShouldBe(1);
         }
     }
 }

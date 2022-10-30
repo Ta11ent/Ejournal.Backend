@@ -6,7 +6,7 @@ using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Ejournal.Test.Common.Factories;
 
-namespace Ejournal.Test.Ejournal.Command
+namespace Ejournal.Test.Ejournal.Commands.Course
 {
     public class CreateCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {
@@ -30,7 +30,8 @@ namespace Ejournal.Test.Ejournal.Command
             Assert.NotNull(
                 await context.Courses.SingleOrDefaultAsync(course =>
                     course.CourseId == courseId &&
-                    course.Name == courseName));
+                    course.Name == courseName &&
+                    course.Active == true));
 
         }
     }

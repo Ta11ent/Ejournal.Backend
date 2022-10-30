@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-
 namespace Ejournal.Test.Common
 {
     public abstract class ContextFactory

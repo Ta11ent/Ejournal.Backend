@@ -8,7 +8,7 @@ using Ejournal.Application.Common.Exceptions;
 using System;
 using Ejournal.Test.Common.Factories;
 
-namespace Ejournal.Test.Ejournal.Command
+namespace Ejournal.Test.Ejournal.Commands.Course
 {
     public class DeleteCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {

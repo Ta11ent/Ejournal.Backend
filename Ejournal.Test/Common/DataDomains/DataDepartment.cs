@@ -3,26 +3,25 @@ using System;
 
 namespace Ejournal.Test.Common.DataDomains
 {
-    internal class DataCourse : IDomain<Course>
+    internal class DataDepartment : IDomain<Department>
     {
-        public Course Data { get; private set; }
-        private Guid Id { get;}
+        public Department Data { get; private set; }
+        private Guid Id { get; }
         internal bool Active { get; set; }
-
-        internal DataCourse(Guid id)
+        internal DataDepartment(Guid id)
         {
             Id = id;
             Active = true;
         }
         internal void Create()
         {
-            Data = new Course
+            Data = new Department
             {
-                CourseId = Id,
+                DepartmentId = Id,
                 Name = "Test Name " + Id.ToString().Substring(0, 5),
+                Description = "Test Description " + Id.ToString().Substring(0, 5),
                 Active = Active
             };
         }
     }
-
 }

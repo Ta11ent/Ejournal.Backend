@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Ejournal.Test.Ejournal.Queries
+namespace Ejournal.Test.Ejournal.Queries.Course
 {
     //[Collection("QueryCollection")]
     public class GetCourseDetailsQueryHandlerTest : QueryTestFixture<CourseContextFactory>
@@ -30,6 +30,8 @@ namespace Ejournal.Test.Ejournal.Queries
             //Arrange
             var handler = new GetCourseDetailsQueryHandler(context, mapper);
             var course = new DataCourse(ContextFactory.IdForDelete);
+            course.Create();
+
             //Act
             var result = await handler.Handle(
                     new GetCourseDetailsQuery

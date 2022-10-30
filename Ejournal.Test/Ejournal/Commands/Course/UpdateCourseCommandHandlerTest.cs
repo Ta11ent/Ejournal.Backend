@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Ejournal.Test.Ejournal.Command
+namespace Ejournal.Test.Ejournal.Commands.Course
 {
     public class UpdateCourseCommandHandlerTest : CommandTestBase<CourseContextFactory>
     {
