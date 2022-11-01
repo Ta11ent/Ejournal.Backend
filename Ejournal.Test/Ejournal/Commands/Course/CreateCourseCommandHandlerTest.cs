@@ -32,7 +32,6 @@ namespace Ejournal.Test.Ejournal.Commands.Course
                     course.CourseId == courseId &&
                     course.Name == courseName &&
                     course.Active == true));
-
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Ejournal.Test.Common
 {
     public abstract class ContextFactory
     {
+        internal static Guid IdParent = Guid.NewGuid();
         internal static Guid IdForDelete = Guid.NewGuid();
         internal static Guid IdForUpdate = Guid.NewGuid();
 

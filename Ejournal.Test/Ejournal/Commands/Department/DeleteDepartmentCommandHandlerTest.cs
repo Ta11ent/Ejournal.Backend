@@ -28,8 +28,8 @@ namespace Ejournal.Test.Ejournal.Commands.Department
                 );
 
             //Assert
-            Assert.Null(context.Departments.SingleOrDefault(course =>
-                course.DepartmentId == ContextFactory.IdForDelete));
+            Assert.Null(context.Departments.SingleOrDefault(department =>
+                department.DepartmentId == ContextFactory.IdForDelete));
         }
 
         [Fact]
