@@ -29,20 +29,18 @@ namespace Ejournal.Test.Ejournal.Queries.Course
         {
             //Arrange
             var handler = new GetCourseDetailsQueryHandler(context, mapper);
-            var course = new DataCourse(ContextFactory.IdForDelete);
-            course.Create();
 
             //Act
             var result = await handler.Handle(
                     new GetCourseDetailsQuery
                     {
-                        CourseId = course.Data.CourseId
+                        CourseId = ContextFactory.IdForDelete
                     },
                     CancellationToken.None
                 );
             result.ShouldBeOfType<CourseDetailsResponseVm>();
-            result.Data.Name.ShouldBe(course.Data.Name);
-            result.Data.Active.ShouldBe(course.Data.Active);
+            result.Data.Name.ShouldBe("Test Name " + ContextFactory.IdForDelete.ToString().Substring(0, 5));
+            result.Data.Active.ShouldBe(true);
         }
     }
 }

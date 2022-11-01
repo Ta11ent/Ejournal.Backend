@@ -20,33 +20,23 @@ namespace Ejournal.Test.Ejournal.Queries.DepartmentMember
         {
             //Arrange
             var handler = new GetDepartmentMemberDetailsQueryHandler(mapper, context);
-
-            var department = new DataDepartment(ContextFactory.IdParent);
-            department.Create();
-
-            var user = new DataUser(ContextFactory.IdParent);
-            user.Create();
-
-            var dptMember = new DataDepartmentMember(ContextFactory.IdParent, ContextFactory.IdForDelete);
-            dptMember.UserId = user.Data.UserId;
-            dptMember.Create();
             
             //Act
             var result = await handler.Handle(
                     new GetDepartmentMemberDetailsQuery
                     {
-                        DepartmentId = department.Data.DepartmentId,
-                        MembershipId = dptMember.Data.DepartmentMemberId
+                        DepartmentId = ContextFactory.IdParent,
+                        MembershipId = ContextFactory.IdForDelete
                     },
                     CancellationToken.None
                 );
             result.ShouldBeOfType<DepartmentMemberDetailsResponseVm>();
-            result.Data.UserId.ShouldBe(dptMember.Data.UserId);
-            result.Data.FirstName.ShouldBe(user.Data.FirstName);
-            result.Data.MiddleName.ShouldBe(user.Data.MiddleName);
-            result.Data.LastName.ShouldBe(user.Data.LastName);
-            result.Data.Gender.ShouldBe(user.Data.Gender);
-            result.Data.Active.ShouldBe(user.Data.Active);
+            result.Data.UserId.ShouldBe(ContextFactory.IdUser);
+            result.Data.FirstName.ShouldBe("FirstName " + ContextFactory.IdUser.ToString().Substring(0, 5));
+            result.Data.MiddleName.ShouldBe("MiddleName " + ContextFactory.IdUser.ToString().Substring(0, 5));
+            result.Data.LastName.ShouldBe("LastName " + ContextFactory.IdUser.ToString().Substring(0, 5));
+            result.Data.Gender.ShouldBe(true);
+            result.Data.Active.ShouldBe(true);
         }
     }
 }

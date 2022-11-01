@@ -17,20 +17,18 @@ namespace Ejournal.Test.Ejournal.Queries.Department
             //Arrange
             var handler = new GetDepartmentDetailsQueryHandler(context, mapper);
 
-            var department = new DataDepartment(ContextFactory.IdForDelete);
-            department.Create();
-
             //Act
             var result = await handler.Handle(
                     new GetDepartmentDetailsQuery
                     {
-                        DepartmentId = department.Data.DepartmentId
+                        DepartmentId = ContextFactory.IdForDelete
                     },
                     CancellationToken.None
                 );
             result.ShouldBeOfType<DepartmentDetailsResponseVm>();
-            result.Data.Name.ShouldBe(department.Data.Name);
-            result.Data.Active.ShouldBe(department.Data.Active);
+            result.Data.Name.ShouldBe("Test Name " + ContextFactory.IdForDelete.ToString().Substring(0, 5));
+            result.Data.Description.ShouldBe("Test Description " + ContextFactory.IdForDelete.ToString().Substring(0, 5));
+            result.Data.Active.ShouldBe(true);
         }
     }
 }

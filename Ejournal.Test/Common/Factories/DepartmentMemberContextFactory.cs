@@ -11,19 +11,19 @@ namespace Ejournal.Test.Common.Factories
             DataDepartment department = new(IdParent);
             department.Create();
 
-            DataUser user = new(IdParent);
+            DataUser user = new(IdUser);
             user.Create();
 
             DataDepartmentMember departmentMr1 = new(IdParent, IdForDelete);
-            departmentMr1.UserId = IdParent;
+            departmentMr1.UserId = IdUser;
             departmentMr1.Create();
 
             DataDepartmentMember departmentMr2 = new(IdParent, IdForUpdate);
-            departmentMr2.UserId = IdParent;
+            departmentMr2.UserId = IdUser;
             departmentMr2.Create();
 
             DataDepartmentMember departmentMr3 = new(IdParent, Guid.NewGuid());
-            departmentMr3.UserId = IdParent;
+            departmentMr3.UserId = IdUser;
             departmentMr3.Active = false;
             departmentMr3.Create();
 

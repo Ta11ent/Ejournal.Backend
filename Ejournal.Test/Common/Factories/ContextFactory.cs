@@ -9,6 +9,7 @@ namespace Ejournal.Test.Common
         internal static Guid IdParent = Guid.NewGuid();
         internal static Guid IdForDelete = Guid.NewGuid();
         internal static Guid IdForUpdate = Guid.NewGuid();
+        internal static Guid IdUser = Guid.NewGuid();
 
        // protected static EjournalDbContext context;
         public static EjournalDbContext Create()
