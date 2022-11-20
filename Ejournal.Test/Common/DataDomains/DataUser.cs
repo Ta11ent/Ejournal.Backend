@@ -8,18 +8,19 @@ namespace Ejournal.Test.Common.DataDomains
     {
         public User Data { get; private set; }
         private Guid Id { get; }
-        internal bool Active { get; set; }
-        internal bool HasAccount { get; set; }
-        public DataUser(Guid id)
+        private bool Active { get; set; }
+        private bool HasAccount { get; set; }
+        public DataUser(Guid id, bool active = true, bool hasAccount = false)
         {
             Id = id;
-            Active = true;
-            HasAccount = false;
+            Active = active;
+            HasAccount = hasAccount;
+            Data = Create();
         }
 
-        internal void Create()
+        private User Create()
         {
-            Data = new User
+            return new User
             {
                 UserId = Id,
                 FirstName = "FirstName " + Id.ToString().Substring(0, 5),

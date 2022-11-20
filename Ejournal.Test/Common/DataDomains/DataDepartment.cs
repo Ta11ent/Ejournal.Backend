@@ -7,15 +7,17 @@ namespace Ejournal.Test.Common.DataDomains
     {
         public Department Data { get; private set; }
         private Guid Id { get; }
-        internal bool Active { get; set; }
-        internal DataDepartment(Guid id)
+        private bool Active { get; set; }
+        internal DataDepartment(Guid id, bool active = true)
         {
             Id = id;
-            Active = true;
+            Active = active;
+            Data = Create();
+
         }
-        internal void Create()
+        private Department Create()
         {
-            Data = new Department
+            return new Department
             {
                 DepartmentId = Id,
                 Name = "Test Name " + Id.ToString().Substring(0, 5),

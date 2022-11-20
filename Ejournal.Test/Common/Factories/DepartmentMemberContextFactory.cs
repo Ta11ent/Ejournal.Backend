@@ -9,23 +9,12 @@ namespace Ejournal.Test.Common.Factories
         public override async void FillContext(EjournalDbContext context)
         {
             DataDepartment department = new(IdParent);
-            department.Create();
 
             DataUser user = new(IdUser);
-            user.Create();
 
-            DataDepartmentMember departmentMr1 = new(IdParent, IdForDelete);
-            departmentMr1.UserId = IdUser;
-            departmentMr1.Create();
-
-            DataDepartmentMember departmentMr2 = new(IdParent, IdForUpdate);
-            departmentMr2.UserId = IdUser;
-            departmentMr2.Create();
-
-            DataDepartmentMember departmentMr3 = new(IdParent, Guid.NewGuid());
-            departmentMr3.UserId = IdUser;
-            departmentMr3.Active = false;
-            departmentMr3.Create();
+            DataDepartmentMember departmentMr1 = new(IdParent, IdForDelete, IdUser);
+            DataDepartmentMember departmentMr2 = new(IdParent, IdForUpdate, IdUser);
+            DataDepartmentMember departmentMr3 = new(IdParent, Guid.NewGuid(), IdUser, false);
 
             await context.Departments.AddRangeAsync(department.Data);
             await context.Users.AddRangeAsync(user.Data);

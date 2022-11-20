@@ -8,19 +8,20 @@ namespace Ejournal.Test.Common.DataDomains
         public DepartmentMember Data { get; private set; }
         private Guid ParentId { get; }
         private Guid Id { get; }
-        internal Guid UserId { get; set; }
-        internal bool Active { get; set; }
-        internal DataDepartmentMember(Guid parentId, Guid id)
+        private Guid UserId { get; set; }
+        private bool Active { get; set; }
+        internal DataDepartmentMember(Guid parentId, Guid id, Guid? userId = null, bool active = true)
         {
             ParentId = parentId;
             Id = id;
-            Active = true;
-            UserId = Guid.NewGuid();
+            Active = active;
+            UserId = userId ?? Guid.NewGuid();
+            Data = Create();
         }
 
-        internal void Create()
+        private DepartmentMember Create()
         {
-            Data = new DepartmentMember
+            return new DepartmentMember
             {
                 DepartmentId = ParentId,
                 DepartmentMemberId = Id,

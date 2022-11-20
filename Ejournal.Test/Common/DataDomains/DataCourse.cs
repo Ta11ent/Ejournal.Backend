@@ -7,16 +7,17 @@ namespace Ejournal.Test.Common.DataDomains
     {
         public Course Data { get; private set; }
         private Guid Id { get;}
-        internal bool Active { get; set; }
-
-        internal DataCourse(Guid id)
+        private bool Active { get; set; }
+        internal DataCourse(Guid id, bool active = true)
         {
             Id = id;
-            Active = true;
+            Active = active;
+            Data = Create();
         }
-        internal void Create()
+
+        private Course Create()
         {
-            Data = new Course
+            return new Course
             {
                 CourseId = Id,
                 Name = "Test Name " + Id.ToString().Substring(0, 5),
