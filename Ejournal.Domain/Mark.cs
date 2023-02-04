@@ -7,6 +7,7 @@ namespace Ejournal.Domain
     {
         public Guid MarkId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
 
         public IEnumerable<RatingLog> RatingLog { get; set; }
     }

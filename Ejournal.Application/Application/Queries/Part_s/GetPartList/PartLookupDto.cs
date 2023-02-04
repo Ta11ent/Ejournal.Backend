@@ -9,6 +9,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
     {
         public Guid PartId { get; set; }
         public string Name { get; set; }
+       // public string Status { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Part, PartLookupDto>()
@@ -16,6 +17,8 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
                     opt => opt.MapFrom(entity => entity.PartId))
                 .ForMember(entityDto => entityDto.Name,
                     opt => opt.MapFrom(entity => entity.Name));
+               // .ForMember(entityDto => entityDto.Status,
+                //    opt => opt.MapFrom(entity => entity.Status))
         }
     }
 }
