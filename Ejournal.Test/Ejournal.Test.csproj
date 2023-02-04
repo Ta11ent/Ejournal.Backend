@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Ejournal.Application\Ejournal.Application.csproj" />
     <ProjectReference Include="..\Ejournal.Persistence\Ejournal.Persistence.csproj" />
+    <ProjectReference Include="..\Ejournal.WebApi\Ejournal.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ejournal.Application.Application.Command.Goup_s.DeleteGroup
 {
-    class DeleteGroupCommandHandler : IRequestHandler<DeleteGroupCommand>
+    public class DeleteGroupCommandHandler : IRequestHandler<DeleteGroupCommand>
     {
         private readonly IEjournalDbContext _dbContext;
         public DeleteGroupCommandHandler(IEjournalDbContext dbContext) =>
