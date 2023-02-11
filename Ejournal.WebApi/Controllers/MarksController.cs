@@ -33,7 +33,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet]
-        //[Authorize(Policy.Professor)]
+        [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -84,7 +84,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
-       // [Authorize(Policy.Admin)]
+        [Authorize(Policy.Admin)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
