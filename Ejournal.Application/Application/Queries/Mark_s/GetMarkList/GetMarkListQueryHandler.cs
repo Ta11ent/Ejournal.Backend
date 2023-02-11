@@ -34,7 +34,9 @@ namespace Ejournal.Application.Application.Queries.Mark_s.GetMarkList
                 .ProjectTo<MarkLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new MarkListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Marks.CountAsync();
+
+            return new MarkListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

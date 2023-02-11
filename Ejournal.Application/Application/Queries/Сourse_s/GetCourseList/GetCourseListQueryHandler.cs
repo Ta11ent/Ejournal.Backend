@@ -36,7 +36,9 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
                 .ProjectTo<CourseLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new CourseListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Courses.CountAsync();
+
+            return new CourseListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

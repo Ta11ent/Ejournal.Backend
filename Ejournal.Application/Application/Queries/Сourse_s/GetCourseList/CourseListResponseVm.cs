@@ -7,7 +7,7 @@ namespace Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList
 {
     public class CourseListResponseVm : PageResponse<List<CourseLookupDto>>
     {
-       public CourseListResponseVm(List<CourseLookupDto> data, IPaginationParams parametrs)
-            : base(data, parametrs) { }
+       public CourseListResponseVm(List<CourseLookupDto> data, IPaginationParams parametrs, int count)
+            : base(data, parametrs, count) { }
     }
 }

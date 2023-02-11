@@ -41,7 +41,9 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
                 .ProjectTo<GroupLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new GroupListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.StudentGroups.CountAsync();
+
+            return new GroupListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

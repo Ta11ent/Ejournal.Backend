@@ -35,7 +35,9 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
                 .ProjectTo<PartLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new PartListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Parts.CountAsync();
+
+            return new PartListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

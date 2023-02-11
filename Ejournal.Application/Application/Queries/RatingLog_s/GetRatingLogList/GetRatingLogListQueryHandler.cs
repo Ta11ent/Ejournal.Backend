@@ -53,7 +53,9 @@ namespace Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList
                     .ProjectTo<RatingLogLookupDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-            return new RatingLogListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.RaitingLogs.CountAsync();
+
+            return new RatingLogListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

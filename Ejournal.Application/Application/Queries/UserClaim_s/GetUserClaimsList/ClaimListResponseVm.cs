@@ -6,7 +6,7 @@ namespace Ejournal.Application.Application.Queries.UserClaim_s.GetUserClaimsList
 {
     public class ClaimListResponseVm : PageResponse<List<ClaimLookupDto>>
     {
-        public ClaimListResponseVm(List<ClaimLookupDto> data, IPaginationParams parametrs) 
-            : base(data, parametrs) { }
+        public ClaimListResponseVm(List<ClaimLookupDto> data, IPaginationParams parametrs, int count) 
+            : base(data, parametrs, count) { }
     }
 }

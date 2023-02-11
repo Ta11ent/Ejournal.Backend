@@ -7,7 +7,7 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
 {
     public class SpecializationListResponseVm : PageResponse<List<SpecializationLookupDto>>
     {
-        public SpecializationListResponseVm(List<SpecializationLookupDto> data, IPaginationParams paginationParams)
-            : base(data, paginationParams) { }
+        public SpecializationListResponseVm(List<SpecializationLookupDto> data, IPaginationParams paginationParams, int count)
+            : base(data, paginationParams, count) { }
     }
 }

@@ -34,7 +34,9 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
                 .ProjectTo<SubjectLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new SubjectListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Subjects.CountAsync();
+
+            return new SubjectListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

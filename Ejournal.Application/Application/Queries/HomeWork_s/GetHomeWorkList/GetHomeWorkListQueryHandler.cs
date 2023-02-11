@@ -43,7 +43,9 @@ namespace Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList
                 .ProjectTo<HomeWorkLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new HomeWorkListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.HomeWorks.CountAsync();
+
+            return new HomeWorkListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

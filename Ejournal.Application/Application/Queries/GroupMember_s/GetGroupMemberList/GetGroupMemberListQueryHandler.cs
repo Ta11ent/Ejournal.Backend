@@ -42,7 +42,9 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
             if (entity == null)
                 throw new NotFoundException(nameof(StudentGroupMember), request.GroupId);
 
-            return new GroupMemberListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.StudentGroupMembers.CountAsync();
+
+            return new GroupMemberListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

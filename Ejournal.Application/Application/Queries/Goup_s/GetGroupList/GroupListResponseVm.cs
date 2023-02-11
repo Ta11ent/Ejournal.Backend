@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Queries.Goup_s.GetGroupList
 {
     public class GroupListResponseVm : PageResponse<List<GroupLookupDto>>
     {
-        public GroupListResponseVm(List<GroupLookupDto> data, IPaginationParams parametrs)
-            :base(data, parametrs) { }
+        public GroupListResponseVm(List<GroupLookupDto> data, IPaginationParams parametrs, int count)
+            :base(data, parametrs, count) { }
     }
 }

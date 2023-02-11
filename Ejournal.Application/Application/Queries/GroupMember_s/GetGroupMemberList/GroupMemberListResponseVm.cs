@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberL
 {
     public class GroupMemberListResponseVm : PageResponse<List<GroupMemberLookupDto>>
     {
-        public GroupMemberListResponseVm(List<GroupMemberLookupDto> data, IPaginationParams parametrs)
-            : base(data, parametrs) { }
+        public GroupMemberListResponseVm(List<GroupMemberLookupDto> data, IPaginationParams parametrs, int count)
+            : base(data, parametrs, count) { }
     }
 }

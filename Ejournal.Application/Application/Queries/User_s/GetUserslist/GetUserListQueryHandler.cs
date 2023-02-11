@@ -41,7 +41,9 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
                 .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new UserListResponseVm(data, request.Parametrs);    
+            var count = await _dbContext.Users.CountAsync();
+
+            return new UserListResponseVm(data, request.Parametrs, count);    
         }
     }
 }

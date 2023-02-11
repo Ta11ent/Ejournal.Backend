@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Queries.DepartmentMember_s.GetDepartm
 {
     public class DepartmentMemberListResponseVm : PageResponse<List<DepartmentMemberLookupDto>>
     {
-        public DepartmentMemberListResponseVm(List<DepartmentMemberLookupDto> data, IPaginationParams parametrs) 
-            : base(data, parametrs) { }
+        public DepartmentMemberListResponseVm(List<DepartmentMemberLookupDto> data, IPaginationParams parametrs, int count) 
+            : base(data, parametrs, count) { }
     }
 }

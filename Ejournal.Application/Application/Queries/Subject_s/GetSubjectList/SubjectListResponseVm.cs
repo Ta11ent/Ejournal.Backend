@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectLi
 {
     public class SubjectListResponseVm : PageResponse<List<SubjectLookupDto>>
     {
-        public SubjectListResponseVm(List<SubjectLookupDto> data, IPaginationParams parametrs)
-            : base(data, parametrs) { }
+        public SubjectListResponseVm(List<SubjectLookupDto> data, IPaginationParams parametrs, int count) 
+            : base(data, parametrs, count) { }
     }
 }

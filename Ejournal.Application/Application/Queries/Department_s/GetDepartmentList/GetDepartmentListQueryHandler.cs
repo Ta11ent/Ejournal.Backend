@@ -37,7 +37,9 @@ namespace Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList
                 .ProjectTo<DepartmentLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new DepartmentListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Departments.CountAsync();
+
+            return new DepartmentListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

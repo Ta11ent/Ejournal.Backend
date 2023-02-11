@@ -29,7 +29,9 @@ namespace Ejournal.Application.Application.Queries.UserClaim_s.GetUserClaimsList
                 .ProjectTo<ClaimLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new ClaimListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.AspNetUserClaims.CountAsync();
+
+            return new ClaimListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

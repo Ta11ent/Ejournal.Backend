@@ -7,7 +7,7 @@ namespace Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList
 {
     public class DepartmentListResponseVm : PageResponse<List<DepartmentLookupDto>>
     {
-        public DepartmentListResponseVm(List<DepartmentLookupDto> data, IPaginationParams paginationParams) 
-            : base(data, paginationParams) { }
+        public DepartmentListResponseVm(List<DepartmentLookupDto> data, IPaginationParams paginationParams, int count) 
+            : base(data, paginationParams, count) { }
     }
 }

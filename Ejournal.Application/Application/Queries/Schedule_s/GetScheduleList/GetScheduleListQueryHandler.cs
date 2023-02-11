@@ -41,7 +41,9 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList
                 .ProjectTo<ScheduleLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new ScheduleListResponseVm(entity, request.Parametrs);
+            var count = await _dbContext.Schedules.CountAsync();
+
+            return new ScheduleListResponseVm(entity, request.Parametrs, count);
         }
     }
 }

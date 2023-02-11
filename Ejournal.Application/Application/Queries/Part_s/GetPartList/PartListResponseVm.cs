@@ -7,7 +7,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
 {
     public class PartListResponseVm : PageResponse<List<PartLookupDto>>
     {
-        public PartListResponseVm(List<PartLookupDto> data, IPaginationParams parametrs)
-            : base(data, parametrs) { }
+        public PartListResponseVm(List<PartLookupDto> data, IPaginationParams parametrs, int count)
+            : base(data, parametrs, count) { }
     }
 }

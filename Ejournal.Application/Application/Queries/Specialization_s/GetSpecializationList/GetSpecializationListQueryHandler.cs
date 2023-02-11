@@ -39,7 +39,9 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
                     .ProjectTo<SpecializationLookupDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-            return new SpecializationListResponseVm(entity, request.Parametrs); 
+            var count = await _dbContext.Specializations.CountAsync();
+
+            return new SpecializationListResponseVm(entity, request.Parametrs, count); 
         }
     }
 }
