@@ -9,6 +9,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
         {
             RuleFor(x => x.PartId).NotEqual(Guid.Empty);
             RuleFor(x => x.Name).NotEmpty().MaximumLength(20);
+            RuleFor(x => x.Active).NotNull();
         }
     }
 }

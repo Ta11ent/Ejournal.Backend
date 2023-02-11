@@ -7,5 +7,6 @@ namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
     {
         public Guid MarkId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
     }
 }

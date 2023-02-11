@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Ejournal.Application.Common.Helpers.Predicate;
 using Ejournal.Application.Interfaces;
+using Ejournal.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,8 +24,12 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
 
         public async Task<PartListResponseVm> Handle(GetPartListQuery request, CancellationToken cancellationToken)
         {
+            var predicate = CustomPredicateBuilder.True<Part>();
             var entity =
                 await _dbContext.Parts
+                .Where(predicate
+                    .And(x => x.Active == request.Parametrs.Active,
+                        request.Parametrs.Active))
                 .Skip((request.Parametrs.Page - 1) * request.Parametrs.PageSize)
                 .Take(request.Parametrs.PageSize)
                 .ProjectTo<PartLookupDto>(_mapper.ConfigurationProvider)

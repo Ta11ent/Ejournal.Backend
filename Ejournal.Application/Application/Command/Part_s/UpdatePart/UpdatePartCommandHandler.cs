@@ -27,6 +27,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
             entity.Name = request.Name;
             entity.StartDate = entity.StartDate;
             entity.EndDate = request.EndDate;
+            entity.Active = request.Active;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

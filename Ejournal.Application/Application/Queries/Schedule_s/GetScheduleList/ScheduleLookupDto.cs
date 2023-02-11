@@ -12,6 +12,7 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList
         public string Group { get; set; }
         public string Part { get; set; }
         public DateTime Date { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Schedule, ScheduleLookupDto>()
@@ -24,7 +25,9 @@ namespace Ejournal.Application.Application.Queries.Schedule_s.GetScheduleList
                 .ForMember(enttiy => enttiy.Part,
                     opt => opt.MapFrom(entity => entity.Part.Name))
                 .ForMember(enttiy => enttiy.Date,
-                    opt => opt.MapFrom(entity => entity.Date));
+                    opt => opt.MapFrom(entity => entity.Date))
+                .ForMember(entity => entity.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 }

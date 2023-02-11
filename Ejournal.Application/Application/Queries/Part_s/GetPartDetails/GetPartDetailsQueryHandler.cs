@@ -26,6 +26,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartDetails
 
         public async Task<PartDetailsResponseVm> Handle(GetPartDetailsQuery request, CancellationToken cancellationToken)
         {
+
             var entity =
                 await _dbContext.Parts
                 .Where(p => p.PartId == request.PartId)

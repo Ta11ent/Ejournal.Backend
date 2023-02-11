@@ -23,6 +23,7 @@ namespace Ejournal.Application.Application.Command.Mark_s.UpdateMark
                 throw new NotFoundException(nameof(Mark), request.MarkId);
 
             entity.Name = request.Name;
+            entity.Active = request.Active;
             await _dbContxt.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

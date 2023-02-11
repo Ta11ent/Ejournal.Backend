@@ -17,7 +17,8 @@ namespace Ejournal.Application.Application.Command.Mark_s.CreateMark
             var entity = new Mark
             {
                 MarkId = Guid.NewGuid(),
-                Name = request.Name
+                Name = request.Name,
+                Active = true
             };
 
             await _dbContext.Marks.AddAsync(entity, cancellationToken);

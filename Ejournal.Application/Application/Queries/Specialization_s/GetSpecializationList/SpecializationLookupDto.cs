@@ -9,6 +9,7 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
     {
         public Guid SpecializationId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
         
         public void Mapping(Profile profile)
         {
@@ -16,7 +17,9 @@ namespace Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializati
                 .ForMember(entityDto => entityDto.SpecializationId,
                     opt => opt.MapFrom(entity => entity.SpecializationId))
                 .ForMember(entityDto => entityDto.Name,
-                    opt => opt.MapFrom(entity => entity.Name));
+                    opt => opt.MapFrom(entity => entity.Name))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 }

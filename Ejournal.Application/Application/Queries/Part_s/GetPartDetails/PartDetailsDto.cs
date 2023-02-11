@@ -11,6 +11,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartDetails
         public string Name { get; set; }
         public DateTime StartDate {get;set;}
         public DateTime EndDate { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Part, PartDetailsDto>()
@@ -21,7 +22,9 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartDetails
                 .ForMember(entityDto => entityDto.StartDate,
                     opt => opt.MapFrom(entity => entity.StartDate))
                 .ForMember(entityDto => entityDto.EndDate,
-                    opt => opt.MapFrom(entity => entity.EndDate));
+                    opt => opt.MapFrom(entity => entity.EndDate))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
         public bool Gender { get; set; }
         public DateTime Birthday { get; set; }
         public bool HasAccount { get; set; }
+        public bool Active { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -27,7 +28,9 @@ namespace Ejournal.Application.Application.Queries.User_s.GetUserslist
                 .ForMember(entityDto => entityDto.LastName,
                     opt => opt.MapFrom(entity => entity.LastName))
                 .ForMember(entityDto => entityDto.Birthday,
-                    opt => opt.MapFrom(entity => entity.Birthday));
+                    opt => opt.MapFrom(entity => entity.Birthday))
+                .ForMember(entityDto => entityDto.Active,
+                    opt => opt.MapFrom(entity => entity.Active));
         }
 
     }
