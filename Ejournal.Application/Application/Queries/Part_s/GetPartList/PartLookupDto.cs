@@ -9,7 +9,7 @@ namespace Ejournal.Application.Application.Queries.Part_s.GetPartList
     {
         public Guid PartId { get; set; }
         public string Name { get; set; }
-        public string Active { get; set; }
+        public bool Active { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Part, PartLookupDto>()
