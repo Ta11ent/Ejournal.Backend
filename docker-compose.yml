@@ -1,0 +1,28 @@
+version: '3.4'
+
+networks:
+  backend:
+
+services:
+  ejournaldb:
+    container_name: ejournal-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+    networks:
+        - backend
+    ports:
+        - 8001:433
+  ejournal.webapi:
+    image: ${DOCKER_REGISTRY-}ejournalwebapi
+    build:
+      context: .
+      dockerfile: Ejournal.WebApi/Dockerfile
+    networks:
+        - backend
+    ports:
+        - 8002:80
+    environment:
+        - DB_HOST = eJournaldb
+  
