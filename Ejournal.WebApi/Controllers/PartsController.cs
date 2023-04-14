@@ -55,7 +55,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpGet("{Id:Guid}")]
-        [Authorize(Policy.Professor)]
+       // [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -85,7 +85,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
-        [Authorize(Policy.Management)]
+        //[Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -113,7 +113,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPut("{Id}")]
-        [Authorize(Policy.Management)]
+        //[Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -136,7 +136,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpDelete("{Id:Guid}")]
-        [Authorize(Policy.Management)]
+        //[Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

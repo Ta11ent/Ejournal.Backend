@@ -2,7 +2,7 @@
   "Routes": [
     {
       "UpstreamPathTemplate": "/api/v1.0/Parts",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Post"],
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -11,6 +11,18 @@
         }
       ],
       "DownstreamPathTemplate": "/api/v1.0/Parts"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1.0/Parts/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v1.0/Parts/{id}"
     }
   ]
 }
