@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejournal.Test", "Ejournal.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{FFED266E-175A-46C9-ACA9-DCB80CAF832A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationManager", "AuthenticationManager\AuthenticationManager.csproj", "{B8E4A130-EE30-437A-BB0F-BDF7040B22F8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{9DEF9E74-828B-4540-8BE1-402A6B41C3FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejournal.AuthenticationManager", "Ejournal.AuthenticationManager\Ejournal.AuthenticationManager.csproj", "{A8ECE60D-029D-4AB1-AA0D-ECCEDA05B791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +63,10 @@ Global
 		{FFED266E-175A-46C9-ACA9-DCB80CAF832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFED266E-175A-46C9-ACA9-DCB80CAF832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFED266E-175A-46C9-ACA9-DCB80CAF832A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8E4A130-EE30-437A-BB0F-BDF7040B22F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8E4A130-EE30-437A-BB0F-BDF7040B22F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8E4A130-EE30-437A-BB0F-BDF7040B22F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8E4A130-EE30-437A-BB0F-BDF7040B22F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8ECE60D-029D-4AB1-AA0D-ECCEDA05B791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8ECE60D-029D-4AB1-AA0D-ECCEDA05B791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8ECE60D-029D-4AB1-AA0D-ECCEDA05B791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8ECE60D-029D-4AB1-AA0D-ECCEDA05B791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
