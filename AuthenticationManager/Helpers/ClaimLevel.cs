@@ -1,4 +1,4 @@
-﻿namespace AuthenticationManager
+﻿namespace AuthenticationManager.Helpers
 {
     internal static class ClaimLevel
     {
