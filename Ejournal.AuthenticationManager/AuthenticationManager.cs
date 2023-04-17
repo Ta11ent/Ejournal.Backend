@@ -1,4 +1,4 @@
-﻿using Ejournal.WebApi.Helpers;
+﻿using Ejournal.AuthenticationManager.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 
