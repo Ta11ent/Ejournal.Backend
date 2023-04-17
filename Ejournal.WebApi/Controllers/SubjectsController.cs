@@ -4,7 +4,7 @@ using Ejournal.Application.Application.Command.Subject_s.DeleteSubject;
 using Ejournal.Application.Application.Command.Subject_s.UpdateSubject;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectDetails;
 using Ejournal.Application.Application.Queries.Part_s.Subject_s.GetSubjectList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Subject;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

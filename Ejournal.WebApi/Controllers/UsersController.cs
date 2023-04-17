@@ -7,7 +7,7 @@ using Ejournal.Application.Application.Command.UserClaim_s.DeleteClaim;
 using Ejournal.Application.Application.Queries.User_s.GetUserDetails;
 using Ejournal.Application.Application.Queries.User_s.GetUserslist;
 using Ejournal.Application.Application.Queries.UserClaim_s.GetUserClaimsList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

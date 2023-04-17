@@ -10,7 +10,7 @@ using Ejournal.Application.Application.Queries.Goup_s.GetGroupDetails;
 using Ejournal.Application.Application.Queries.Goup_s.GetGroupList;
 using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberDetails;
 using Ejournal.Application.Application.Queries.GroupMember_s.GetGroupMemberList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Group;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

@@ -4,7 +4,7 @@ using Ejournal.Application.Ejournal.Command.Specialization_s.DeleteSpecializatio
 using Ejournal.Application.Ejournal.Command.Specialization_s.UpdateSpecialization;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationDetails;
 using Ejournal.Application.Ejournal.Queries.Specialization_s.GetSpecializationList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Specialization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

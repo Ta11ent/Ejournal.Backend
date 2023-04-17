@@ -4,7 +4,7 @@ using Ejournal.Application.Application.Command.Mark_s.DeleteMark;
 using Ejournal.Application.Application.Command.Mark_s.UpdateMark;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkDetails;
 using Ejournal.Application.Application.Queries.Mark_s.GetMarkList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Mark;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

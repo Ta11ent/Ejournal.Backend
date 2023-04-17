@@ -17,7 +17,7 @@ using Ejournal.Application.Application.Command.ScheduleSubject_s.CreateScheduleS
 using Ejournal.Application.Application.Command.ScheduleSubject_s.UpdateScheduleSubject;
 using Ejournal.Application.Application.Command.ScheduleSubject_s.DeleteScheduleSubject;
 using Microsoft.AspNetCore.Authorization;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Microsoft.AspNetCore.Http;
 
 namespace Ejournal.WebApi.Controllers

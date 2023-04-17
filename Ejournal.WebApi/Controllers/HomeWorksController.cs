@@ -4,7 +4,7 @@ using Ejournal.Application.Application.Command.HomeWork_s.DeleteHomeWork;
 using Ejournal.Application.Application.Command.HomeWork_s.UpdateHomeWork;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkDetails;
 using Ejournal.Application.Application.Queries.HomeWork_s.GetHomeWorkList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.HomeWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

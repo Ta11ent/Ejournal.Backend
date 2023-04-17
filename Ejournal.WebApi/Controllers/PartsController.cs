@@ -4,7 +4,7 @@ using Ejournal.Application.Application.Command.Part_s.DeletePart;
 using Ejournal.Application.Application.Command.Part_s.UpdatePart;
 using Ejournal.Application.Application.Queries.Part_s.GetPartDetails;
 using Ejournal.Application.Application.Queries.Part_s.GetPartList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Part;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

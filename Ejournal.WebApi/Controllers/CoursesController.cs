@@ -4,7 +4,7 @@ using Ejournal.Application.Ejournal.Command.Course_s.DeleteCourse;
 using Ejournal.Application.Ejournal.Command.Course_s.UpdateCourse;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseDetails;
 using Ejournal.Application.Ejournal.Queries.Сourse_s.GetCourseList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

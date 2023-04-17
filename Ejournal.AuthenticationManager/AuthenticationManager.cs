@@ -1,17 +1,12 @@
 ﻿using Ejournal.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ejournal.AuthenticationManager
 {
-    internal static class AuthenticationManager
+    public static class AuthenticationManager
     {
-        internal static IServiceCollection AddAuthenticationManager(this IServiceCollection services)
+        public static IServiceCollection AddAuthenticationManager(this IServiceCollection services)
         {
             services.AddAuthentication(config =>
             {

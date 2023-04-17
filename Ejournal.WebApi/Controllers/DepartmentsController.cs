@@ -10,7 +10,7 @@ using Ejournal.Application.Ejournal.Command.Department_s.DeleteDepartment;
 using Ejournal.Application.Ejournal.Command.Department_s.UpdateDepartment;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDeparmentDetails;
 using Ejournal.Application.Ejournal.Queries.Department_s.GetDepartmentList;
-using Ejournal.WebApi.Helpers;
+using Ejournal.AuthenticationManager.Helpers;
 using Ejournal.WebApi.Models.Department;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

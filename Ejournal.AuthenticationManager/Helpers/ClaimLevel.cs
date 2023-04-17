@@ -1,4 +1,4 @@
-﻿namespace Ejournal.WebApi.Helpers
+﻿namespace Ejournal.AuthenticationManager.Helpers
 {
     public static class ClaimLevel
     {

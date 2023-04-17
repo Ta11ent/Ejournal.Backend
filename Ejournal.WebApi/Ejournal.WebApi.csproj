@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ejournal.Application\Ejournal.Application.csproj" />
+    <ProjectReference Include="..\Ejournal.AuthenticationManager\Ejournal.AuthenticationManager.csproj" />
     <ProjectReference Include="..\Ejournal.Persistence\Ejournal.Persistence.csproj" />
     <ProjectReference Include="..\Ejournal.Person\Ejournal.Person.csproj" />
   </ItemGroup>
