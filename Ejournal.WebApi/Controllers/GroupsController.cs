@@ -82,21 +82,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /Groups/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">GroupId (Guid)</param>
+        /// <param name="groupId">GroupId (Guid)</param>
         /// <returns>GroupDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id}")]
+        [HttpGet("{groupId}")]
         [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<GroupDetailsResponseVm>> GetGroupId(Guid Id)
+        public async Task<ActionResult<GroupDetailsResponseVm>> GetGroupId(Guid groupId)
         {
             var query = new GetGroupDetailsQuery
             {
-                GroupId = Id
+                GroupId = groupId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -155,7 +155,7 @@ namespace Ejournal.WebApi.Controllers
         {
             var command = _mapper.Map<CreateGroupCommand>(createGroupDto);
             var groupId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetGroupId), new { Id = groupId }, null);
+            return CreatedAtAction(nameof(GetGroupId), new { groupId }, null);
         }
 
         /// <summary>Create a Group Member</summary>
@@ -206,21 +206,21 @@ namespace Ejournal.WebApi.Controllers
         ///     active : "state of Group"
         /// }
         /// </remarks>
-        /// <param name="Id">GroupId (Guid)</param>
+        /// <param name="groupId">GroupId (Guid)</param>
         /// <param name="updateGroupDto">updateGroupDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpPut("{Id}")]
+        [HttpPut("{groupId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateGroup([FromBody] UpdateGroupDto updateGroupDto, Guid Id)
+        public async Task<IActionResult> UpdateGroup([FromBody] UpdateGroupDto updateGroupDto, Guid groupId)
         {
             var command = _mapper.Map<UpdateGroupCommand>(updateGroupDto);
-            command.GroupId = Id;
+            command.GroupId = groupId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -267,16 +267,16 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpDelete("{Id}")]
+        [HttpDelete("{groupId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DeleteGroup(Guid Id)
+        public async Task<IActionResult> DeleteGroup(Guid groupId)
         {
             var command = new DeleteGroupCommand
             {
-                GroupId = Id
+                GroupId = groupId
             };
             await Mediator.Send(command);
             return NoContent();

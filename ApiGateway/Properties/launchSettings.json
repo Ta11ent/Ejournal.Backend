@@ -8,6 +8,7 @@
     }
   },
   "profiles": {
+    /*
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
@@ -25,7 +26,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
+    },*/
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

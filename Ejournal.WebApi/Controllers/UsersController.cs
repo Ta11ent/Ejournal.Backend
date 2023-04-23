@@ -79,19 +79,19 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /Users/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">UserId (Guid)</param>
+        /// <param name="userId">UserId (Guid)</param>
         /// <returns>UserDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id}")]
+        [HttpGet("{userId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<UserDetailsResponseVm>> Get(Guid Id)
+        public async Task<ActionResult<UserDetailsResponseVm>> Get(Guid userId)
         {
-            var query = new GetUserDetailsQuery { UserId = Id };
+            var query = new GetUserDetailsQuery { UserId = userId };
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
@@ -138,7 +138,7 @@ namespace Ejournal.WebApi.Controllers
 
                 await Mediator.Send(identityUser);
             }
-            return CreatedAtAction(nameof(Get), new { Id = userId }, null);
+            return CreatedAtAction(nameof(Get), new { userId }, null);
         }
 
 

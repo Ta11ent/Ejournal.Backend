@@ -5,6 +5,7 @@ using Ejournal.Application.Application.Command.RatingLog_s.UpdateRatingLog;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogDetails;
 using Ejournal.Application.Application.Queries.RatingLog_s.GetRatingLogList;
 using Ejournal.AuthenticationManager.Helpers;
+using Ejournal.Domain;
 using Ejournal.WebApi.Models.RatingLog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -50,21 +51,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /RatingLogs/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">RatingLogId (Guid)</param>
+        /// <param name="ratingLogId">RatingLogId (Guid)</param>
         /// <returns>RatingLogDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id}")]
+        [HttpGet("{ratingLogId}")]
         [Authorize(Policy.Student)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<RatingLogDetailsReponseVm>> Get(Guid Id)
+        public async Task<ActionResult<RatingLogDetailsReponseVm>> Get(Guid ratingLogId)
         {
             var query = new GetRatingLogDetailsQuery
             {
-                RatingLogId = Id
+                RatingLogId = ratingLogId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -97,7 +98,7 @@ namespace Ejournal.WebApi.Controllers
         {
             var command = _mapper.Map<CreateRatingLogCommand>(createRatingLogDto);
             var ratingLogId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { Id = ratingLogId }, null);
+            return CreatedAtAction(nameof(Get), new { ratingLogId }, null);
         }
 
         /// <summary>Update the RatingLog</summary>
@@ -113,21 +114,21 @@ namespace Ejournal.WebApi.Controllers
         ///     membershipId : "Id by DepartmentMember"
         /// }
         /// </remarks>
-        /// <param name="Id">RatingLogId (Guid)</param>
+        /// <param name="ratingLogId">RatingLogId (Guid)</param>
         /// <param name="updateRatingLogDto">updateRatingLogDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpPut("{Id}")]
+        [HttpPut("{ratingLogId}")]
         [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Update([FromBody] UpdateRatingLogDto updateRatingLogDto, Guid Id)
+        public async Task<IActionResult> Update([FromBody] UpdateRatingLogDto updateRatingLogDto, Guid ratingLogId)
         {
             var command = _mapper.Map<UpdateRatingLogCommand>(updateRatingLogDto);
-            command.RatingLogId = Id;
+            command.RatingLogId = ratingLogId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -137,21 +138,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Delete /RatingLogs/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">RatingLogId (Guid)</param>
+        /// <param name="ratingLogId">RatingLogId (Guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpDelete("{Id}")]
+        [HttpDelete("{ratingLogId}")]
         [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid ratingLogId)
         {
             var command = new DeleteRatingLogCommand
             {
-                RatingLogId = Id
+                RatingLogId = ratingLogId
             };
             await Mediator.Send(command);
             return NoContent();

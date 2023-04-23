@@ -57,21 +57,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /Schedules/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">ScheduleId (Guid)</param>
+        /// <param name="scheduleId">ScheduleId (Guid)</param>
         /// <returns>ScheduleDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id}")]
+        [HttpGet("{scheduleId}")]
         [Authorize(Policy.Student)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<ScheduleDetailsResponseVm>> Get(Guid Id)
+        public async Task<ActionResult<ScheduleDetailsResponseVm>> Get(Guid scheduleId)
         {
             var query = new GetScheduleDetailsQuery
             {
-                ScheduleId = Id
+                ScheduleId = scheduleId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -161,7 +161,7 @@ namespace Ejournal.WebApi.Controllers
         {
             var command = _mapper.Map<CreateScheduleCommand>(modelDto);
             var scheduleId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { Id = scheduleId }, null);
+            return CreatedAtAction(nameof(Get), new { scheduleId }, null);
         }
 
         /// <summary>Create a SchedulDay</summary>
@@ -179,7 +179,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
-        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/")]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -211,7 +211,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
         [HttpPost]
-        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects/")]
+        [Route("/api/v{version:apiVersion}/[controller]/{scheduleId:Guid}/Days/{day:int}/Subjects")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -238,21 +238,21 @@ namespace Ejournal.WebApi.Controllers
         ///     active: "state"
         /// }
         /// </remarks>
-        /// <param name="Id">ScheduleID (Guid)</param>
+        /// <param name="scheduleId">ScheduleID (Guid)</param>
         /// <param name="modelDto">UpdateScheduleDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpPut("{Id}")]
+        [HttpPut("{scheduleId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Update([FromBody] UpdateScheduleDto modelDto, Guid Id)
+        public async Task<IActionResult> Update([FromBody] UpdateScheduleDto modelDto, Guid scheduleId)
         {
             var command = _mapper.Map<UpdateScheduleCommand>(modelDto);
-            command.ScheduleId = Id;
+            command.ScheduleId = scheduleId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -301,7 +301,7 @@ namespace Ejournal.WebApi.Controllers
         /// </remarks>
         /// <param name="scheduleId">ScheduleId (Guid)</param>
         /// <param name="day">Day (int)</param>
-        /// /// <param name="schSubjectId">SchduleSubject (int)</param>
+        /// /// <param name="subjectId">SchduleSubject (int)</param>
         /// <param name="modelDto">UpdateScheduleDayDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
@@ -314,12 +314,12 @@ namespace Ejournal.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateScheduleDaySubject([FromBody] UpdateScheduleSubjectDto modelDto,
-            Guid scheduleId, int day, Guid schSubjectId)
+            Guid scheduleId, int day, Guid subjectId)
         {
             var command = _mapper.Map<UpdateScheduleSubjectCommand>(modelDto);
             command.ScheduleId = scheduleId;
             command.Day = day;
-            command.ScheduleSubjectId = schSubjectId;
+            command.ScheduleSubjectId = subjectId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -329,21 +329,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Delete /Schedules/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">ScheduleID (Guid)</param>
+        /// <param name="scheduleId">ScheduleID (Guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpDelete("{Id}")]
+        [HttpDelete("{scheduleId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid scheduleId)
         {
             var command = new DeleteScheduleComamnd
             {
-                ScheduleId = Id
+                ScheduleId = scheduleId
             };
             await Mediator.Send(command);
             return NoContent();

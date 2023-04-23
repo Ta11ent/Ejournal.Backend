@@ -53,21 +53,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /Courses/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">Course Id (Guid)</param>
+        /// <param name="CourseId">Course Id (Guid)</param>
         /// <returns>CourseDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id}")]
+        [HttpGet("{CourseId}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<CourseDetailsResponseVm>> Get(Guid Id)
+        public async Task<ActionResult<CourseDetailsResponseVm>> Get(Guid CourseId)
         {
             var query = new GetCourseDetailsQuery
             {
-                CourseId = Id
+                CourseId = CourseId
             };
 
             var vm = await Mediator.Send(query);
@@ -97,8 +97,8 @@ namespace Ejournal.WebApi.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateCourseDto createCourseDto)
         {
             var command = _mapper.Map<CreateCourseCommand>(createCourseDto);
-            var courseId = await Mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { Id = courseId }, null);
+            var CourseId = await Mediator.Send(command);
+            return CreatedAtAction(nameof(Get), new { CourseId = CourseId }, null);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Ejournal.WebApi.Controllers
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpPut("{Id}")]
+        [HttpPut("{CourseId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -138,21 +138,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Delete /Courses/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">Course Id</param>
+        /// <param name="CourseId">Course Id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpDelete("{Id}")]
+        [HttpDelete("{CourseId}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid CourseId)
         {
             var command = new DeleteCourseCommand
             {
-                CourseId = Id
+                CourseId = CourseId
             };
             await Mediator.Send(command);
             return NoContent();

@@ -25,7 +25,7 @@ namespace Ejournal.Application.Application.Command.Part_s.UpdatePart
                 throw new NotFoundException(nameof(Part), request.PartId);
 
             entity.Name = request.Name;
-            entity.StartDate = entity.StartDate;
+            entity.StartDate = request.StartDate;
             entity.EndDate = request.EndDate;
             entity.Active = request.Active;
 

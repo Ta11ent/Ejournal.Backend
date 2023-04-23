@@ -89,21 +89,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Get /Department/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">Department Id (Guid)</param>
+        /// <param name="departmentId">Department Id (Guid)</param>
         /// <returns>DepartmentDetailsResponseVm</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpGet("{Id:Guid}")]
+        [HttpGet("{departmentId:Guid}")]
         [Authorize(Policy.Professor)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<DepartmentDetailsResponseVm>> GetDepartment(Guid Id)
+        public async Task<ActionResult<DepartmentDetailsResponseVm>> GetDepartment(Guid departmentId)
         {
             var query = new GetDepartmentDetailsQuery
             {
-                DepartmentId = Id
+                DepartmentId = departmentId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -164,7 +164,7 @@ namespace Ejournal.WebApi.Controllers
         {
             var commad = _mapper.Map<CreateDepartmentCommand>(createDepartmentDto);
             var departmentId = await Mediator.Send(commad);
-            return CreatedAtAction(nameof(GetDepartment), new { Id = departmentId }, null);
+            return CreatedAtAction(nameof(GetDepartment), new { departmentId }, null);
         }
 
         /// <summary>
@@ -221,21 +221,21 @@ namespace Ejournal.WebApi.Controllers
         ///     active: "State of the Department"
         /// }
         /// </remarks>
-        /// <param name="Id">Department Id (Guid)</param>
+        /// <param name="departmentId">Department Id (Guid)</param>
         /// <param name="updateDepartmentDto">updateDepartmentDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpPut("{Id:Guid}")]
+        [HttpPut("{departmentId:Guid}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentDto updateDepartmentDto, Guid Id)
+        public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentDto updateDepartmentDto, Guid departmentId)
         {
             var command = _mapper.Map<UpdateDepartmentCommand>(updateDepartmentDto);
-            command.DepartmentId = Id;
+            command.DepartmentId = departmentId;
             await Mediator.Send(command);
             return NoContent();
         }
@@ -282,21 +282,21 @@ namespace Ejournal.WebApi.Controllers
         /// Simple request:
         /// Delete /Departents/A5DC9FC3-438B-43C8-B562-09552D22E211
         /// </remarks>
-        /// <param name="Id">Department Id</param>
+        /// <param name="departmentId">Department Id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">NoContent</response>
         /// <response code="401">If the user unauthorized</response>
         /// <response code="403">If the user does not have the necessary permissions</response>
-        [HttpDelete("{Id:Guid}")]
+        [HttpDelete("{departmentId:Guid}")]
         [Authorize(Policy.Management)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DeleteDepartment(Guid Id)
+        public async Task<IActionResult> DeleteDepartment(Guid departmentId)
         {
             var command = new DeleteDepartmentCommand
             {
-                DepartmentId = Id
+                DepartmentId = departmentId
             };
             await Mediator.Send(command);
             return NoContent();

@@ -1,8 +1,11 @@
 {
   "Routes": [
+    /// <summary>
+    /// Courses
+    /// </summary>
     {
-      "UpstreamPathTemplate": "/api/v1.0/Parts",
-      "UpstreamHttpMethod": [ "Get", "Post"],
+      "UpstreamPathTemplate": "/api/v{version}/Courses",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -10,10 +13,10 @@
           "Port": 5000
         }
       ],
-      "DownstreamPathTemplate": "/api/v1.0/Parts"
+      "DownstreamPathTemplate": "/api/v{version}/Courses"
     },
     {
-      "UpstreamPathTemplate": "/api/v1.0/Parts/{id}",
+      "UpstreamPathTemplate": "/api/v{version}/Courses/{CourseId}",
       "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -22,7 +25,415 @@
           "Port": 5000
         }
       ],
-      "DownstreamPathTemplate": "/api/v1.0/Parts/{id}"
+      "DownstreamPathTemplate": "/api/v{version}/Courses/{CourseId}"
+    },
+    /// <summary>
+    /// Parts
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Parts",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Parts"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Parts/{partId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Parts/{partId}"
+    },
+    /// <summary>
+    /// Departments
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Departments",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Departments"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Departments/{departmentId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Departments/{departmentId}"
+    },
+    /// <summary>
+    /// DepartmentMembers
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members/{membershipId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members/{membershipId}"
+    },
+    /// <summary>
+    /// Users
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Users/",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Users/"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Users/{userId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Users/{userId}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Users/{userId}/Claims",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Users/{userId}/Claims"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Users/{userId}/Claims/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Users/{userId}/Claims/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Users/{userId}/Accounts",
+      "UpstreamHttpMethod": [ "Delete", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Users/{userId}/Accounts"
+    },
+    /// <summary>
+    /// Groups
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Groups",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Groups"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Groups/{groupId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Groups/{groupId}"
+    },
+    /// <summary>
+    /// GroupMembers
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members/{classMemberId}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members/{classMemberId}"
+    },
+    /// <summary>
+    /// Specialiations
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Specializations",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Specializations"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Specializations/{specializationId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Specializations/{specializationId}"
+    },
+    /// <summary>
+    /// Groups
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Subjects",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Subjects"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Subjects/{subjectId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Subjects/{subjectId}"
+    },
+    /// <summary>
+    /// HomeWorks
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/HomeWorks",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/HomeWorks"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/HomeWorks/{homeWorkId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/HomeWorks/{homeWorkId}"
+    },
+    /// <summary>
+    /// Marks
+    /// </summary>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Marks",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Marks"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Marks/{markId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Marks/{markId}"
+    },
+    /// <summer>
+    /// RatingLogs
+    /// </summer>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/RatingLogs",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/RatingLogs"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/RatingLogs/{ratingLogId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/RatingLogs/{ratingLogId}"
+    },
+    /// <summer>
+    /// Schedules
+    /// </summer>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}/Subjects",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}/Subjects"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}/Subjects/{subjectId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}/Subjects/{subjectId}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}"
     }
   ]
 }
