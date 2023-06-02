@@ -6,6 +6,6 @@
         public string HeadLine { get; set; }
         public string Description { get; set; }
         public DateTime DateCreation { get; set; }
-        public NewsFile? FileId { get; set; }
+        public NewsFile? File { get; set; }
     }
 }

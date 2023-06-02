@@ -15,8 +15,8 @@ namespace Enews.Persistence
             {
                 options.UseSqlServer(connectionString);
             });
-            services.AddScoped<INewsDbContext>(provide => provide.GetService<NewsDbContext>());
-            //services.AddScoped<INewsDbContext, NewsDbContext>();
+            //services.AddScoped<INewsDbContext>(provide => provide.GetService<NewsDbContext>());
+            services.AddScoped<INewsDbContext, NewsDbContext>();
             
             return services;
         } 
