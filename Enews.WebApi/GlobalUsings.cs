@@ -7,3 +7,6 @@ global using AutoMapper;
 global using Enews.Application.Models;
 global using Enews.WebApi.Models;
 global using Enews.Application.Helpers;
+global using Enews.WebApi.Filters;
+global using FluentValidation;
+

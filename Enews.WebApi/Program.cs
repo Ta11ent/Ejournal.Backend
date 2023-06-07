@@ -10,6 +10,7 @@ builder.Services.AddAutoMapper(
         config.AddProfile(new AssemblyMappingProfile(typeof(INewsDbContext).Assembly));
     }
 );
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -61,9 +62,10 @@ app.MapPost("/news", async (IMapper mapper, [AsParameters] CreateNewsDto newsDat
     var id = await repos.CreateNewsAsync(data);
     await repos.SaveAsync();
     return Results.CreatedAtRoute("GetById", new {id});
-});
+}).AddEndpointFilter<ValidationFilter<CreateNewsDto>>();
 
-app.MapPut("/news/{Id}", async (IMapper mapper, Guid Id, [AsParameters] UpdateNewsDto newsData, INewsRepository repos) =>
+app.MapPut("/news/{Id}", 
+    async (IMapper mapper, Guid Id, [AsParameters] UpdateNewsDto newsData, INewsRepository repos) =>
 {
     var data = mapper.Map<UpdateNews>(newsData);
     data.NewsId = Id;
@@ -71,21 +73,22 @@ app.MapPut("/news/{Id}", async (IMapper mapper, Guid Id, [AsParameters] UpdateNe
     if(!success) return Results.NotFound();
     await repos.SaveAsync();
     return Results.NoContent();
-});
+}).AddEndpointFilter<ValidationFilter<UpdateNewsDto>>();
 
-app.MapPut("/news/{Id}/file/{fileId}", async (Guid Id, Guid fileId, IFormFile file, INewsRepository repos) =>
+app.MapPut("/news/{Id}/file/{fileId}",
+    async (Guid Id, Guid fileId, [AsParameters] UpdateNewsFileDto newsFileData, INewsRepository repos) =>
 {
     var success = await repos.UpdateNewsFileAsync(new UpdateNewsFile
     {
         NewsId = Id,
         FileId = fileId,
-        File = file,
+        File = newsFileData.File,
         Path = path!
     });
     if (!success) return Results.NotFound();
     await repos.SaveAsync();
     return Results.NoContent();
-});
+}).AddEndpointFilter<ValidationFilter<UpdateNewsFileDto>>();
 
 app.MapDelete("/news/{Id}", async (Guid Id, INewsRepository repos) =>
 {
