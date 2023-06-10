@@ -9,4 +9,7 @@ global using Enews.WebApi.Models;
 global using Enews.Application.Helpers;
 global using Enews.WebApi.Filters;
 global using FluentValidation;
+global using Asp.Versioning.Conventions;
+global using Asp.Versioning;
+
 

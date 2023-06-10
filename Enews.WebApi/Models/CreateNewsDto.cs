@@ -16,20 +16,18 @@
                     opt => opt.MapFrom(entity => entity.File));
         }
 
-        //public static async ValueTask<CreateNewsDto?> BindAsync(HttpContext context, ParameterInfo parameter)
-        //{
-        //    var form = await context.Request.ReadFormAsync();
-        //    var file = form.Files["File"];
-        //    var headLine = form["HeadLine"];
-        //    var description = form["Description"];
-        //    var path = form["Path"];
-        //    return new CreateNewsDto
-        //    {
-        //        HeadLine = headLine,
-        //        Description = description,
-        //        File = file,
-        //        Path = path
-        //    };
-        //}
+        public static async ValueTask<CreateNewsDto?> BindAsync(HttpContext context)
+        {
+            var form = await context.Request.ReadFormAsync();
+            var file = form.Files["File"];
+            var headLine = form["HeadLine"];
+            var description = form["Description"];
+            return new CreateNewsDto
+            {
+                HeadLine = headLine,
+                Description = description,
+                File = file
+            };
+        }
     }
 }
