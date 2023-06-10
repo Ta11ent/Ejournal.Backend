@@ -1,3 +1,5 @@
+using Ejournal.AuthenticationManager.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEnewsData(builder.Configuration);
@@ -12,6 +14,16 @@ builder.Services.AddAutoMapper(
 );
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddApiVersioning(options => options.ApiVersionReader = new UrlSegmentApiVersionReader());
+builder.Services.AddAuthenticationManager();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
 
 var path = builder.Configuration["FilesPath"];
 
@@ -43,19 +55,24 @@ app.MapGet("v{version:apiVersion}/api/news/{Id}",
     return await repos.GetNewsAsync(Id) is NewsDetails newsDetails
         ? Results.Ok(new Response<NewsDetails>(newsDetails))
         : Results.NotFound();
-}).WithName("GetById").WithApiVersionSet(versionSet).MapToApiVersion(1.0);
+})
+.WithName("GetById")
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
 
-
-
-app.MapGet("v{version:apiVersion}/api/news", 
+app.MapGet("v{version:apiVersion}/api/news",
     async (IMapper mapper, HttpContext context, [AsParameters] GetNewsListDto newsData, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
     var param = mapper.Map<GetNewsLookup>(newsData);
     var response = await repos.GetNewsListAsync(param);
     return Results.Ok(new PageResponse<List<NewsLookup>>(response, param));
-}).WithApiVersionSet(versionSet).MapToApiVersion(1.0);
-    
+})
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
+
 app.MapPost("v{version:apiVersion}/api/news", 
     async (IMapper mapper, HttpContext context, CreateNewsDto newsData, INewsRepository repos) =>
 {
@@ -65,7 +82,11 @@ app.MapPost("v{version:apiVersion}/api/news",
     var id = await repos.CreateNewsAsync(data);
     await repos.SaveAsync();
     return Results.CreatedAtRoute("GetById", new {id});
-}).AddEndpointFilter<ValidationFilter<CreateNewsDto>>().WithApiVersionSet(versionSet).MapToApiVersion(1.0);
+})
+.AddEndpointFilter<ValidationFilter<CreateNewsDto>>()
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
 
 app.MapPut("v{version:apiVersion}/api/news/{Id}", 
     async (IMapper mapper, HttpContext context, Guid Id, UpdateNewsDto newsData, INewsRepository repos) =>
@@ -77,7 +98,11 @@ app.MapPut("v{version:apiVersion}/api/news/{Id}",
     if(!success) return Results.NotFound();
     await repos.SaveAsync();
     return Results.NoContent();
-}).AddEndpointFilter<ValidationFilter<UpdateNewsDto>>().WithApiVersionSet(versionSet).MapToApiVersion(1.0);
+})
+.AddEndpointFilter<ValidationFilter<UpdateNewsDto>>()
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
 
 app.MapPut("v{version:apiVersion}/api/news/{Id}/file/{fileId}",
     async (HttpContext context, Guid Id, Guid fileId, UpdateNewsFileDto newsFileData, INewsRepository repos) =>
@@ -93,7 +118,11 @@ app.MapPut("v{version:apiVersion}/api/news/{Id}/file/{fileId}",
     if (!success) return Results.NotFound();
     await repos.SaveAsync();
     return Results.NoContent();
-}).AddEndpointFilter<ValidationFilter<UpdateNewsFileDto>>().WithApiVersionSet(versionSet).MapToApiVersion(1.0);
+})
+.AddEndpointFilter<ValidationFilter<UpdateNewsFileDto>>()
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
 
 app.MapDelete("v{version:apiVersion}/api/news/{Id}", 
     async (HttpContext context, Guid Id, INewsRepository repos) =>
@@ -103,8 +132,14 @@ app.MapDelete("v{version:apiVersion}/api/news/{Id}",
     if (!success) return Results.NotFound();
     await repos.SaveAsync();
     return Results.NoContent();
-}).WithApiVersionSet(versionSet).MapToApiVersion(1.0);
+})
+.WithApiVersionSet(versionSet)
+.MapToApiVersion(1.0)
+.RequireAuthorization(Policy.Management);
 
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 
 app.Run();

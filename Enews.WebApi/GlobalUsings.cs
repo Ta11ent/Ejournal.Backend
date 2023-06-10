@@ -11,5 +11,6 @@ global using Enews.WebApi.Filters;
 global using FluentValidation;
 global using Asp.Versioning.Conventions;
 global using Asp.Versioning;
+global using Ejournal.AuthenticationManager;
 
 

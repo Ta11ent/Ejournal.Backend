@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ejournal.AuthenticationManager\Ejournal.AuthenticationManager.csproj" />
     <ProjectReference Include="..\Enews.Persistence\Enews.Persistence.csproj" />
   </ItemGroup>
 
