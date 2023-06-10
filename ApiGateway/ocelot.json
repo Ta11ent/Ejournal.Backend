@@ -1,7 +1,7 @@
 {
   "Routes": [
     /// <summary>
-    /// Courses
+    /// Ejournal.Courses
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Courses",
@@ -28,7 +28,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Courses/{CourseId}"
     },
     /// <summary>
-    /// Parts
+    /// Ejournal.Parts
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Parts",
@@ -55,7 +55,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Parts/{partId}"
     },
     /// <summary>
-    /// Departments
+    /// Ejournal.Departments
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Departments",
@@ -82,7 +82,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Departments/{departmentId}"
     },
     /// <summary>
-    /// DepartmentMembers
+    /// Ejournal.DepartmentMembers
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members",
@@ -109,7 +109,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Departments/{departmentId}/Members/{membershipId}"
     },
     /// <summary>
-    /// Users
+    /// Ejournal.Users
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Users/",
@@ -172,7 +172,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Users/{userId}/Accounts"
     },
     /// <summary>
-    /// Groups
+    /// Ejournal.Groups
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Groups",
@@ -199,7 +199,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Groups/{groupId}"
     },
     /// <summary>
-    /// GroupMembers
+    /// Ejournal.GroupMembers
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members",
@@ -226,7 +226,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Groups/{groupId}/Members/{classMemberId}"
     },
     /// <summary>
-    /// Specialiations
+    /// Ejournal.Specialiations
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Specializations",
@@ -253,7 +253,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Specializations/{specializationId}"
     },
     /// <summary>
-    /// Groups
+    /// Ejournal.Groups
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Subjects",
@@ -280,7 +280,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Subjects/{subjectId}"
     },
     /// <summary>
-    /// HomeWorks
+    /// Ejournal.HomeWorks
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/HomeWorks",
@@ -307,7 +307,7 @@
       "DownstreamPathTemplate": "/api/v{version}/HomeWorks/{homeWorkId}"
     },
     /// <summary>
-    /// Marks
+    /// Ejournal.Marks
     /// </summary>
     {
       "UpstreamPathTemplate": "/api/v{version}/Marks",
@@ -334,7 +334,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Marks/{markId}"
     },
     /// <summer>
-    /// RatingLogs
+    /// Ejournal.RatingLogs
     /// </summer>
     {
       "UpstreamPathTemplate": "/api/v{version}/RatingLogs",
@@ -361,7 +361,7 @@
       "DownstreamPathTemplate": "/api/v{version}/RatingLogs/{ratingLogId}"
     },
     /// <summer>
-    /// Schedules
+    /// Ejournal.Schedules
     /// </summer>
     {
       "UpstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}/Days/{day}/Subjects",
@@ -434,6 +434,21 @@
         }
       ],
       "DownstreamPathTemplate": "/api/v{version}/Schedules/{scheduleId}"
+    },
+    /// <summer>
+    /// Enews.News
+    /// </summer>
+    {
+      "UpstreamPathTemplate": "/api/v{version}/News",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/News"
     }
   ]
 }

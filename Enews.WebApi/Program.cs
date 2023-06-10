@@ -48,7 +48,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapGet("v{version:apiVersion}/api/news/{Id}",
+app.MapGet("api/v{version:apiVersion}/news/{Id}",
     async (HttpContext context, Guid Id, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
@@ -61,7 +61,7 @@ app.MapGet("v{version:apiVersion}/api/news/{Id}",
 .MapToApiVersion(1.0)
 .RequireAuthorization(Policy.Management);
 
-app.MapGet("v{version:apiVersion}/api/news",
+app.MapGet("api/v{version:apiVersion}/news",
     async (IMapper mapper, HttpContext context, [AsParameters] GetNewsListDto newsData, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
@@ -73,7 +73,7 @@ app.MapGet("v{version:apiVersion}/api/news",
 .MapToApiVersion(1.0)
 .RequireAuthorization(Policy.Management);
 
-app.MapPost("v{version:apiVersion}/api/news", 
+app.MapPost("api/v{version:apiVersion}/news", 
     async (IMapper mapper, HttpContext context, CreateNewsDto newsData, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
@@ -88,7 +88,7 @@ app.MapPost("v{version:apiVersion}/api/news",
 .MapToApiVersion(1.0)
 .RequireAuthorization(Policy.Management);
 
-app.MapPut("v{version:apiVersion}/api/news/{Id}", 
+app.MapPut("api/v{version:apiVersion}/news/{Id}", 
     async (IMapper mapper, HttpContext context, Guid Id, UpdateNewsDto newsData, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
@@ -104,7 +104,7 @@ app.MapPut("v{version:apiVersion}/api/news/{Id}",
 .MapToApiVersion(1.0)
 .RequireAuthorization(Policy.Management);
 
-app.MapPut("v{version:apiVersion}/api/news/{Id}/file/{fileId}",
+app.MapPut("api/v{version:apiVersion}/news/{Id}/file/{fileId}",
     async (HttpContext context, Guid Id, Guid fileId, UpdateNewsFileDto newsFileData, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
@@ -124,7 +124,7 @@ app.MapPut("v{version:apiVersion}/api/news/{Id}/file/{fileId}",
 .MapToApiVersion(1.0)
 .RequireAuthorization(Policy.Management);
 
-app.MapDelete("v{version:apiVersion}/api/news/{Id}", 
+app.MapDelete("api/v{version:apiVersion}/news/{Id}", 
     async (HttpContext context, Guid Id, INewsRepository repos) =>
 {
     var apiVersion = context.GetRequestedApiVersion();
