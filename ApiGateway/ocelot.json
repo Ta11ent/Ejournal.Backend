@@ -445,10 +445,34 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44368
         }
       ],
       "DownstreamPathTemplate": "/api/v{version}/News"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/News/{Id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44368
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/News/{Id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{version}/News/{Id}/file/fileId",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44368
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{version}/News/{Id}/file/fileId"
     }
   ]
 }
