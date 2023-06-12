@@ -12,5 +12,6 @@ global using FluentValidation;
 global using Asp.Versioning.Conventions;
 global using Asp.Versioning;
 global using Ejournal.AuthenticationManager;
+global using Ejournal.AuthenticationManager.Helpers;
 
 

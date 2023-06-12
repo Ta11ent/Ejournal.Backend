@@ -1,5 +1,3 @@
-using Ejournal.AuthenticationManager.Helpers;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEnewsData(builder.Configuration);
